@@ -1,0 +1,43 @@
+{
+  "status": "FAIL (FALLBACK TO SPIKE-RATE)",
+  "readout_type": "spike_rate",
+  "gate_pass": false,
+  "arms_compared": [
+    "spike_rate",
+    "pre_reset_vmem",
+    "post_reset_vmem",
+    "learned_decoder"
+  ],
+  "best_challenger_arm": "pre_reset_vmem",
+  "criteria": {
+    "auc_gap_vs_spike_rate": -0.0034897233223876167,
+    "p_value": 0.25,
+    "cohen_d": -3489723322.3876166
+  },
+  "thresholds": {
+    "min_auc_gap": 0.01,
+    "max_p_value": 0.05,
+    "min_cohen_d": 0.2
+  },
+  "summary_aucs": {
+    "spike_rate": {
+      "mean": 0.911208644067841,
+      "std": 0.0
+    },
+    "pre_reset_vmem": {
+      "mean": 0.9077189207454534,
+      "std": 0.0
+    },
+    "post_reset_vmem": {
+      "mean": 0.907321758836963,
+      "std": 1.1102230246251565e-16
+    },
+    "learned_decoder": {
+      "mean": 0.8746162530923485,
+      "std": 0.0005342806527764571
+    }
+  },
+  "n_attributes_evaluated": 112,
+  "n_seeds": 3,
+  "note": "Re-gated per PRD Phase-0 no-go pivot after the original 3-arm gate failed (see git history / prior gate_result.json). This run adds the learned_decoder arm the PRD explicitly mandates for exactly this situation."
+}

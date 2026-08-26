@@ -1,0 +1,2 @@
+Processed batch 20/185 (1280 images)
+Processed batch 40/185 (2560 images)

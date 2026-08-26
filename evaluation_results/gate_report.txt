@@ -1,0 +1,25 @@
+======================================================================
+  STRICT GATE RESULT: FAIL (FALLBACK TO SPIKE-RATE)  -->  readout_type = 'spike_rate'
+======================================================================
+
+PRIMARY GATE CRITERIA (Pre-Reset V_mem vs Spike-Rate Baseline):
+  [FAIL] Mean AUC gap (V_mem vs Spike-Rate) > 0.00  -->  -0.00349
+  [FAIL] Wilcoxon p-value (V_mem > Spike) < 0.05  -->  1.0000e+00
+  [FAIL] Cohen's d (V_mem vs Spike) > 0.00             -->  -0.4876
+
+SUMMARY STATISTICS:
+  Attributes evaluated           : 112  (skipped: 0)
+  Mean ROC-AUC (Pre-Reset V_mem) : 0.90771
+  Mean ROC-AUC (Spike-Rate)      : 0.91120
+  Mean ROC-AUC (Random baseline) : 0.49840
+  Mean gap V_mem vs Spike-Rate   : -0.00349
+  Mean gap V_mem vs Random       : +0.40931
+  Wilcoxon statistic (vs Spike)  : 1493.00
+  Wilcoxon p-value (vs Spike)    : 1.0000e+00
+  Paired t-test p-value          : 1.0916e-06
+  Cohen's d (V_mem vs Spike)     : -0.4876
+
+VERDICT: Pre-Reset V_mem FAILED to beat Spike-Rate baseline under strict
+  C=0.01 regularization (Spike-Rate: 0.91120 vs V_mem: 0.90771).
+  HONEST FALLBACK TRIGGERED: Setting CBL readout_type='spike_rate'.
+======================================================================
