@@ -45,6 +45,50 @@ os.makedirs(CBM_CKPT_DIR, exist_ok=True)
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
+# ---- Train/held-out split ------------------------------------------------------
+# Fixes a real methodology gap found by reviewing PROJECT_SUMMARY.md: before this,
+# `val_ds` below was built from the OFFICIAL "test" split -- the same split every
+# downstream evaluation script (anec5_gap_test.py, calibration_*.py,
+# intervention_consistency.py, energy_accounting.py) reports its final numbers on.
+# Using it to pick the "best" checkpoint during training is model-selection
+# leakage: it optimistically biases every reported test number toward whichever
+# epoch happened to do best on the exact data later used to grade it.
+#
+# Separately, calibration_ece.py's calib_fit/calib_eval split was carved from the
+# FULL "train" split -- rows the CBL had already been trained on -- which its own
+# docstring already flagged as a "train-leakage caveat".
+#
+# Fix: carve a genuine held-out slice OUT of "train" BEFORE any gradient update
+# ever sees it. That slice becomes val_ds (checkpoint selection) here, AND is the
+# same pool calibration_ece.py now draws calib_fit/calib_eval from (imports this
+# function directly, so both scripts always agree on exactly which rows are held
+# out). The official "test" split stays completely untouched by all of this, same
+# as before -- it is never used for any decision, only for final reporting.
+HELDOUT_FRACTION = 0.15   # matches calibration_ece.py's old CALIB_FRACTION, so the
+                          # held-out pool is close in size to what calib_fit+calib_eval
+                          # used to be, minimizing how much else changes at once.
+SPLIT_SEED = 20260825     # same seed calibration_ece.py already used
+
+
+def make_train_val_split(all_rows, heldout_fraction=HELDOUT_FRACTION, seed=SPLIT_SEED):
+    """
+    Splits the OFFICIAL "train" rows into (train_fit_rows, held_out_rows).
+    train_fit_rows is what the CBL/head actually receive gradient updates on.
+    held_out_rows is never trained on -- it is used here for checkpoint
+    selection (val_ds) and is the pool calibration_ece.py carves calib_fit/
+    calib_eval from. The official "test" split is never passed into this
+    function at all and is unaffected.
+    """
+    train_rows_full = [r for r in all_rows if r["split"] == "train"]
+    rng = np.random.default_rng(seed)
+    idx = rng.permutation(len(train_rows_full))
+    n_heldout = int(len(train_rows_full) * heldout_fraction)
+    heldout_idx = idx[:n_heldout]
+    fit_idx     = idx[n_heldout:]
+    train_fit_rows = [train_rows_full[i] for i in fit_idx]
+    held_out_rows  = [train_rows_full[i] for i in heldout_idx]
+    return train_fit_rows, held_out_rows
+
 
 # ---- Dataset -----------------------------------------------------------------
 class CUBConceptDataset(Dataset):
@@ -183,11 +227,17 @@ def main(args):
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
-    train_ds = CUBConceptDataset(all_rows, IMAGES_DIR, train_transform, split_filter="train")
-    val_ds   = CUBConceptDataset(all_rows, IMAGES_DIR, val_transform,   split_filter="test")
+    train_fit_rows, held_out_rows = make_train_val_split(all_rows)
+    train_ds = CUBConceptDataset(train_fit_rows, IMAGES_DIR, train_transform, split_filter=None)
+    val_ds   = CUBConceptDataset(held_out_rows,  IMAGES_DIR, val_transform,   split_filter=None)
 
     n_concepts_actual = len(train_ds.attr_keys)
-    print(f"[Train] Train: {len(train_ds)}  Val: {len(val_ds)}  Concepts: {n_concepts_actual}")
+    n_test_rows = sum(1 for r in all_rows if r["split"] == "test")
+    print(f"[Train] Train(fit): {len(train_ds)}  Val(held-out, never trained on): {len(val_ds)}  "
+          f"Test(untouched, reported elsewhere): {n_test_rows}  Concepts: {n_concepts_actual}")
+    print(f"[Train] Checkpoint selection below uses the held-out val set, NOT the "
+          f"test split -- test numbers reported by other scripts are never used to "
+          f"pick a checkpoint.")
 
     # ---- Build CBM -----------------------------------------------------------
     cbm = SpikingResformerCBM(
@@ -267,7 +317,7 @@ def main(args):
             class_ids = class_ids.to(DEVICE)
 
             optimizer.zero_grad()
-            cs, cl = cbm(imgs)
+            cs, cl = cbm(imgs, concept_targets=attrs, concept_dropout_prob=args.concept_dropout)
             loss, lc, lt = cbm.compute_loss(cs, cl, attrs, class_ids)
             loss.backward()
             torch.nn.utils.clip_grad_norm_(cbm.trainable_parameters(), max_norm=5.0)
@@ -391,6 +441,9 @@ def main(args):
 | Weight decay | {args.wd} |
 | lambda_concept | {args.lambda_concept} |
 | lambda_task | {args.lambda_task} |
+| Concept dropout prob | {args.concept_dropout} |
+| Held-out val fraction (of train) | {HELDOUT_FRACTION} |
+| Train(fit) / Val(held-out) / Test | {len(train_ds)} / {len(val_ds)} / {n_test_rows} |
 | Device | {DEVICE.upper()} |
 | Training time | {total_time/60:.1f} min |
 
@@ -457,6 +510,14 @@ if __name__ == "__main__":
                         help="Weight for concept BCE loss")
     parser.add_argument("--lambda-task",    type=float, default=1.0,
                         help="Weight for classification CE loss")
+    parser.add_argument("--concept-dropout", type=float, default=0.0,
+                        help="Per-(example,concept) probability of feeding the "
+                             "classification head ground truth instead of the "
+                             "model's own predicted concept score during training "
+                             "(simulated intervention / concept dropout). Default "
+                             "0.0 exactly reproduces prior training behavior. Try "
+                             "e.g. 0.3 to directly target the ICRC monotonicity "
+                             "collapse at high intervention fractions.")
     parser.add_argument("--dry-run",        action="store_true",
                         help="Run a single batch to verify setup, then exit")
     args = parser.parse_args()

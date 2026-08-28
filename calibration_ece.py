@@ -65,7 +65,8 @@ from spikingjelly.activation_based import functional
 
 import models.spikingresformer
 from models.cbm import SpikingResformerCBM
-from train_cbm import CUBConceptDataset, CKPT_PATH, MODEL_NAME, CUB_DIR, CSV_PATH, IMAGES_DIR, DEVICE
+from train_cbm import (CUBConceptDataset, CKPT_PATH, MODEL_NAME, CUB_DIR, CSV_PATH,
+                        IMAGES_DIR, DEVICE, make_train_val_split)
 
 OUTPUT_DIR       = os.path.join(os.path.dirname(__file__), "evaluation_results")
 CKPT_DIR         = os.path.join(os.path.dirname(__file__), "cbm_checkpoints")
@@ -75,7 +76,11 @@ RELIABILITY_PNG  = os.path.join(OUTPUT_DIR, "reliability_diagram_{readout}.png")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 N_BINS = 15
-CALIB_FRACTION = 0.15   # fraction of the ORIGINAL train split carved out for calibration
+CALIB_FRACTION = 0.15   # SUPERSEDED: calib_fit/calib_eval now come from
+                         # make_train_val_split()'s held-out pool (see main()) --
+                         # kept only so HELDOUT_FRACTION in train_cbm.py (which
+                         # replaced this constant's role) is easy to find by anyone
+                         # grepping for the old name.
 RANDOM_SEED = 20260825
 
 
@@ -240,43 +245,45 @@ def main(readout, args):
     with open(CSV_PATH, encoding="utf-8") as f:
         all_rows = list(csv.DictReader(f))
 
-    train_rows_full = [r for r in all_rows if r["split"] == "train"]
-    test_rows       = [r for r in all_rows if r["split"] == "test"]
+    test_rows = [r for r in all_rows if r["split"] == "test"]
 
+    # FIX (post-PROJECT_SUMMARY.md review): calib_fit/calib_eval used to be carved
+    # from the FULL "train" split -- rows the CBL had already been trained on,
+    # which this module's own docstring flagged as a "train-leakage caveat" (see
+    # below). They now come from make_train_val_split()'s held_out_rows: the SAME
+    # rows train_cbm.py excludes from gradient updates entirely and uses as its
+    # own validation set for checkpoint selection. Neither script trains on this
+    # pool, so calibration is now fit on genuinely model-unseen data. The "note"
+    # field below is kept (renamed) for anyone reading old calibration_split.json
+    # files; the train-leakage caveat this used to require no longer applies.
+    _, held_out_rows = make_train_val_split(all_rows)
     rng = np.random.default_rng(RANDOM_SEED)
-    idx = rng.permutation(len(train_rows_full))
-    n_calib = int(len(train_rows_full) * CALIB_FRACTION)
-    calib_idx_all = idx[:n_calib]
-    half = n_calib // 2
-    calib_fit_idx  = calib_idx_all[:half]
-    calib_eval_idx = calib_idx_all[half:]
-    # NOTE: remaining train rows are NOT re-used to retrain anything here --
-    # this script only calibrates an already-trained checkpoint. They're
-    # listed for the record so a future from-scratch retrain (option B in
-    # the module docstring) knows exactly what "train-minus-calibration"
-    # would be.
-    remainder_idx = idx[n_calib:]
+    idx = rng.permutation(len(held_out_rows))
+    half = len(held_out_rows) // 2
+    calib_fit_idx  = idx[:half]
+    calib_eval_idx = idx[half:]
 
-    calib_fit_rows  = [train_rows_full[i] for i in calib_fit_idx]
-    calib_eval_rows = [train_rows_full[i] for i in calib_eval_idx]
+    calib_fit_rows  = [held_out_rows[i] for i in calib_fit_idx]
+    calib_eval_rows = [held_out_rows[i] for i in calib_eval_idx]
 
     with open(SPLIT_JSON, "w", encoding="utf-8") as f:
         json.dump({
-            "note": "Calibration split carved from the ORIGINAL train split only; "
-                     "test split is untouched and stays comparable to all prior "
-                     "reported numbers. See calibration_ece.py module docstring "
-                     "for the train-leakage caveat on this approach.",
+            "note": "Calibration split carved from make_train_val_split()'s "
+                     "held-out pool -- rows train_cbm.py never used for a gradient "
+                     "update, not from the full train split. Test split is "
+                     "untouched and stays comparable to all prior reported "
+                     "numbers. (Earlier runs of this file carved calib_fit/"
+                     "calib_eval from the full train split instead -- see git "
+                     "history / PROJECT_SUMMARY.md for that caveat.)",
             "random_seed": RANDOM_SEED,
-            "calib_fraction_of_train": CALIB_FRACTION,
-            "n_train_full": len(train_rows_full),
+            "n_held_out_pool": len(held_out_rows),
             "n_calib_fit": len(calib_fit_rows),
             "n_calib_eval": len(calib_eval_rows),
-            "n_train_remainder": len(remainder_idx),
             "n_test": len(test_rows),
             "calib_fit_image_paths": [r["image_path"] for r in calib_fit_rows],
             "calib_eval_image_paths": [r["image_path"] for r in calib_eval_rows],
         }, f, indent=2)
-    print(f"[Split] train_full={len(train_rows_full)}  calib_fit={len(calib_fit_rows)}  "
+    print(f"[Split] held_out_pool={len(held_out_rows)}  calib_fit={len(calib_fit_rows)}  "
           f"calib_eval={len(calib_eval_rows)}  test={len(test_rows)}  (saved -> {SPLIT_JSON})")
 
     tf = transforms.Compose([

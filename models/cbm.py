@@ -205,12 +205,36 @@ class SpikingResformerCBM(nn.Module):
             return _pool_temporal_mean(lif._spike_seq)
 
     # ---- Forward -------------------------------------------------------------
-    def forward(self, x: torch.Tensor):
+    def forward(
+        self,
+        x: torch.Tensor,
+        concept_targets: torch.Tensor = None,
+        concept_dropout_prob: float = 0.0,
+    ):
         """
         Args:
             x : [B, C, H, W] image batch (NOT time-expanded — backbone handles that)
+            concept_targets : optional [B, n_concepts] binary ground-truth concept
+                labels. Only ever read when concept_dropout_prob > 0 AND the module
+                is in training mode (self.training) -- ignored in every other case.
+                Every existing eval script (anec5_gap_test.py, calibration_*.py,
+                intervention_consistency.py, energy_accounting.py) calls
+                model(imgs) with no extra arguments and model.eval() is always set
+                first, so this change is a strict no-op for all of them.
+            concept_dropout_prob : per-(example, concept) probability of replacing
+                the model's own predicted concept score with the ground-truth
+                value before it reaches the classification head only -- i.e.
+                "concept dropout" / simulated intervention during training. This
+                is the documented fix for the ICRC train/inference distribution
+                mismatch (Koh et al. 2020 follow-up literature): the head is
+                trained on a mix of its own noisy predictions and clean ground
+                truth, instead of only ever its own predictions, so a full
+                ground-truth substitution at test time is no longer a total
+                surprise to it.
         Returns:
-            concept_scores : [B, n_concepts]  (Sigmoid probabilities)
+            concept_scores : [B, n_concepts]  (Sigmoid probabilities -- always the
+                model's own prediction; concept dropout never touches this value,
+                only what the classification head receives, below)
             class_logits   : [B, n_classes]
         """
         # Backbone forward (fills hook buffers, backbone itself is frozen)
@@ -220,7 +244,13 @@ class SpikingResformerCBM(nn.Module):
 
         feats          = self._get_features()      # [B, backbone_dim]
         concept_scores = self.cbl(feats)           # [B, n_concepts]
-        class_logits   = self.head(concept_scores) # [B, n_classes]
+
+        head_input = concept_scores
+        if self.training and concept_dropout_prob > 0.0 and concept_targets is not None:
+            mask = torch.rand_like(concept_scores) < concept_dropout_prob
+            head_input = torch.where(mask, concept_targets.float(), concept_scores)
+
+        class_logits = self.head(head_input)        # [B, n_classes]
         return concept_scores, class_logits
 
     # ---- Loss ----------------------------------------------------------------

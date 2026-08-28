@@ -171,6 +171,8 @@ def main(readout, args):
     ck = torch.load(ckpt_path, map_location=DEVICE)
     model.cbl.load_state_dict(ck["cbl_state"])
     model.head.load_state_dict(ck["head_state"])
+    if readout == "learned_decoder" and "decoder_state" in ck:
+        model.decoder.load_state_dict(ck["decoder_state"])
     model.eval()
     print(f"  Using: {ckpt_path}  (epoch={ck.get('epoch')}, val_class_acc={ck.get('val_class_acc')})")
 

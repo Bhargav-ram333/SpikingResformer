@@ -30,6 +30,7 @@ from torch.utils.data import Dataset, DataLoader
 from spikingjelly.activation_based import functional
 from timm.models import create_model
 import models.spikingresformer  # noqa: registers models
+from models.cbm import install_vmem_hook  # single source of truth for the hook (see below)
 
 # ---- Configuration -----------------------------------------------------------
 CKPT_PATH  = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
@@ -80,34 +81,12 @@ class CUBDataset(Dataset):
 
 
 # ---- LIF hook ----------------------------------------------------------------
-def install_vmem_hook(lif_mod):
-    """Monkey-patch LIF node to capture pre-reset V_mem and spike sequence."""
-    lif_mod._pre_reset_v_seq = None
-    lif_mod._spike_seq       = None
-
-    def _patched_msf(self, x_seq: torch.Tensor):
-        if isinstance(self.v, float):
-            self.v = torch.full_like(x_seq[0], self.v)
-        tau   = float(self.tau)
-        v_thr = float(self.v_threshold)
-        v_rst = float(self.v_reset) if self.v_reset is not None else None
-
-        pre_list, spk_list = [], []
-        for t in range(x_seq.shape[0]):
-            xt = x_seq[t]
-            H  = (self.v + (xt - (self.v - v_rst)) / tau) if v_rst is not None \
-                 else (self.v + (xt - self.v) / tau)
-            pre_list.append(H.detach().clone())
-            spike  = (H >= v_thr).to(x_seq)
-            self.v = (v_rst * spike + (1. - spike) * H) if v_rst is not None \
-                     else (H - spike * v_thr)
-            spk_list.append(spike)
-
-        self._pre_reset_v_seq = torch.stack(pre_list, dim=0)   # [T, B, C, H, W]
-        self._spike_seq       = torch.stack(spk_list, dim=0)
-        return self._spike_seq
-
-    lif_mod.multi_step_forward = types.MethodType(_patched_msf, lif_mod)
+# Used to define its own copy of this hook (drifted from models/cbm.py's version:
+# this file's copy never computed _post_reset_v_seq, since this script never
+# needed it). Now imported directly from models.cbm so there is exactly one
+# implementation of the LIF monkey-patch in the whole project, and it can't
+# silently drift out of sync again. Functionally a strict superset for every use
+# in this file -- it also sets _post_reset_v_seq, which this file simply ignores.
 
 
 def pool_mean(t5d):

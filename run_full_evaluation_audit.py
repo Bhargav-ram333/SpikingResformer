@@ -7,6 +7,15 @@ Implements:
 4) Regularization hyperparameter sweep C in [1e-4, 1e-3, 1e-2, 1e-1, 1.0, 10.0] on 6144d Concat features.
 5) Pairwise statistical significance tests (Wilcoxon signed-rank & paired t-test with Cohen's d).
 6) Complete CSV export & clean evaluation_report.md generation (dropping broken classification/ECE).
+
+NOTE ON REGULARIZATION (reconciling this file vs run_full_evaluation.py):
+This file's C-sweep (item 4 above) is the complete picture: at C=1.0 pre_reset_vmem
+beats spike_rate, but at C=0.01 (strict) the comparison flips. C=0.01 is also the
+exact setting vmem_gate.py / regate_4arm.py use as the project's actual formal
+Phase-0 gate (see gate_result.json) -- treat THIS file's sweep, together with
+vmem_gate.py/regate_4arm.py, as the source of truth for the formal gate result,
+and run_full_evaluation.py's single fixed C=1.0 run as one point within it, not
+a separate or contradictory verdict.
 """
 import sys, os, time, warnings
 sys.path.insert(0, os.path.dirname(__file__))

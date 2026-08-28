@@ -2,6 +2,16 @@
 run_full_evaluation.py -- Research-grade evaluation pipeline for SpikingResformer and CBM concept representations.
 Executes full 10-part evaluation across all 11,788 CUB-200-2011 images.
 Outputs all CSVs, plots, and evaluation report to evaluation_results/
+
+NOTE ON REGULARIZATION (reconciling this file vs run_full_evaluation_audit.py):
+This file's linear probes use a single fixed C=1.0 (loose regularization), under
+which pre_reset_vmem beats spike_rate. run_full_evaluation_audit.py instead
+sweeps C across [1e-4 .. 10.0] and shows the comparison FLIPS at strict
+regularization (C=0.01) -- which is also the exact setting vmem_gate.py /
+regate_4arm.py use as the project's actual formal Phase-0 gate (see
+gate_result.json). Treat THIS file's C=1.0 numbers as one point in that sweep,
+not as the final go/no-go verdict -- run_full_evaluation_audit.py and
+vmem_gate.py/regate_4arm.py are the source of truth for the formal gate result.
 """
 import sys, os, time, warnings
 sys.path.insert(0, os.path.dirname(__file__))
