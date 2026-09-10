@@ -26,6 +26,7 @@ readout_type:
 """
 
 import types
+import json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -301,3 +302,104 @@ class SpikingResformerCBM(nn.Module):
         print(f"  Head params         : {head_params:,}  [trainable]")
         print(f"  Total trainable     : {cbl_params + head_params + decoder_params:,}")
         print("=" * 60)
+
+    # ---- Display-only calibrated concept output ------------------------------
+    # These methods provide Platt-calibrated concept probabilities as an
+    # ADDITIONAL, opt-in output.  They do NOT touch forward(), the
+    # classification head, or any training path.  Callers that want
+    # calibrated concepts call get_calibrated_concepts() on the raw
+    # concept_scores that forward() already returns.
+    #
+    # WHY display-only:  the classification head was trained on raw,
+    # uncalibrated sigmoid scores.  Inserting calibration before the head
+    # would change the input distribution it was trained on, risking
+    # silent accuracy degradation.  This was never tested and must not
+    # happen -- see the user-request notes in the commit that added this.
+
+    def load_calibration(self, readout_or_path: str = None) -> None:
+        """Load per-concept Platt (a, b) arrays from JSON and register as buffers.
+
+        Args:
+            readout_or_path: Path to calibration_params_<readout>.json, or a
+                readout name (e.g. 'pre_reset_vmem', 'learned_decoder'), or None
+                (defaults to self.readout_type).
+
+        After calling this, get_calibrated_concepts() becomes usable.
+        The buffers travel with .to(device), appear in state_dict(), and
+        are never included in any gradient computation.
+        """
+        import os
+        if readout_or_path is None:
+            readout_or_path = self.readout_type
+
+        # Resolve path
+        if os.path.isfile(readout_or_path):
+            json_path = readout_or_path
+        else:
+            candidates = [
+                os.path.join(os.path.dirname(__file__), "..", "evaluation_results", f"calibration_params_{readout_or_path}.json"),
+                os.path.join("evaluation_results", f"calibration_params_{readout_or_path}.json"),
+                os.path.join("cbm_checkpoints", f"calibration_params_{readout_or_path}.json"),
+            ]
+            json_path = None
+            for c in candidates:
+                if os.path.isfile(c):
+                    json_path = c
+                    break
+            if json_path is None:
+                raise FileNotFoundError(
+                    f"Could not find calibration params for '{readout_or_path}'. "
+                    f"Checked: {candidates}"
+                )
+
+        with open(json_path, encoding="utf-8") as f:
+            params = json.load(f)
+
+        device = next(self.parameters()).device if list(self.parameters()) else torch.device("cpu")
+        a = torch.tensor(params["per_concept"]["a"], dtype=torch.float32, device=device)
+        b = torch.tensor(params["per_concept"]["b"], dtype=torch.float32, device=device)
+
+        # register_buffer makes these part of the module's state (move with
+        # .to(device), saved/loaded with state_dict) but NOT parameters
+        # (never receive gradients, never returned by .parameters()).
+        self.register_buffer("_platt_a", a)
+        self.register_buffer("_platt_b", b)
+
+    @property
+    def has_calibration(self) -> bool:
+        """True if load_calibration() has been called successfully."""
+        return hasattr(self, "_platt_a") and self._platt_a is not None
+
+    def get_calibrated_concepts(self, concept_scores: torch.Tensor) -> torch.Tensor:
+        """Apply per-concept Platt scaling to raw concept scores (display-only).
+
+        Args:
+            concept_scores: [B, n_concepts] raw sigmoid probabilities from
+                forward()'s first return value.
+
+        Returns:
+            calibrated: [B, n_concepts] Platt-calibrated probabilities.
+                Computed as sigmoid(a * logit(concept_scores) + b) where
+                (a, b) are the per-concept Platt parameters loaded by
+                load_calibration().
+
+        Raises:
+            RuntimeError: if load_calibration() has not been called.
+        """
+        if not self.has_calibration:
+            raise RuntimeError(
+                "Calibration parameters not loaded. "
+                "Call model.load_calibration(json_path) first."
+            )
+
+        # Recover pre-sigmoid logits from the sigmoid concept scores.
+        # torch.logit is the inverse of torch.sigmoid: logit(p) = log(p/(1-p))
+        # Clamp to avoid log(0) at extremes.
+        raw_logits = torch.logit(concept_scores.clamp(1e-6, 1 - 1e-6))
+
+        # Per-concept Platt transform: sigmoid(a_c * logit_c + b_c)
+        # Ensure buffers match input device
+        a = self._platt_a.to(raw_logits.device)
+        b = self._platt_b.to(raw_logits.device)
+        calibrated = torch.sigmoid(a * raw_logits + b)
+        return calibrated

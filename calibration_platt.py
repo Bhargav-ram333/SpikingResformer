@@ -256,6 +256,36 @@ def main(readout, args):
                 f"Best variant: **{best_label}** (ECE={best_val:.4f})\n"
                 f"Does Platt scaling beat uncalibrated? **{'YES' if any_helps else 'NO'}**\n")
     print(f"\n[Saved] {report_path}")
+
+    # ---- Persist FULL per-concept Platt arrays to JSON -----------------------
+    # The markdown report above only records summary stats (mean a, mean b).
+    # Downstream use (e.g. display-only calibrated concept output in the model)
+    # needs the full 112-element arrays.  Save them alongside the report.
+    params_json_path = os.path.join(OUTPUT_DIR, f"calibration_params_{readout}.json")
+    params_payload = {
+        "readout": readout,
+        "source_checkpoint": os.path.basename(ckpt_path),
+        "epoch": ck.get("epoch"),
+        "fitting": {
+            "lambda_l2_per_concept": L2_LAMBDA_PER_CONCEPT,
+            "n_steps": N_STEPS,
+            "lr": LR,
+        },
+        "global": {"a": float(a_global), "b": float(b_global)},
+        "per_concept": {
+            "a": [float(v) for v in a_pc],
+            "b": [float(v) for v in b_pc],
+        },
+        "ece_test": {
+            "uncalibrated": round(float(eu_t.mean()), 4),
+            "global_platt": round(float(eg_t.mean()), 4),
+            "per_concept_platt": round(float(ep_t.mean()), 4),
+        },
+    }
+    with open(params_json_path, "w", encoding="utf-8") as f:
+        json.dump(params_payload, f, indent=2)
+    print(f"[Saved] {params_json_path}  (full per-concept a[{len(a_pc)}], b[{len(b_pc)}] arrays)")
+
     print("\n" + "=" * 72)
 
 

@@ -260,10 +260,13 @@ log/
 logs/
 .vscode/
 
-# Large binary data & features (>50MB)
+# Large binary data, datasets & features (>50MB)
 *.npz
 evaluation_results/gate_features.npz
 cbm_checkpoints_before_retrain/
 evaluation_results_before_retrain/
 CUB_200_2011/
+*CUB*
 images/
+*.tar.gz
+*.zip
