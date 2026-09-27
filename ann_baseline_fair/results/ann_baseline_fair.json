@@ -1,0 +1,36 @@
+{
+  "selected_epoch": 43,
+  "selected_val_class_acc": 56.50723025583982,
+  "selected_val_concept_auc": 0.8498470526227857,
+  "train_fit": 5095,
+  "held_out": 899,
+  "seed": 0,
+  "train_minutes": null,
+  "recipe": {
+    "epochs": 50,
+    "batch": 32,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "grad_clip": 5.0,
+    "concept_dropout": 0.25
+  },
+  "anec5": {
+    "n_test": 5794,
+    "ann_test_acc": 57.23161891612012,
+    "spiking_test_acc": 59.47531929582327,
+    "spiking_ckpt_epoch": 35,
+    "gap": -2.2437003797031507,
+    "ci_lo": -3.5726613738350066,
+    "ci_hi": -0.8802209181912324,
+    "frac_within": 1.0,
+    "n_bootstrap": 10000,
+    "bootstrap_seed": 20260826,
+    "passes_point": true,
+    "passes_ci": true
+  },
+  "old": {
+    "ann_test_acc": 58.82,
+    "gap": -0.6599999999999966
+  },
+  "history": null
+}

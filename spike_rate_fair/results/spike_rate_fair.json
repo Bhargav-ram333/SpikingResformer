@@ -1,0 +1,46 @@
+{
+  "selected_epoch": 48,
+  "selected_val_class_acc": 40.934371523915466,
+  "selected_val_concept_auc": 0.862812263592759,
+  "train_fit": 5095,
+  "held_out": 899,
+  "seed": 0,
+  "train_minutes": 157.56656308174132,
+  "recipe": {
+    "epochs": 50,
+    "batch": 32,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "grad_clip": 5.0,
+    "concept_dropout": 0.25
+  },
+  "test": {
+    "n_test": 5794,
+    "acc": {
+      "spike_rate": 45.44356230583362,
+      "learned_decoder": 59.47531929582327,
+      "ann": 57.23161891612012
+    },
+    "concept_auc": {
+      "spike_rate": 0.8651819496129605,
+      "learned_decoder": 0.91943398261895
+    },
+    "ld_ckpt_epoch": 35,
+    "ann_ckpt_epoch": 43,
+    "n_bootstrap": 10000,
+    "bootstrap_seed": 20260826,
+    "anec5": {
+      "gap": 11.788056610286496,
+      "ci_lo": 10.424577148774599,
+      "ci_hi": 13.186054539178455,
+      "frac_within": 0.0,
+      "passes_point": false,
+      "passes_ci": false
+    },
+    "ld_minus_sr": {
+      "gap": 14.031756989989647,
+      "ci_lo": 12.720055229547805,
+      "ci_hi": 15.360717984121502
+    }
+  }
+}

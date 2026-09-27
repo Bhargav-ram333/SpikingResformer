@@ -1,0 +1,149 @@
+{
+  "readout": "learned_decoder",
+  "checkpoint": "best_classacc_cbm_learned_decoder.pth",
+  "checkpoint_epoch": 35,
+  "checkpoint_sha256": "bb7061824f3ddde6ba87c2fca4e172a2e28aa5d10611716b36f88e6cac341a5a",
+  "platt_params_file": "evaluation_results\\calibration_params_learned_decoder.json",
+  "platt_mismatch_override": false,
+  "n_train_fit": 5095,
+  "n_heldout": 899,
+  "n_test": 5794,
+  "n_concepts": 112,
+  "recipe": {
+    "epochs": 50,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "batch_size": 32,
+    "concept_dropout": 0.25,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "optimizer": "AdamW",
+    "schedule": "cosine (train_cbm.py formula)",
+    "grad_clip": 5.0,
+    "input_features": "cached, non-augmented (deterministic val transform)"
+  },
+  "reference": {
+    "shipped_model_test_acc": 59.47531929582327,
+    "shipped_head_with_calibrated_inputs_no_retrain_test_acc": 57.749395926820846
+  },
+  "arms": {
+    "raw": {
+      "label": "WITHOUT novelty -- raw sigmoid concepts -> head",
+      "test_acc_mean": 60.067886319180765,
+      "test_acc_std": 0.1067036991772613,
+      "test_acc_per_seed": [
+        60.217466344494305,
+        59.97583707283397,
+        60.01035554021401
+      ],
+      "heldout_acc_mean": 57.06340378197998,
+      "icrc_mean_acc": {
+        "0.0": 60.067886319180765,
+        "0.1": 67.25463122770684,
+        "0.25": 76.63444943044529,
+        "0.5": 92.40938902312739,
+        "0.75": 97.28052007824188,
+        "1.0": 98.30284202048097
+      },
+      "icrc_subset_std": {
+        "0.0": 0.0,
+        "0.1": 1.4137746434630998,
+        "0.25": 1.576492124050224,
+        "0.5": 1.3194585078603362,
+        "0.75": 0.6203875520550088,
+        "1.0": 0.0
+      },
+      "icrc_oracle_headroom_pp": 38.2349557013002,
+      "icrc_best_fraction": 1.0,
+      "icrc_best_acc": 98.30284202048097,
+      "monotonicity_violations": []
+    },
+    "global_platt": {
+      "label": "Partial -- global Platt (shared a, b) -> head",
+      "test_acc_mean": 59.762973190657,
+      "test_acc_std": 0.016272161573731465,
+      "test_acc_per_seed": [
+        59.75146703486365,
+        59.7859855022437,
+        59.75146703486365
+      ],
+      "heldout_acc_mean": 57.39710789766408,
+      "icrc_mean_acc": {
+        "0.0": 59.762973190657,
+        "0.1": 70.21171326659764,
+        "0.25": 82.07858704406858,
+        "0.5": 95.78299390173743,
+        "0.75": 98.33736048786102,
+        "1.0": 98.46392820158785
+      },
+      "icrc_subset_std": {
+        "0.0": 0.0,
+        "0.1": 1.7348793759229562,
+        "0.25": 1.531950340584024,
+        "0.5": 1.0992666633416714,
+        "0.75": 0.5352700809369121,
+        "1.0": 0.0
+      },
+      "icrc_oracle_headroom_pp": 38.70095501093085,
+      "icrc_best_fraction": 1.0,
+      "icrc_best_acc": 98.46392820158785,
+      "monotonicity_violations": [],
+      "delta_vs_raw_pp": -0.30491312852376495,
+      "delta_vs_raw_ci95_pp": [
+        -0.7998216545852029,
+        0.17834541479691637
+      ],
+      "mcnemar_p_per_seed": [
+        0.08692140137938824,
+        0.5178172686985946,
+        0.35908160877050116
+      ],
+      "significant": false
+    },
+    "per_concept_platt": {
+      "label": "WITH novelty -- per-concept regularized Platt -> head",
+      "test_acc_mean": 59.99309630652399,
+      "test_acc_std": 0.03728420606608919,
+      "test_acc_per_seed": [
+        60.04487400759406,
+        59.97583707283397,
+        59.95857783914394
+      ],
+      "heldout_acc_mean": 57.693733778272154,
+      "icrc_mean_acc": {
+        "0.0": 59.99309630652399,
+        "0.1": 69.83891381889312,
+        "0.25": 81.64020250834197,
+        "0.5": 95.41019445403292,
+        "0.75": 98.24588654930388,
+        "1.0": 98.46392820158785
+      },
+      "icrc_subset_std": {
+        "0.0": 0.0,
+        "0.1": 1.4526519466868006,
+        "0.25": 1.3923629736935608,
+        "0.5": 1.1465567688553537,
+        "0.75": 0.5733694978801104,
+        "1.0": 0.0
+      },
+      "icrc_oracle_headroom_pp": 38.47083189506386,
+      "icrc_best_fraction": 1.0,
+      "icrc_best_acc": 98.46392820158785,
+      "monotonicity_violations": [],
+      "delta_vs_raw_pp": -0.0747900126567771,
+      "delta_vs_raw_ci95_pp": [
+        -0.5465424001840985,
+        0.3913531239212972
+      ],
+      "mcnemar_p_per_seed": [
+        0.5597268004927896,
+        1.0,
+        0.8983608209311689
+      ],
+      "significant": false
+    }
+  }
+}

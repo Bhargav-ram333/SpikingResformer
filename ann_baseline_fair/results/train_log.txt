@@ -1,0 +1,250 @@
+========================================================================
+  FAIR ANN BASELINE + ANEC-5  (review fix #2)
+  Standalone -- existing files are read, never written.
+========================================================================
+[Guard] Fingerprinted 139 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair
+[Env] device=cuda  seed=0
+[Data] Train(fit): 5095  Val(held-out): 899  Concepts: 112
+[Data] Checkpoint selection uses the held-out rows only. Test split not loaded yet.
+============================================================
+ANNResNetCBM Summary (frozen-ANN baseline)
+============================================================
+  Backbone            : ResNet-18, ImageNet-1K pretrained  [FROZEN]
+  Backbone params     : 11,176,512
+  Lambda concept      : 1.0
+  Lambda task         : 1.0
+  CBL params          : 57,456  [trainable]
+  Head params         : 22,600  [trainable]
+  Total trainable     : 80,056
+============================================================
+
+[Train] 50 epoch(s), AdamW lr=0.001 wd=0.0001, batch 32, cosine LR, grad clip 5.0, concept dropout 0.25
+
+  Ep 1/50 | Batch 50/159 | Loss=5.7299 | LR=1.00e-03
+  Ep 1/50 | Batch 100/159 | Loss=5.5367 | LR=1.00e-03
+  Ep 1/50 | Batch 150/159 | Loss=5.2909 | LR=1.00e-03
+Epoch   1/50 | TrainLoss=5.4975 | ValLoss=5.1809 | ConceptAUC=0.8331 | ClassAcc=5.23% | LR=1.00e-03 | Elapsed=1.1min
+  [Checkpoint] Best (held-out ClassAcc) saved: 5.23% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 2/50 | Batch 50/159 | Loss=4.9429 | LR=9.99e-04
+  Ep 2/50 | Batch 100/159 | Loss=4.7094 | LR=9.99e-04
+  Ep 2/50 | Batch 150/159 | Loss=4.5042 | LR=9.99e-04
+Epoch   2/50 | TrainLoss=4.6986 | ValLoss=4.4845 | ConceptAUC=0.8587 | ClassAcc=15.68% | LR=9.99e-04 | Elapsed=2.1min
+  [Checkpoint] Best (held-out ClassAcc) saved: 15.68% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 3/50 | Batch 50/159 | Loss=4.2253 | LR=9.96e-04
+  Ep 3/50 | Batch 100/159 | Loss=4.0629 | LR=9.96e-04
+  Ep 3/50 | Batch 150/159 | Loss=3.8978 | LR=9.96e-04
+Epoch   3/50 | TrainLoss=4.0441 | ValLoss=3.9608 | ConceptAUC=0.8613 | ClassAcc=28.03% | LR=9.96e-04 | Elapsed=3.1min
+  [Checkpoint] Best (held-out ClassAcc) saved: 28.03% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 4/50 | Batch 50/159 | Loss=3.6707 | LR=9.91e-04
+  Ep 4/50 | Batch 100/159 | Loss=3.5256 | LR=9.91e-04
+  Ep 4/50 | Batch 150/159 | Loss=3.4098 | LR=9.91e-04
+Epoch   4/50 | TrainLoss=3.5236 | ValLoss=3.5748 | ConceptAUC=0.8608 | ClassAcc=34.37% | LR=9.91e-04 | Elapsed=4.2min
+  [Checkpoint] Best (held-out ClassAcc) saved: 34.37% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 5/50 | Batch 50/159 | Loss=3.1908 | LR=9.84e-04
+  Ep 5/50 | Batch 100/159 | Loss=3.1314 | LR=9.84e-04
+  Ep 5/50 | Batch 150/159 | Loss=3.0551 | LR=9.84e-04
+Epoch   5/50 | TrainLoss=3.1180 | ValLoss=3.3050 | ConceptAUC=0.8590 | ClassAcc=38.15% | LR=9.84e-04 | Elapsed=5.2min
+  [Checkpoint] Best (held-out ClassAcc) saved: 38.15% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 6/50 | Batch 50/159 | Loss=2.8800 | LR=9.76e-04
+  Ep 6/50 | Batch 100/159 | Loss=2.8055 | LR=9.76e-04
+  Ep 6/50 | Batch 150/159 | Loss=2.7592 | LR=9.76e-04
+Epoch   6/50 | TrainLoss=2.8110 | ValLoss=3.0809 | ConceptAUC=0.8577 | ClassAcc=41.60% | LR=9.76e-04 | Elapsed=6.2min
+  [Checkpoint] Best (held-out ClassAcc) saved: 41.60% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 7/50 | Batch 50/159 | Loss=2.5704 | LR=9.65e-04
+  Ep 7/50 | Batch 100/159 | Loss=2.5677 | LR=9.65e-04
+  Ep 7/50 | Batch 150/159 | Loss=2.5021 | LR=9.65e-04
+Epoch   7/50 | TrainLoss=2.5431 | ValLoss=2.9598 | ConceptAUC=0.8570 | ClassAcc=42.60% | LR=9.65e-04 | Elapsed=7.1min
+  [Checkpoint] Best (held-out ClassAcc) saved: 42.60% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 8/50 | Batch 50/159 | Loss=2.4070 | LR=9.52e-04
+  Ep 8/50 | Batch 100/159 | Loss=2.3207 | LR=9.52e-04
+  Ep 8/50 | Batch 150/159 | Loss=2.3069 | LR=9.52e-04
+Epoch   8/50 | TrainLoss=2.3414 | ValLoss=2.8066 | ConceptAUC=0.8556 | ClassAcc=45.05% | LR=9.52e-04 | Elapsed=8.1min
+  [Checkpoint] Best (held-out ClassAcc) saved: 45.05% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 9/50 | Batch 50/159 | Loss=2.1921 | LR=9.38e-04
+  Ep 9/50 | Batch 100/159 | Loss=2.2011 | LR=9.38e-04
+  Ep 9/50 | Batch 150/159 | Loss=2.0999 | LR=9.38e-04
+Epoch   9/50 | TrainLoss=2.1673 | ValLoss=2.7055 | ConceptAUC=0.8553 | ClassAcc=46.72% | LR=9.38e-04 | Elapsed=9.0min
+  [Checkpoint] Best (held-out ClassAcc) saved: 46.72% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 10/50 | Batch 50/159 | Loss=2.0245 | LR=9.22e-04
+  Ep 10/50 | Batch 100/159 | Loss=2.0618 | LR=9.22e-04
+  Ep 10/50 | Batch 150/159 | Loss=1.9885 | LR=9.22e-04
+Epoch  10/50 | TrainLoss=2.0253 | ValLoss=2.6237 | ConceptAUC=0.8545 | ClassAcc=48.39% | LR=9.22e-04 | Elapsed=9.8min
+  [Checkpoint] Best (held-out ClassAcc) saved: 48.39% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 11/50 | Batch 50/159 | Loss=1.9139 | LR=9.05e-04
+  Ep 11/50 | Batch 100/159 | Loss=1.8994 | LR=9.05e-04
+  Ep 11/50 | Batch 150/159 | Loss=1.8949 | LR=9.05e-04
+Epoch  11/50 | TrainLoss=1.9035 | ValLoss=2.5505 | ConceptAUC=0.8535 | ClassAcc=49.94% | LR=9.05e-04 | Elapsed=10.6min
+  [Checkpoint] Best (held-out ClassAcc) saved: 49.94% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 12/50 | Batch 50/159 | Loss=1.8126 | LR=8.85e-04
+  Ep 12/50 | Batch 100/159 | Loss=1.7783 | LR=8.85e-04
+  Ep 12/50 | Batch 150/159 | Loss=1.7908 | LR=8.85e-04
+Epoch  12/50 | TrainLoss=1.7932 | ValLoss=2.5068 | ConceptAUC=0.8534 | ClassAcc=49.83% | LR=8.85e-04 | Elapsed=11.5min
+  Ep 13/50 | Batch 50/159 | Loss=1.7053 | LR=8.65e-04
+  Ep 13/50 | Batch 100/159 | Loss=1.6936 | LR=8.65e-04
+  Ep 13/50 | Batch 150/159 | Loss=1.7047 | LR=8.65e-04
+Epoch  13/50 | TrainLoss=1.6988 | ValLoss=2.4468 | ConceptAUC=0.8532 | ClassAcc=50.28% | LR=8.65e-04 | Elapsed=12.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 50.28% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 14/50 | Batch 50/159 | Loss=1.6205 | LR=8.42e-04
+  Ep 14/50 | Batch 100/159 | Loss=1.6300 | LR=8.42e-04
+  Ep 14/50 | Batch 150/159 | Loss=1.6286 | LR=8.42e-04
+Epoch  14/50 | TrainLoss=1.6239 | ValLoss=2.4164 | ConceptAUC=0.8529 | ClassAcc=50.17% | LR=8.42e-04 | Elapsed=13.1min
+  Ep 15/50 | Batch 50/159 | Loss=1.5501 | LR=8.19e-04
+  Ep 15/50 | Batch 100/159 | Loss=1.5587 | LR=8.19e-04
+  Ep 15/50 | Batch 150/159 | Loss=1.5568 | LR=8.19e-04
+Epoch  15/50 | TrainLoss=1.5555 | ValLoss=2.3661 | ConceptAUC=0.8517 | ClassAcc=51.95% | LR=8.19e-04 | Elapsed=14.0min
+  [Checkpoint] Best (held-out ClassAcc) saved: 51.95% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 16/50 | Batch 50/159 | Loss=1.4808 | LR=7.94e-04
+  Ep 16/50 | Batch 100/159 | Loss=1.5003 | LR=7.94e-04
+  Ep 16/50 | Batch 150/159 | Loss=1.5059 | LR=7.94e-04
+Epoch  16/50 | TrainLoss=1.4966 | ValLoss=2.3406 | ConceptAUC=0.8519 | ClassAcc=52.61% | LR=7.94e-04 | Elapsed=14.8min
+  [Checkpoint] Best (held-out ClassAcc) saved: 52.61% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 17/50 | Batch 50/159 | Loss=1.4327 | LR=7.68e-04
+  Ep 17/50 | Batch 100/159 | Loss=1.4651 | LR=7.68e-04
+  Ep 17/50 | Batch 150/159 | Loss=1.4221 | LR=7.68e-04
+Epoch  17/50 | TrainLoss=1.4378 | ValLoss=2.3206 | ConceptAUC=0.8518 | ClassAcc=51.50% | LR=7.68e-04 | Elapsed=15.7min
+  Ep 18/50 | Batch 50/159 | Loss=1.3871 | LR=7.41e-04
+  Ep 18/50 | Batch 100/159 | Loss=1.4001 | LR=7.41e-04
+  Ep 18/50 | Batch 150/159 | Loss=1.3921 | LR=7.41e-04
+Epoch  18/50 | TrainLoss=1.3921 | ValLoss=2.2767 | ConceptAUC=0.8512 | ClassAcc=53.17% | LR=7.41e-04 | Elapsed=16.6min
+  [Checkpoint] Best (held-out ClassAcc) saved: 53.17% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 19/50 | Batch 50/159 | Loss=1.3338 | LR=7.13e-04
+  Ep 19/50 | Batch 100/159 | Loss=1.3643 | LR=7.13e-04
+  Ep 19/50 | Batch 150/159 | Loss=1.3328 | LR=7.13e-04
+Epoch  19/50 | TrainLoss=1.3448 | ValLoss=2.2617 | ConceptAUC=0.8504 | ClassAcc=51.72% | LR=7.13e-04 | Elapsed=17.4min
+  Ep 20/50 | Batch 50/159 | Loss=1.2823 | LR=6.84e-04
+  Ep 20/50 | Batch 100/159 | Loss=1.2949 | LR=6.84e-04
+  Ep 20/50 | Batch 150/159 | Loss=1.3298 | LR=6.84e-04
+Epoch  20/50 | TrainLoss=1.3051 | ValLoss=2.2323 | ConceptAUC=0.8507 | ClassAcc=53.95% | LR=6.84e-04 | Elapsed=18.2min
+  [Checkpoint] Best (held-out ClassAcc) saved: 53.95% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 21/50 | Batch 50/159 | Loss=1.2598 | LR=6.55e-04
+  Ep 21/50 | Batch 100/159 | Loss=1.2686 | LR=6.55e-04
+  Ep 21/50 | Batch 150/159 | Loss=1.2662 | LR=6.55e-04
+Epoch  21/50 | TrainLoss=1.2656 | ValLoss=2.2285 | ConceptAUC=0.8505 | ClassAcc=52.73% | LR=6.55e-04 | Elapsed=19.1min
+  Ep 22/50 | Batch 50/159 | Loss=1.2235 | LR=6.25e-04
+  Ep 22/50 | Batch 100/159 | Loss=1.2244 | LR=6.25e-04
+  Ep 22/50 | Batch 150/159 | Loss=1.2348 | LR=6.25e-04
+Epoch  22/50 | TrainLoss=1.2263 | ValLoss=2.1978 | ConceptAUC=0.8500 | ClassAcc=53.73% | LR=6.25e-04 | Elapsed=19.9min
+  Ep 23/50 | Batch 50/159 | Loss=1.2065 | LR=5.94e-04
+  Ep 23/50 | Batch 100/159 | Loss=1.1760 | LR=5.94e-04
+  Ep 23/50 | Batch 150/159 | Loss=1.2082 | LR=5.94e-04
+Epoch  23/50 | TrainLoss=1.1950 | ValLoss=2.1900 | ConceptAUC=0.8502 | ClassAcc=54.39% | LR=5.94e-04 | Elapsed=20.7min
+  [Checkpoint] Best (held-out ClassAcc) saved: 54.39% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 24/50 | Batch 50/159 | Loss=1.1516 | LR=5.63e-04
+  Ep 24/50 | Batch 100/159 | Loss=1.1816 | LR=5.63e-04
+  Ep 24/50 | Batch 150/159 | Loss=1.1618 | LR=5.63e-04
+Epoch  24/50 | TrainLoss=1.1644 | ValLoss=2.1726 | ConceptAUC=0.8502 | ClassAcc=53.28% | LR=5.63e-04 | Elapsed=21.5min
+  Ep 25/50 | Batch 50/159 | Loss=1.1381 | LR=5.32e-04
+  Ep 25/50 | Batch 100/159 | Loss=1.1338 | LR=5.32e-04
+  Ep 25/50 | Batch 150/159 | Loss=1.1442 | LR=5.32e-04
+Epoch  25/50 | TrainLoss=1.1410 | ValLoss=2.1575 | ConceptAUC=0.8500 | ClassAcc=53.06% | LR=5.32e-04 | Elapsed=22.4min
+  Ep 26/50 | Batch 50/159 | Loss=1.1338 | LR=5.01e-04
+  Ep 26/50 | Batch 100/159 | Loss=1.1118 | LR=5.01e-04
+  Ep 26/50 | Batch 150/159 | Loss=1.0988 | LR=5.01e-04
+Epoch  26/50 | TrainLoss=1.1162 | ValLoss=2.1492 | ConceptAUC=0.8499 | ClassAcc=54.39% | LR=5.01e-04 | Elapsed=23.2min
+  Ep 27/50 | Batch 50/159 | Loss=1.0957 | LR=4.69e-04
+  Ep 27/50 | Batch 100/159 | Loss=1.0745 | LR=4.69e-04
+  Ep 27/50 | Batch 150/159 | Loss=1.1023 | LR=4.69e-04
+Epoch  27/50 | TrainLoss=1.0946 | ValLoss=2.1352 | ConceptAUC=0.8501 | ClassAcc=53.73% | LR=4.69e-04 | Elapsed=24.1min
+  Ep 28/50 | Batch 50/159 | Loss=1.0650 | LR=4.38e-04
+  Ep 28/50 | Batch 100/159 | Loss=1.0836 | LR=4.38e-04
+  Ep 28/50 | Batch 150/159 | Loss=1.0565 | LR=4.38e-04
+Epoch  28/50 | TrainLoss=1.0683 | ValLoss=2.1284 | ConceptAUC=0.8499 | ClassAcc=54.95% | LR=4.38e-04 | Elapsed=24.9min
+  [Checkpoint] Best (held-out ClassAcc) saved: 54.95% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 29/50 | Batch 50/159 | Loss=1.0366 | LR=4.07e-04
+  Ep 29/50 | Batch 100/159 | Loss=1.0576 | LR=4.07e-04
+  Ep 29/50 | Batch 150/159 | Loss=1.0628 | LR=4.07e-04
+Epoch  29/50 | TrainLoss=1.0522 | ValLoss=2.1307 | ConceptAUC=0.8498 | ClassAcc=54.73% | LR=4.07e-04 | Elapsed=25.7min
+  Ep 30/50 | Batch 50/159 | Loss=1.0455 | LR=3.76e-04
+  Ep 30/50 | Batch 100/159 | Loss=1.0585 | LR=3.76e-04
+  Ep 30/50 | Batch 150/159 | Loss=1.0459 | LR=3.76e-04
+Epoch  30/50 | TrainLoss=1.0461 | ValLoss=2.1200 | ConceptAUC=0.8499 | ClassAcc=55.06% | LR=3.76e-04 | Elapsed=26.5min
+  [Checkpoint] Best (held-out ClassAcc) saved: 55.06% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 31/50 | Batch 50/159 | Loss=1.0128 | LR=3.46e-04
+  Ep 31/50 | Batch 100/159 | Loss=1.0395 | LR=3.46e-04
+  Ep 31/50 | Batch 150/159 | Loss=0.9972 | LR=3.46e-04
+Epoch  31/50 | TrainLoss=1.0181 | ValLoss=2.1133 | ConceptAUC=0.8500 | ClassAcc=54.95% | LR=3.46e-04 | Elapsed=27.4min
+  Ep 32/50 | Batch 50/159 | Loss=1.0014 | LR=3.17e-04
+  Ep 32/50 | Batch 100/159 | Loss=1.0165 | LR=3.17e-04
+  Ep 32/50 | Batch 150/159 | Loss=1.0201 | LR=3.17e-04
+Epoch  32/50 | TrainLoss=1.0142 | ValLoss=2.1155 | ConceptAUC=0.8500 | ClassAcc=55.84% | LR=3.17e-04 | Elapsed=28.2min
+  [Checkpoint] Best (held-out ClassAcc) saved: 55.84% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 33/50 | Batch 50/159 | Loss=1.0034 | LR=2.88e-04
+  Ep 33/50 | Batch 100/159 | Loss=0.9871 | LR=2.88e-04
+  Ep 33/50 | Batch 150/159 | Loss=0.9968 | LR=2.88e-04
+Epoch  33/50 | TrainLoss=0.9969 | ValLoss=2.1045 | ConceptAUC=0.8500 | ClassAcc=55.39% | LR=2.88e-04 | Elapsed=29.1min
+  Ep 34/50 | Batch 50/159 | Loss=0.9958 | LR=2.60e-04
+  Ep 34/50 | Batch 100/159 | Loss=0.9804 | LR=2.60e-04
+  Ep 34/50 | Batch 150/159 | Loss=0.9933 | LR=2.60e-04
+Epoch  34/50 | TrainLoss=0.9888 | ValLoss=2.1026 | ConceptAUC=0.8503 | ClassAcc=54.84% | LR=2.60e-04 | Elapsed=30.0min
+  Ep 35/50 | Batch 50/159 | Loss=0.9832 | LR=2.33e-04
+  Ep 35/50 | Batch 100/159 | Loss=0.9550 | LR=2.33e-04
+  Ep 35/50 | Batch 150/159 | Loss=0.9775 | LR=2.33e-04
+Epoch  35/50 | TrainLoss=0.9718 | ValLoss=2.0869 | ConceptAUC=0.8500 | ClassAcc=54.73% | LR=2.33e-04 | Elapsed=31.0min
+  Ep 36/50 | Batch 50/159 | Loss=0.9646 | LR=2.07e-04
+  Ep 36/50 | Batch 100/159 | Loss=0.9735 | LR=2.07e-04
+  Ep 36/50 | Batch 150/159 | Loss=0.9661 | LR=2.07e-04
+Epoch  36/50 | TrainLoss=0.9681 | ValLoss=2.0878 | ConceptAUC=0.8499 | ClassAcc=55.39% | LR=2.07e-04 | Elapsed=31.9min
+  Ep 37/50 | Batch 50/159 | Loss=0.9602 | LR=1.82e-04
+  Ep 37/50 | Batch 100/159 | Loss=0.9581 | LR=1.82e-04
+  Ep 37/50 | Batch 150/159 | Loss=0.9712 | LR=1.82e-04
+Epoch  37/50 | TrainLoss=0.9608 | ValLoss=2.0821 | ConceptAUC=0.8500 | ClassAcc=56.17% | LR=1.82e-04 | Elapsed=32.8min
+  [Checkpoint] Best (held-out ClassAcc) saved: 56.17% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 38/50 | Batch 50/159 | Loss=0.9354 | LR=1.59e-04
+  Ep 38/50 | Batch 100/159 | Loss=0.9524 | LR=1.59e-04
+  Ep 38/50 | Batch 150/159 | Loss=0.9830 | LR=1.59e-04
+Epoch  38/50 | TrainLoss=0.9583 | ValLoss=2.0837 | ConceptAUC=0.8500 | ClassAcc=55.17% | LR=1.59e-04 | Elapsed=33.7min
+  Ep 39/50 | Batch 50/159 | Loss=0.9666 | LR=1.36e-04
+  Ep 39/50 | Batch 100/159 | Loss=0.9708 | LR=1.36e-04
+  Ep 39/50 | Batch 150/159 | Loss=0.9325 | LR=1.36e-04
+Epoch  39/50 | TrainLoss=0.9549 | ValLoss=2.0740 | ConceptAUC=0.8500 | ClassAcc=55.51% | LR=1.36e-04 | Elapsed=34.7min
+  Ep 40/50 | Batch 50/159 | Loss=0.9451 | LR=1.16e-04
+  Ep 40/50 | Batch 100/159 | Loss=0.9354 | LR=1.16e-04
+  Ep 40/50 | Batch 150/159 | Loss=0.9367 | LR=1.16e-04
+Epoch  40/50 | TrainLoss=0.9402 | ValLoss=2.0798 | ConceptAUC=0.8499 | ClassAcc=55.28% | LR=1.16e-04 | Elapsed=35.6min
+  Ep 41/50 | Batch 50/159 | Loss=0.9433 | LR=9.64e-05
+  Ep 41/50 | Batch 100/159 | Loss=0.9454 | LR=9.64e-05
+  Ep 41/50 | Batch 150/159 | Loss=0.9385 | LR=9.64e-05
+Epoch  41/50 | TrainLoss=0.9417 | ValLoss=2.0791 | ConceptAUC=0.8499 | ClassAcc=56.28% | LR=9.64e-05 | Elapsed=36.5min
+  [Checkpoint] Best (held-out ClassAcc) saved: 56.28% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 42/50 | Batch 50/159 | Loss=0.9208 | LR=7.88e-05
+  Ep 42/50 | Batch 100/159 | Loss=0.9503 | LR=7.88e-05
+  Ep 42/50 | Batch 150/159 | Loss=0.9414 | LR=7.88e-05
+Epoch  42/50 | TrainLoss=0.9365 | ValLoss=2.0752 | ConceptAUC=0.8499 | ClassAcc=55.95% | LR=7.88e-05 | Elapsed=37.4min
+  Ep 43/50 | Batch 50/159 | Loss=0.9059 | LR=6.28e-05
+  Ep 43/50 | Batch 100/159 | Loss=0.9479 | LR=6.28e-05
+  Ep 43/50 | Batch 150/159 | Loss=0.9265 | LR=6.28e-05
+Epoch  43/50 | TrainLoss=0.9260 | ValLoss=2.0703 | ConceptAUC=0.8498 | ClassAcc=56.51% | LR=6.28e-05 | Elapsed=38.2min
+  [Checkpoint] Best (held-out ClassAcc) saved: 56.51% -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\best_classacc_ann_fair.pth
+  Ep 44/50 | Batch 50/159 | Loss=0.9351 | LR=4.85e-05
+  Ep 44/50 | Batch 100/159 | Loss=0.9145 | LR=4.85e-05
+  Ep 44/50 | Batch 150/159 | Loss=0.9395 | LR=4.85e-05
+Epoch  44/50 | TrainLoss=0.9296 | ValLoss=2.0719 | ConceptAUC=0.8499 | ClassAcc=55.95% | LR=4.85e-05 | Elapsed=39.1min
+  Ep 45/50 | Batch 50/159 | Loss=0.9275 | LR=3.61e-05
+  Ep 45/50 | Batch 100/159 | Loss=0.9167 | LR=3.61e-05
+  Ep 45/50 | Batch 150/159 | Loss=0.9439 | LR=3.61e-05
+Epoch  45/50 | TrainLoss=0.9289 | ValLoss=2.0696 | ConceptAUC=0.8499 | ClassAcc=56.17% | LR=3.61e-05 | Elapsed=40.0min
+  Ep 46/50 | Batch 50/159 | Loss=0.9301 | LR=2.54e-05
+  Ep 46/50 | Batch 100/159 | Loss=0.8992 | LR=2.54e-05
+  Ep 46/50 | Batch 150/159 | Loss=0.9375 | LR=2.54e-05
+Epoch  46/50 | TrainLoss=0.9209 | ValLoss=2.0690 | ConceptAUC=0.8498 | ClassAcc=56.28% | LR=2.54e-05 | Elapsed=40.8min
+  Ep 47/50 | Batch 50/159 | Loss=0.9223 | LR=1.67e-05
+  Ep 47/50 | Batch 100/159 | Loss=0.9282 | LR=1.67e-05
+  Ep 47/50 | Batch 150/159 | Loss=0.9003 | LR=1.67e-05
+Epoch  47/50 | TrainLoss=0.9178 | ValLoss=2.0679 | ConceptAUC=0.8498 | ClassAcc=55.84% | LR=1.67e-05 | Elapsed=41.7min
+  Ep 48/50 | Batch 50/159 | Loss=0.9169 | LR=9.85e-06
+  Ep 48/50 | Batch 100/159 | Loss=0.8948 | LR=9.85e-06
+  Ep 48/50 | Batch 150/159 | Loss=0.9401 | LR=9.85e-06
+Epoch  48/50 | TrainLoss=0.9179 | ValLoss=2.0687 | ConceptAUC=0.8498 | ClassAcc=56.06% | LR=9.85e-06 | Elapsed=42.5min
+  Ep 49/50 | Batch 50/159 | Loss=0.9169 | LR=4.94e-06
+  Ep 49/50 | Batch 100/159 | Loss=0.9253 | LR=4.94e-06
+  Ep 49/50 | Batch 150/159 | Loss=0.9241 | LR=4.94e-06
+Epoch  49/50 | TrainLoss=0.9194 | ValLoss=2.0685 | ConceptAUC=0.8498 | ClassAcc=55.95% | LR=4.94e-06 | Elapsed=43.3min
+  Ep 50/50 | Batch 50/159 | Loss=0.9216 | LR=1.99e-06
+  Ep 50/50 | Batch 100/159 | Loss=0.9113 | LR=1.99e-06
+  Ep 50/50 | Batch 150/159 | Loss=0.8936 | LR=1.99e-06
+Epoch  50/50 | TrainLoss=0.9115 | ValLoss=2.0685 | ConceptAUC=0.8498 | ClassAcc=55.95% | LR=1.99e-06 | Elapsed=44.1min
+  [Checkpoint] Final epoch saved -> C:\Users\palag\New folder\SpikingResformer-cbm\ann_baseline_fair\ckpts\final_ann_fair.pth
+
+[Train] Done in 44.1 min. Selected epoch 43 (held-out ClassAcc 56.51%)
+
+[Test] Test split loaded now, for the first time: 5794 images
