@@ -1,0 +1,81 @@
+{
+  "selected_epoch": 33,
+  "selected_val_class_acc": 55.06117908787542,
+  "selected_val_concept_auc": 0.8749265791235288,
+  "train_fit": 5095,
+  "held_out": 899,
+  "seed": 0,
+  "train_minutes": 152.39332705338796,
+  "params": {
+    "mlp_decoder": 1771584,
+    "gru_decoder": 1772544,
+    "mlp_hidden": 576,
+    "rel_diff": 0.0005415944540727903
+  },
+  "recipe": {
+    "epochs": 50,
+    "batch": 32,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "grad_clip": 5.0,
+    "concept_dropout": 0.25
+  },
+  "test": {
+    "n_test": 5794,
+    "acc": {
+      "mlp_notime": 56.50673110113911,
+      "learned_decoder": 59.47531929582327,
+      "spike_rate": 45.44356230583362
+    },
+    "concept_auc": {
+      "mlp_notime": 0.87821714549073,
+      "learned_decoder": 0.91943398261895,
+      "spike_rate": 0.8651819496129605
+    },
+    "concept_ece": {
+      "mlp_notime": 0.10692063704761422,
+      "learned_decoder": 0.0788014056987202,
+      "spike_rate": 0.11925383552794565
+    },
+    "ld_ckpt_epoch": 35,
+    "sr_ckpt_epoch": 48,
+    "n_bootstrap": 10000,
+    "bootstrap_seed": 20260826,
+    "gru_minus_mlp": {
+      "a": "learned_decoder",
+      "b": "mlp_notime",
+      "gap": 2.968588194684163,
+      "ci_lo": 1.8985157059026592,
+      "ci_hi": 4.038660683465656,
+      "mcnemar_p": 8.515245201141229e-08,
+      "n_a_right_b_wrong": 598,
+      "n_a_wrong_b_right": 426
+    },
+    "mlp_minus_sr": {
+      "a": "mlp_notime",
+      "b": "spike_rate",
+      "gap": 11.063168795305483,
+      "ci_lo": 9.803244735933724,
+      "ci_hi": 12.340352088367274,
+      "mcnemar_p": 1.482514338813953e-67,
+      "n_a_right_b_wrong": 1025,
+      "n_a_wrong_b_right": 384
+    },
+    "gru_minus_sr": {
+      "a": "learned_decoder",
+      "b": "spike_rate",
+      "gap": 14.031756989989647,
+      "ci_lo": 12.720055229547805,
+      "ci_hi": 15.360717984121502,
+      "mcnemar_p": 1.8130915870611613e-95,
+      "n_a_right_b_wrong": 1210,
+      "n_a_wrong_b_right": 397
+    },
+    "share_of_gain_from_params": 0.7884378843788433,
+    "share_of_gain_from_time": 0.21156211562115668,
+    "verdict": {
+      "key": "mixed",
+      "text": "Mixed: the GRU is significantly better than MLP-no-time (+2.97 pts, CI [+1.90, +4.04]), but the extra parameters alone already recover 79% of the +14.03-pt GRU gain over spike_rate. Most of the gain is from PARAMETERS; time adds a smaller, real part."
+    }
+  }
+}

@@ -1,0 +1,354 @@
+========================================================================
+  MLP WITHOUT TIME -- equal-parameter, time-blind decoder  (review fix #3c)
+  Standalone -- existing files are read, never written.
+========================================================================
+[Guard] Fingerprinted 161 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime
+[Env] device=cuda  seed=0
+[Params] MLP-no-time decoder (1536->576->1536): 1,771,584
+[Params] GRU learned_decoder (GRU 1536->256 + Linear 256->1536): 1,772,544
+[Params] Relative difference: 0.054% (tolerance 2%)
+============================================================
+SpikingResformerCBM Summary
+============================================================
+  Readout type        : spike_rate
+  Lambda concept      : 1.0
+  Lambda task         : 1.0
+  Backbone params     : 11,180,992  [FROZEN]
+  Decoder params      : 1,771,584  [trainable]
+  CBL params          : 172,144  [trainable]
+  Head params         : 22,600  [trainable]
+  Total trainable     : 1,966,328
+============================================================
+[Data] Train(fit): 5095  Val(held-out): 899  Concepts: 112
+[Data] Checkpoint selection uses the held-out rows only. Test split not loaded yet.
+
+[Train] 50 epoch(s), AdamW lr=0.001 wd=0.0001, batch 32, cosine LR, grad clip 5.0, concept dropout 0.25, backbone frozen (eval)
+
+  Ep 1/50 | Batch 50/159 | Loss=5.7557 | LR=1.00e-03 | 0.9min
+  Ep 1/50 | Batch 100/159 | Loss=5.6336 | LR=1.00e-03 | 1.8min
+  Ep 1/50 | Batch 150/159 | Loss=5.4131 | LR=1.00e-03 | 2.7min
+Epoch   1/50 | TrainLoss=5.5822 | ValLoss=5.3219 | ConceptAUC=0.8150 | ClassAcc=1.78% | LR=1.00e-03 | Elapsed=3.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 1.78% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 1 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 2/50 | Batch 50/159 | Loss=5.0737 | LR=9.99e-04 | 4.2min
+  Ep 2/50 | Batch 100/159 | Loss=4.8363 | LR=9.99e-04 | 5.1min
+  Ep 2/50 | Batch 150/159 | Loss=4.6581 | LR=9.99e-04 | 6.1min
+Epoch   2/50 | TrainLoss=4.8416 | ValLoss=4.6548 | ConceptAUC=0.8478 | ClassAcc=6.45% | LR=9.99e-04 | Elapsed=6.8min
+  [Checkpoint] Best (held-out ClassAcc) saved: 6.45% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 2 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 3/50 | Batch 50/159 | Loss=4.3854 | LR=9.96e-04 | 7.7min
+  Ep 3/50 | Batch 100/159 | Loss=4.2598 | LR=9.96e-04 | 8.7min
+  Ep 3/50 | Batch 150/159 | Loss=4.1198 | LR=9.96e-04 | 9.7min
+Epoch   3/50 | TrainLoss=4.2413 | ValLoss=4.2419 | ConceptAUC=0.8626 | ClassAcc=13.13% | LR=9.96e-04 | Elapsed=10.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 13.13% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 3 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 4/50 | Batch 50/159 | Loss=3.9027 | LR=9.91e-04 | 11.2min
+========================================================================
+  MLP WITHOUT TIME -- equal-parameter, time-blind decoder  (review fix #3c)
+  Standalone -- existing files are read, never written.
+========================================================================
+[Guard] Fingerprinted 161 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime
+[Env] device=cuda  seed=0
+[Params] MLP-no-time decoder (1536->576->1536): 1,771,584
+[Params] GRU learned_decoder (GRU 1536->256 + Linear 256->1536): 1,772,544
+[Params] Relative difference: 0.054% (tolerance 2%)
+============================================================
+SpikingResformerCBM Summary
+============================================================
+  Readout type        : spike_rate
+  Lambda concept      : 1.0
+  Lambda task         : 1.0
+  Backbone params     : 11,180,992  [FROZEN]
+  Decoder params      : 1,771,584  [trainable]
+  CBL params          : 172,144  [trainable]
+  Head params         : 22,600  [trainable]
+  Total trainable     : 1,966,328
+============================================================
+[Data] Train(fit): 5095  Val(held-out): 899  Concepts: 112
+[Data] Checkpoint selection uses the held-out rows only. Test split not loaded yet.
+[Resume] Continuing after epoch 3 (LR was 9.96e-04); best so far epoch 3 at 13.13%. RNG, optimizer and history restored.
+
+[Train] 50 epoch(s), AdamW lr=0.001 wd=0.0001, batch 32, cosine LR, grad clip 5.0, concept dropout 0.25, backbone frozen (eval)
+
+  Ep 4/50 | Batch 50/159 | Loss=3.9027 | LR=9.91e-04 | 11.2min
+  Ep 4/50 | Batch 100/159 | Loss=3.8102 | LR=9.91e-04 | 12.1min
+  Ep 4/50 | Batch 150/159 | Loss=3.6916 | LR=9.91e-04 | 12.9min
+Epoch   4/50 | TrainLoss=3.7911 | ValLoss=3.9230 | ConceptAUC=0.8656 | ClassAcc=16.24% | LR=9.91e-04 | Elapsed=13.5min
+  [Checkpoint] Best (held-out ClassAcc) saved: 16.24% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 4 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 5/50 | Batch 50/159 | Loss=3.4982 | LR=9.84e-04 | 14.2min
+  Ep 5/50 | Batch 100/159 | Loss=3.4287 | LR=9.84e-04 | 15.0min
+  Ep 5/50 | Batch 150/159 | Loss=3.3702 | LR=9.84e-04 | 15.8min
+Epoch   5/50 | TrainLoss=3.4257 | ValLoss=3.6402 | ConceptAUC=0.8652 | ClassAcc=25.14% | LR=9.84e-04 | Elapsed=16.4min
+  [Checkpoint] Best (held-out ClassAcc) saved: 25.14% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 5 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 6/50 | Batch 50/159 | Loss=3.1716 | LR=9.76e-04 | 17.2min
+  Ep 6/50 | Batch 100/159 | Loss=3.1131 | LR=9.76e-04 | 18.0min
+  Ep 6/50 | Batch 150/159 | Loss=3.0428 | LR=9.76e-04 | 18.7min
+Epoch   6/50 | TrainLoss=3.1052 | ValLoss=3.4523 | ConceptAUC=0.8667 | ClassAcc=28.59% | LR=9.76e-04 | Elapsed=19.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 28.59% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 6 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 7/50 | Batch 50/159 | Loss=2.9330 | LR=9.65e-04 | 20.1min
+  Ep 7/50 | Batch 100/159 | Loss=2.8613 | LR=9.65e-04 | 20.9min
+  Ep 7/50 | Batch 150/159 | Loss=2.7660 | LR=9.65e-04 | 21.7min
+Epoch   7/50 | TrainLoss=2.8486 | ValLoss=3.2547 | ConceptAUC=0.8684 | ClassAcc=31.03% | LR=9.65e-04 | Elapsed=22.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 31.03% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 7 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 8/50 | Batch 50/159 | Loss=2.6665 | LR=9.52e-04 | 23.1min
+  Ep 8/50 | Batch 100/159 | Loss=2.6278 | LR=9.52e-04 | 24.0min
+  Ep 8/50 | Batch 150/159 | Loss=2.5962 | LR=9.52e-04 | 24.8min
+Epoch   8/50 | TrainLoss=2.6256 | ValLoss=3.1138 | ConceptAUC=0.8711 | ClassAcc=33.59% | LR=9.52e-04 | Elapsed=25.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 33.59% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 8 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 9/50 | Batch 50/159 | Loss=2.4361 | LR=9.38e-04 | 26.1min
+  Ep 9/50 | Batch 100/159 | Loss=2.4527 | LR=9.38e-04 | 26.9min
+  Ep 9/50 | Batch 150/159 | Loss=2.4136 | LR=9.38e-04 | 27.7min
+Epoch   9/50 | TrainLoss=2.4301 | ValLoss=2.9539 | ConceptAUC=0.8714 | ClassAcc=38.71% | LR=9.38e-04 | Elapsed=28.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 38.71% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 9 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 10/50 | Batch 50/159 | Loss=2.2531 | LR=9.22e-04 | 29.1min
+  Ep 10/50 | Batch 100/159 | Loss=2.2538 | LR=9.22e-04 | 29.9min
+  Ep 10/50 | Batch 150/159 | Loss=2.2492 | LR=9.22e-04 | 30.8min
+Epoch  10/50 | TrainLoss=2.2566 | ValLoss=2.8324 | ConceptAUC=0.8714 | ClassAcc=40.93% | LR=9.22e-04 | Elapsed=31.4min
+  [Checkpoint] Best (held-out ClassAcc) saved: 40.93% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 10 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 11/50 | Batch 50/159 | Loss=2.1446 | LR=9.05e-04 | 32.2min
+  Ep 11/50 | Batch 100/159 | Loss=2.0972 | LR=9.05e-04 | 33.0min
+  Ep 11/50 | Batch 150/159 | Loss=2.1066 | LR=9.05e-04 | 33.8min
+Epoch  11/50 | TrainLoss=2.1137 | ValLoss=2.7436 | ConceptAUC=0.8755 | ClassAcc=41.49% | LR=9.05e-04 | Elapsed=34.4min
+  [Checkpoint] Best (held-out ClassAcc) saved: 41.49% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 11 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 12/50 | Batch 50/159 | Loss=2.0054 | LR=8.85e-04 | 35.2min
+  Ep 12/50 | Batch 100/159 | Loss=1.9758 | LR=8.85e-04 | 36.0min
+  Ep 12/50 | Batch 150/159 | Loss=1.9820 | LR=8.85e-04 | 36.9min
+Epoch  12/50 | TrainLoss=1.9831 | ValLoss=2.6669 | ConceptAUC=0.8725 | ClassAcc=43.27% | LR=8.85e-04 | Elapsed=37.4min
+  [Checkpoint] Best (held-out ClassAcc) saved: 43.27% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 12 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 13/50 | Batch 50/159 | Loss=1.8754 | LR=8.65e-04 | 38.2min
+  Ep 13/50 | Batch 100/159 | Loss=1.8637 | LR=8.65e-04 | 39.0min
+  Ep 13/50 | Batch 150/159 | Loss=1.8664 | LR=8.65e-04 | 39.8min
+Epoch  13/50 | TrainLoss=1.8660 | ValLoss=2.6113 | ConceptAUC=0.8696 | ClassAcc=43.94% | LR=8.65e-04 | Elapsed=40.4min
+  [Checkpoint] Best (held-out ClassAcc) saved: 43.94% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 13 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 14/50 | Batch 50/159 | Loss=1.7515 | LR=8.42e-04 | 41.2min
+  Ep 14/50 | Batch 100/159 | Loss=1.7791 | LR=8.42e-04 | 42.0min
+  Ep 14/50 | Batch 150/159 | Loss=1.7526 | LR=8.42e-04 | 42.8min
+Epoch  14/50 | TrainLoss=1.7656 | ValLoss=2.5270 | ConceptAUC=0.8713 | ClassAcc=46.16% | LR=8.42e-04 | Elapsed=43.4min
+  [Checkpoint] Best (held-out ClassAcc) saved: 46.16% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 14 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 15/50 | Batch 50/159 | Loss=1.7061 | LR=8.19e-04 | 44.2min
+  Ep 15/50 | Batch 100/159 | Loss=1.6674 | LR=8.19e-04 | 45.0min
+  Ep 15/50 | Batch 150/159 | Loss=1.6772 | LR=8.19e-04 | 45.7min
+Epoch  15/50 | TrainLoss=1.6816 | ValLoss=2.4881 | ConceptAUC=0.8713 | ClassAcc=46.61% | LR=8.19e-04 | Elapsed=46.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 46.61% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 15 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 16/50 | Batch 50/159 | Loss=1.5849 | LR=7.94e-04 | 47.1min
+  Ep 16/50 | Batch 100/159 | Loss=1.5997 | LR=7.94e-04 | 47.9min
+  Ep 16/50 | Batch 150/159 | Loss=1.5909 | LR=7.94e-04 | 48.8min
+Epoch  16/50 | TrainLoss=1.5924 | ValLoss=2.4776 | ConceptAUC=0.8735 | ClassAcc=47.05% | LR=7.94e-04 | Elapsed=49.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 47.05% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 16 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 17/50 | Batch 50/159 | Loss=1.5181 | LR=7.68e-04 | 50.1min
+  Ep 17/50 | Batch 100/159 | Loss=1.5376 | LR=7.68e-04 | 50.9min
+  Ep 17/50 | Batch 150/159 | Loss=1.4740 | LR=7.68e-04 | 51.7min
+Epoch  17/50 | TrainLoss=1.5145 | ValLoss=2.4168 | ConceptAUC=0.8731 | ClassAcc=48.28% | LR=7.68e-04 | Elapsed=52.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 48.28% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 17 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 18/50 | Batch 50/159 | Loss=1.4336 | LR=7.41e-04 | 53.1min
+  Ep 18/50 | Batch 100/159 | Loss=1.4762 | LR=7.41e-04 | 53.9min
+  Ep 18/50 | Batch 150/159 | Loss=1.4788 | LR=7.41e-04 | 54.7min
+Epoch  18/50 | TrainLoss=1.4598 | ValLoss=2.3804 | ConceptAUC=0.8711 | ClassAcc=49.17% | LR=7.41e-04 | Elapsed=55.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 49.17% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 18 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 19/50 | Batch 50/159 | Loss=1.4131 | LR=7.13e-04 | 56.1min
+  Ep 19/50 | Batch 100/159 | Loss=1.4018 | LR=7.13e-04 | 56.9min
+  Ep 19/50 | Batch 150/159 | Loss=1.4131 | LR=7.13e-04 | 57.7min
+Epoch  19/50 | TrainLoss=1.4104 | ValLoss=2.3325 | ConceptAUC=0.8738 | ClassAcc=50.28% | LR=7.13e-04 | Elapsed=58.2min
+  [Checkpoint] Best (held-out ClassAcc) saved: 50.28% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 19 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 20/50 | Batch 50/159 | Loss=1.3545 | LR=6.84e-04 | 59.0min
+  Ep 20/50 | Batch 100/159 | Loss=1.3688 | LR=6.84e-04 | 59.8min
+  Ep 20/50 | Batch 150/159 | Loss=1.3215 | LR=6.84e-04 | 60.6min
+Epoch  20/50 | TrainLoss=1.3521 | ValLoss=2.3504 | ConceptAUC=0.8739 | ClassAcc=50.17% | LR=6.84e-04 | Elapsed=61.2min
+  [Checkpoint] Last (resume point) saved: epoch 20 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 21/50 | Batch 50/159 | Loss=1.3011 | LR=6.55e-04 | 62.0min
+  Ep 21/50 | Batch 100/159 | Loss=1.3156 | LR=6.55e-04 | 62.8min
+  Ep 21/50 | Batch 150/159 | Loss=1.3095 | LR=6.55e-04 | 63.6min
+Epoch  21/50 | TrainLoss=1.3085 | ValLoss=2.2614 | ConceptAUC=0.8767 | ClassAcc=49.17% | LR=6.55e-04 | Elapsed=64.2min
+  [Checkpoint] Last (resume point) saved: epoch 21 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 22/50 | Batch 50/159 | Loss=1.2763 | LR=6.25e-04 | 65.0min
+  Ep 22/50 | Batch 100/159 | Loss=1.2753 | LR=6.25e-04 | 65.8min
+  Ep 22/50 | Batch 150/159 | Loss=1.2612 | LR=6.25e-04 | 66.6min
+Epoch  22/50 | TrainLoss=1.2738 | ValLoss=2.2859 | ConceptAUC=0.8737 | ClassAcc=51.39% | LR=6.25e-04 | Elapsed=67.2min
+  [Checkpoint] Best (held-out ClassAcc) saved: 51.39% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 22 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 23/50 | Batch 50/159 | Loss=1.2239 | LR=5.94e-04 | 68.0min
+  Ep 23/50 | Batch 100/159 | Loss=1.1950 | LR=5.94e-04 | 68.8min
+  Ep 23/50 | Batch 150/159 | Loss=1.2248 | LR=5.94e-04 | 69.6min
+Epoch  23/50 | TrainLoss=1.2155 | ValLoss=2.2761 | ConceptAUC=0.8755 | ClassAcc=50.50% | LR=5.94e-04 | Elapsed=70.2min
+  [Checkpoint] Last (resume point) saved: epoch 23 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 24/50 | Batch 50/159 | Loss=1.1758 | LR=5.63e-04 | 71.0min
+  Ep 24/50 | Batch 100/159 | Loss=1.1842 | LR=5.63e-04 | 71.9min
+  Ep 24/50 | Batch 150/159 | Loss=1.1725 | LR=5.63e-04 | 72.7min
+Epoch  24/50 | TrainLoss=1.1804 | ValLoss=2.1966 | ConceptAUC=0.8744 | ClassAcc=51.72% | LR=5.63e-04 | Elapsed=73.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 51.72% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 24 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 25/50 | Batch 50/159 | Loss=1.1444 | LR=5.32e-04 | 74.1min
+  Ep 25/50 | Batch 100/159 | Loss=1.1535 | LR=5.32e-04 | 74.9min
+  Ep 25/50 | Batch 150/159 | Loss=1.1619 | LR=5.32e-04 | 75.7min
+Epoch  25/50 | TrainLoss=1.1512 | ValLoss=2.1872 | ConceptAUC=0.8737 | ClassAcc=52.39% | LR=5.32e-04 | Elapsed=76.3min
+  [Checkpoint] Best (held-out ClassAcc) saved: 52.39% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 25 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 26/50 | Batch 50/159 | Loss=1.1084 | LR=5.01e-04 | 77.1min
+  Ep 26/50 | Batch 100/159 | Loss=1.1336 | LR=5.01e-04 | 78.0min
+  Ep 26/50 | Batch 150/159 | Loss=1.1298 | LR=5.01e-04 | 78.8min
+Epoch  26/50 | TrainLoss=1.1240 | ValLoss=2.2201 | ConceptAUC=0.8742 | ClassAcc=51.39% | LR=5.01e-04 | Elapsed=79.4min
+  [Checkpoint] Last (resume point) saved: epoch 26 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 27/50 | Batch 50/159 | Loss=1.0707 | LR=4.69e-04 | 80.2min
+  Ep 27/50 | Batch 100/159 | Loss=1.0823 | LR=4.69e-04 | 81.0min
+  Ep 27/50 | Batch 150/159 | Loss=1.1088 | LR=4.69e-04 | 81.8min
+Epoch  27/50 | TrainLoss=1.0891 | ValLoss=2.1683 | ConceptAUC=0.8745 | ClassAcc=52.28% | LR=4.69e-04 | Elapsed=82.4min
+  [Checkpoint] Last (resume point) saved: epoch 27 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 28/50 | Batch 50/159 | Loss=1.0681 | LR=4.38e-04 | 83.2min
+  Ep 28/50 | Batch 100/159 | Loss=1.0610 | LR=4.38e-04 | 84.1min
+  Ep 28/50 | Batch 150/159 | Loss=1.0825 | LR=4.38e-04 | 84.9min
+Epoch  28/50 | TrainLoss=1.0680 | ValLoss=2.1744 | ConceptAUC=0.8728 | ClassAcc=52.73% | LR=4.38e-04 | Elapsed=85.5min
+  [Checkpoint] Best (held-out ClassAcc) saved: 52.73% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 28 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 29/50 | Batch 50/159 | Loss=1.0452 | LR=4.07e-04 | 86.3min
+  Ep 29/50 | Batch 100/159 | Loss=1.0508 | LR=4.07e-04 | 87.1min
+  Ep 29/50 | Batch 150/159 | Loss=1.0405 | LR=4.07e-04 | 87.9min
+Epoch  29/50 | TrainLoss=1.0446 | ValLoss=2.2044 | ConceptAUC=0.8750 | ClassAcc=50.61% | LR=4.07e-04 | Elapsed=88.5min
+  [Checkpoint] Last (resume point) saved: epoch 29 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 30/50 | Batch 50/159 | Loss=1.0342 | LR=3.76e-04 | 89.3min
+  Ep 30/50 | Batch 100/159 | Loss=0.9999 | LR=3.76e-04 | 90.1min
+  Ep 30/50 | Batch 150/159 | Loss=1.0125 | LR=3.76e-04 | 90.9min
+Epoch  30/50 | TrainLoss=1.0152 | ValLoss=2.1985 | ConceptAUC=0.8732 | ClassAcc=52.17% | LR=3.76e-04 | Elapsed=91.5min
+  [Checkpoint] Last (resume point) saved: epoch 30 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 31/50 | Batch 50/159 | Loss=0.9867 | LR=3.46e-04 | 92.3min
+  Ep 31/50 | Batch 100/159 | Loss=1.0132 | LR=3.46e-04 | 93.1min
+  Ep 31/50 | Batch 150/159 | Loss=1.0096 | LR=3.46e-04 | 94.0min
+Epoch  31/50 | TrainLoss=1.0062 | ValLoss=2.1254 | ConceptAUC=0.8753 | ClassAcc=54.51% | LR=3.46e-04 | Elapsed=94.6min
+  [Checkpoint] Best (held-out ClassAcc) saved: 54.51% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 31 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 32/50 | Batch 50/159 | Loss=0.9806 | LR=3.17e-04 | 95.4min
+  Ep 32/50 | Batch 100/159 | Loss=0.9832 | LR=3.17e-04 | 96.2min
+  Ep 32/50 | Batch 150/159 | Loss=0.9718 | LR=3.17e-04 | 97.0min
+Epoch  32/50 | TrainLoss=0.9805 | ValLoss=2.1075 | ConceptAUC=0.8750 | ClassAcc=53.62% | LR=3.17e-04 | Elapsed=97.6min
+  [Checkpoint] Last (resume point) saved: epoch 32 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 33/50 | Batch 50/159 | Loss=0.9617 | LR=2.88e-04 | 98.4min
+  Ep 33/50 | Batch 100/159 | Loss=0.9600 | LR=2.88e-04 | 99.2min
+  Ep 33/50 | Batch 150/159 | Loss=0.9682 | LR=2.88e-04 | 100.1min
+Epoch  33/50 | TrainLoss=0.9634 | ValLoss=2.1104 | ConceptAUC=0.8749 | ClassAcc=55.06% | LR=2.88e-04 | Elapsed=100.6min
+  [Checkpoint] Best (held-out ClassAcc) saved: 55.06% -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\best_classacc_mlp_notime.pth
+  [Checkpoint] Last (resume point) saved: epoch 33 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 34/50 | Batch 50/159 | Loss=0.9387 | LR=2.60e-04 | 101.5min
+  Ep 34/50 | Batch 100/159 | Loss=0.9536 | LR=2.60e-04 | 102.3min
+  Ep 34/50 | Batch 150/159 | Loss=0.9675 | LR=2.60e-04 | 103.1min
+Epoch  34/50 | TrainLoss=0.9504 | ValLoss=2.1351 | ConceptAUC=0.8747 | ClassAcc=53.73% | LR=2.60e-04 | Elapsed=103.7min
+  [Checkpoint] Last (resume point) saved: epoch 34 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 35/50 | Batch 50/159 | Loss=0.9518 | LR=2.33e-04 | 104.5min
+  Ep 35/50 | Batch 100/159 | Loss=0.9292 | LR=2.33e-04 | 105.3min
+  Ep 35/50 | Batch 150/159 | Loss=0.9365 | LR=2.33e-04 | 106.1min
+Epoch  35/50 | TrainLoss=0.9364 | ValLoss=2.0832 | ConceptAUC=0.8744 | ClassAcc=54.39% | LR=2.33e-04 | Elapsed=106.7min
+  [Checkpoint] Last (resume point) saved: epoch 35 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 36/50 | Batch 50/159 | Loss=0.9014 | LR=2.07e-04 | 107.6min
+  Ep 36/50 | Batch 100/159 | Loss=0.9220 | LR=2.07e-04 | 108.4min
+  Ep 36/50 | Batch 150/159 | Loss=0.9221 | LR=2.07e-04 | 109.2min
+Epoch  36/50 | TrainLoss=0.9138 | ValLoss=2.1078 | ConceptAUC=0.8748 | ClassAcc=53.50% | LR=2.07e-04 | Elapsed=109.8min
+  [Checkpoint] Last (resume point) saved: epoch 36 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 37/50 | Batch 50/159 | Loss=0.8840 | LR=1.82e-04 | 110.6min
+  Ep 37/50 | Batch 100/159 | Loss=0.9186 | LR=1.82e-04 | 111.4min
+  Ep 37/50 | Batch 150/159 | Loss=0.9114 | LR=1.82e-04 | 112.2min
+Epoch  37/50 | TrainLoss=0.9087 | ValLoss=2.0923 | ConceptAUC=0.8740 | ClassAcc=53.62% | LR=1.82e-04 | Elapsed=112.8min
+  [Checkpoint] Last (resume point) saved: epoch 37 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 38/50 | Batch 50/159 | Loss=0.9003 | LR=1.59e-04 | 113.7min
+  Ep 38/50 | Batch 100/159 | Loss=0.9123 | LR=1.59e-04 | 114.5min
+  Ep 38/50 | Batch 150/159 | Loss=0.8950 | LR=1.59e-04 | 115.3min
+Epoch  38/50 | TrainLoss=0.9009 | ValLoss=2.1098 | ConceptAUC=0.8746 | ClassAcc=53.50% | LR=1.59e-04 | Elapsed=115.9min
+  [Checkpoint] Last (resume point) saved: epoch 38 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 39/50 | Batch 50/159 | Loss=0.8729 | LR=1.36e-04 | 116.7min
+  Ep 39/50 | Batch 100/159 | Loss=0.8928 | LR=1.36e-04 | 117.5min
+  Ep 39/50 | Batch 150/159 | Loss=0.8871 | LR=1.36e-04 | 118.3min
+Epoch  39/50 | TrainLoss=0.8855 | ValLoss=2.0785 | ConceptAUC=0.8749 | ClassAcc=53.73% | LR=1.36e-04 | Elapsed=118.9min
+  [Checkpoint] Last (resume point) saved: epoch 39 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 40/50 | Batch 50/159 | Loss=0.8745 | LR=1.16e-04 | 119.8min
+  Ep 40/50 | Batch 100/159 | Loss=0.8834 | LR=1.16e-04 | 120.6min
+  Ep 40/50 | Batch 150/159 | Loss=0.8766 | LR=1.16e-04 | 121.4min
+Epoch  40/50 | TrainLoss=0.8779 | ValLoss=2.0746 | ConceptAUC=0.8746 | ClassAcc=54.51% | LR=1.16e-04 | Elapsed=122.0min
+  [Checkpoint] Last (resume point) saved: epoch 40 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 41/50 | Batch 50/159 | Loss=0.8485 | LR=9.64e-05 | 122.8min
+  Ep 41/50 | Batch 100/159 | Loss=0.8696 | LR=9.64e-05 | 123.6min
+  Ep 41/50 | Batch 150/159 | Loss=0.8901 | LR=9.64e-05 | 124.4min
+Epoch  41/50 | TrainLoss=0.8694 | ValLoss=2.0673 | ConceptAUC=0.8745 | ClassAcc=54.95% | LR=9.64e-05 | Elapsed=125.0min
+  [Checkpoint] Last (resume point) saved: epoch 41 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 42/50 | Batch 50/159 | Loss=0.8730 | LR=7.88e-05 | 125.9min
+  Ep 42/50 | Batch 100/159 | Loss=0.8581 | LR=7.88e-05 | 126.7min
+  Ep 42/50 | Batch 150/159 | Loss=0.8694 | LR=7.88e-05 | 127.5min
+Epoch  42/50 | TrainLoss=0.8667 | ValLoss=2.0764 | ConceptAUC=0.8755 | ClassAcc=54.95% | LR=7.88e-05 | Elapsed=128.1min
+  [Checkpoint] Last (resume point) saved: epoch 42 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 43/50 | Batch 50/159 | Loss=0.8405 | LR=6.28e-05 | 128.9min
+  Ep 43/50 | Batch 100/159 | Loss=0.8508 | LR=6.28e-05 | 129.7min
+  Ep 43/50 | Batch 150/159 | Loss=0.8555 | LR=6.28e-05 | 130.6min
+Epoch  43/50 | TrainLoss=0.8498 | ValLoss=2.0607 | ConceptAUC=0.8752 | ClassAcc=54.28% | LR=6.28e-05 | Elapsed=131.1min
+  [Checkpoint] Last (resume point) saved: epoch 43 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 44/50 | Batch 50/159 | Loss=0.8514 | LR=4.85e-05 | 132.0min
+  Ep 44/50 | Batch 100/159 | Loss=0.8459 | LR=4.85e-05 | 132.8min
+  Ep 44/50 | Batch 150/159 | Loss=0.8472 | LR=4.85e-05 | 133.6min
+Epoch  44/50 | TrainLoss=0.8476 | ValLoss=2.0637 | ConceptAUC=0.8749 | ClassAcc=54.51% | LR=4.85e-05 | Elapsed=134.2min
+  [Checkpoint] Last (resume point) saved: epoch 44 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 45/50 | Batch 50/159 | Loss=0.8585 | LR=3.61e-05 | 135.0min
+  Ep 45/50 | Batch 100/159 | Loss=0.8472 | LR=3.61e-05 | 135.8min
+  Ep 45/50 | Batch 150/159 | Loss=0.8562 | LR=3.61e-05 | 136.6min
+Epoch  45/50 | TrainLoss=0.8531 | ValLoss=2.0584 | ConceptAUC=0.8755 | ClassAcc=54.17% | LR=3.61e-05 | Elapsed=137.2min
+  [Checkpoint] Last (resume point) saved: epoch 45 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 46/50 | Batch 50/159 | Loss=0.8455 | LR=2.54e-05 | 138.0min
+  Ep 46/50 | Batch 100/159 | Loss=0.8357 | LR=2.54e-05 | 138.8min
+  Ep 46/50 | Batch 150/159 | Loss=0.8603 | LR=2.54e-05 | 139.7min
+Epoch  46/50 | TrainLoss=0.8459 | ValLoss=2.0567 | ConceptAUC=0.8750 | ClassAcc=54.51% | LR=2.54e-05 | Elapsed=140.2min
+  [Checkpoint] Last (resume point) saved: epoch 46 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 47/50 | Batch 50/159 | Loss=0.8459 | LR=1.67e-05 | 141.1min
+  Ep 47/50 | Batch 100/159 | Loss=0.8388 | LR=1.67e-05 | 141.9min
+  Ep 47/50 | Batch 150/159 | Loss=0.8460 | LR=1.67e-05 | 142.7min
+Epoch  47/50 | TrainLoss=0.8444 | ValLoss=2.0567 | ConceptAUC=0.8751 | ClassAcc=54.62% | LR=1.67e-05 | Elapsed=143.3min
+  [Checkpoint] Last (resume point) saved: epoch 47 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 48/50 | Batch 50/159 | Loss=0.8296 | LR=9.85e-06 | 144.1min
+  Ep 48/50 | Batch 100/159 | Loss=0.8428 | LR=9.85e-06 | 144.9min
+  Ep 48/50 | Batch 150/159 | Loss=0.8331 | LR=9.85e-06 | 145.7min
+Epoch  48/50 | TrainLoss=0.8344 | ValLoss=2.0586 | ConceptAUC=0.8752 | ClassAcc=54.39% | LR=9.85e-06 | Elapsed=146.3min
+  [Checkpoint] Last (resume point) saved: epoch 48 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 49/50 | Batch 50/159 | Loss=0.8306 | LR=4.94e-06 | 147.1min
+  Ep 49/50 | Batch 100/159 | Loss=0.8425 | LR=4.94e-06 | 147.9min
+  Ep 49/50 | Batch 150/159 | Loss=0.8613 | LR=4.94e-06 | 148.8min
+Epoch  49/50 | TrainLoss=0.8445 | ValLoss=2.0571 | ConceptAUC=0.8752 | ClassAcc=54.17% | LR=4.94e-06 | Elapsed=149.4min
+  [Checkpoint] Last (resume point) saved: epoch 49 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  Ep 50/50 | Batch 50/159 | Loss=0.8512 | LR=1.99e-06 | 150.2min
+  Ep 50/50 | Batch 100/159 | Loss=0.8401 | LR=1.99e-06 | 151.0min
+  Ep 50/50 | Batch 150/159 | Loss=0.8403 | LR=1.99e-06 | 151.8min
+Epoch  50/50 | TrainLoss=0.8422 | ValLoss=2.0566 | ConceptAUC=0.8752 | ClassAcc=54.28% | LR=1.99e-06 | Elapsed=152.4min
+  [Checkpoint] Last (resume point) saved: epoch 50 -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\last_mlp_notime.pth
+  [Checkpoint] Final epoch saved -> C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\ckpts\final_mlp_notime.pth
+
+[Train] Done in 152.4 min. Selected epoch 33 (held-out ClassAcc 55.06%, ConceptAUC 0.8749)
+
+[Test] Test split loaded now, for the first time: 5794 images
+  scored 40 batches
+  scored 80 batches
+  scored 120 batches
+  scored 160 batches
+  MLP-no-time (this run)  : acc 56.51%  concept AUC 0.8782  concept ECE 0.1069
+  learned_decoder (GRU)   : acc 59.48%  concept AUC 0.9194  concept ECE 0.0788
+  spike_rate (fair)       : acc 45.44%  concept AUC 0.8652  concept ECE 0.1193
+
+[Paired tests] 10,000 bootstrap resamples (seed 20260826) + exact McNemar
+  GRU - MLP-no-time                +2.97 pts, 95% CI [+1.90, +4.04] | McNemar p=8.52e-08 (learned_decoder right/mlp_notime wrong: 598, learned_decoder wrong/mlp_notime right: 426)
+  MLP-no-time - spike_rate         +11.06 pts, 95% CI [+9.80, +12.34] | McNemar p=1.48e-67 (mlp_notime right/spike_rate wrong: 1025, mlp_notime wrong/spike_rate right: 384)
+  GRU - spike_rate                 +14.03 pts, 95% CI [+12.72, +15.36] | McNemar p=1.81e-95 (learned_decoder right/spike_rate wrong: 1210, learned_decoder wrong/spike_rate right: 397)
+
+[Verdict] Mixed: the GRU is significantly better than MLP-no-time (+2.97 pts, CI [+1.90, +4.04]), but the extra parameters alone already recover 79% of the +14.03-pt GRU gain over spike_rate. Most of the gain is from PARAMETERS; time adds a smaller, real part.
+
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\results\mlp_notime_report.md
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\mlp_notime\results\mlp_notime.json
+
+[Guard] PROTECTED FILES UNCHANGED: all 161 pre-existing files verified.
+========================================================================
