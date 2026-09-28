@@ -1,0 +1,391 @@
+{
+  "device": "cuda (NVIDIA GeForce RTX 3050 6GB Laptop GPU)",
+  "constants": {
+    "E_MAC_pJ": 4.6,
+    "E_AC_pJ": 0.9,
+    "T": 4,
+    "tap": "layers.2.6.down.0"
+  },
+  "readout_head_macs": {
+    "concept_layer": 172032,
+    "head": 22400,
+    "gru": 5505024,
+    "gru_proj": 393216,
+    "total": 6092672
+  },
+  "ann_variants": [
+    {
+      "key": "r18_linear",
+      "label": "ResNet-18 + linear CBM (fair ANN)",
+      "backbone": "resnet18",
+      "feature_dim": 512,
+      "model_kind": "ann_fair",
+      "trained_in": "seeds/, ann_baseline_fair/",
+      "decoder": "none",
+      "trainable_params": 80056,
+      "backbone_macs": 1813561344.0,
+      "cbm_macs": 79744.0,
+      "total_macs": 1813641088.0,
+      "mj": 8.342749004799998,
+      "ratio_vs_snn_stem_once": 2.8012280942539554,
+      "ratio_vs_snn_stem_every_t": 1.8109484913099978
+    },
+    {
+      "key": "r18_mlp",
+      "label": "ResNet-18 + MLP 512-1841-512 (capacity-matched)",
+      "backbone": "resnet18",
+      "feature_dim": 512,
+      "model_kind": "ann18_mlp",
+      "trained_in": "seeds_extra/",
+      "decoder": "MLP 512->1841->512",
+      "trainable_params": 1967593,
+      "backbone_macs": 1813561344.0,
+      "cbm_macs": 1964928.0,
+      "total_macs": 1815526272.0,
+      "mj": 8.351420851199999,
+      "ratio_vs_snn_stem_once": 2.804139822720287,
+      "ratio_vs_snn_stem_every_t": 1.8128308764981313
+    },
+    {
+      "key": "r34_linear",
+      "label": "ResNet-34 + linear CBM",
+      "backbone": "resnet34",
+      "feature_dim": 512,
+      "model_kind": "ann34_linear",
+      "trained_in": "seeds_extra/",
+      "decoder": "none",
+      "trainable_params": 80056,
+      "backbone_macs": 3663249408.0,
+      "cbm_macs": 79744.0,
+      "total_macs": 3663329152.0,
+      "mj": 16.8513140992,
+      "ratio_vs_snn_stem_once": 5.658131924215604,
+      "ratio_vs_snn_stem_every_t": 3.657890441984922
+    },
+    {
+      "key": "r34_mlp",
+      "label": "ResNet-34 + MLP 512-1841-512 (capacity-matched)",
+      "backbone": "resnet34",
+      "feature_dim": 512,
+      "model_kind": "ann34_mlp",
+      "trained_in": "seeds_extra/",
+      "decoder": "MLP 512->1841->512",
+      "trainable_params": 1967593,
+      "backbone_macs": 3663249408.0,
+      "cbm_macs": 1964928.0,
+      "total_macs": 3665214336.0,
+      "mj": 16.8599859456,
+      "ratio_vs_snn_stem_once": 5.6610436526819345,
+      "ratio_vs_snn_stem_every_t": 3.659772827173055
+    },
+    {
+      "key": "r50_linear",
+      "label": "ResNet-50 + linear CBM",
+      "backbone": "resnet50",
+      "feature_dim": 2048,
+      "model_kind": "ann50_linear",
+      "trained_in": "seeds_round3/",
+      "decoder": "none",
+      "trainable_params": 252088,
+      "backbone_macs": 4087136256.0,
+      "cbm_macs": 251776.0,
+      "total_macs": 4087388032.0,
+      "mj": 18.8019849472,
+      "ratio_vs_snn_stem_once": 6.313104760976715,
+      "ratio_vs_snn_stem_every_t": 4.081319748943041
+    },
+    {
+      "key": "r50_mlp",
+      "label": "ResNet-50 + MLP 2048-418-2048 (capacity-matched)",
+      "backbone": "resnet50",
+      "feature_dim": 2048,
+      "model_kind": "ann50_mlp",
+      "trained_in": "seeds_round3/",
+      "decoder": "MLP 2048->418->2048",
+      "trainable_params": 1966682,
+      "backbone_macs": 4087136256.0,
+      "cbm_macs": 1963904.0,
+      "total_macs": 4089100160.0,
+      "mj": 18.809860735999997,
+      "ratio_vs_snn_stem_once": 6.315749198779922,
+      "ratio_vs_snn_stem_every_t": 4.083029335056326
+    }
+  ],
+  "snn_normal": {
+    "n_images": 160,
+    "truncated_at_tap": {
+      "ann_macs_per_image": 3917612928.0,
+      "ac_ops_per_image": 2674840523.7,
+      "stem_macs_every_t": 472055808.0,
+      "stem_macs_once": 118013952.0,
+      "ann_mj": 18.0210194688,
+      "snn_mj_stem_once": 2.9782469417299997,
+      "snn_mj_stem_every_t": 4.60683947933,
+      "ratio_stem_once": 6.050881549241842,
+      "ratio_stem_every_t": 3.9117966991593343
+    },
+    "full_backbone": {
+      "ann_macs_per_image": 4033602432.0,
+      "ac_ops_per_image": 2684228462.1,
+      "stem_macs_every_t": 473591808.0,
+      "stem_macs_once": 119549952.0,
+      "ann_mj": 18.554571187199997,
+      "snn_mj_stem_once": 2.9937616862899996,
+      "snn_mj_stem_every_t": 4.6223542238899995,
+      "ratio_stem_once": 6.197744888035371,
+      "ratio_stem_every_t": 4.014095477863479
+    },
+    "non_binary_input_layers": [
+      "prologue.0"
+    ]
+  },
+  "snn_stem_once_wrapper": {
+    "n_images": 160,
+    "truncated_at_tap": {
+      "ann_macs_per_image": 3829102464.0,
+      "ac_ops_per_image": 2674840523.7,
+      "stem_macs_every_t": 118013952.0,
+      "stem_macs_once": 118013952.0,
+      "ann_mj": 17.6138713344,
+      "snn_mj_stem_once": 2.9782469417299997,
+      "snn_mj_stem_every_t": 2.9782469417299997,
+      "ratio_stem_once": 5.914174237065943,
+      "ratio_stem_every_t": 5.914174237065943
+    },
+    "full_backbone": {
+      "ann_macs_per_image": 3945091968.0,
+      "ac_ops_per_image": 2684228462.1,
+      "stem_macs_every_t": 119549952.0,
+      "stem_macs_once": 119549952.0,
+      "ann_mj": 18.1474230528,
+      "snn_mj_stem_once": 2.9937616862899996,
+      "snn_mj_stem_every_t": 2.9937616862899996,
+      "ratio_stem_once": 6.061746042080284,
+      "ratio_stem_every_t": 6.061746042080284
+    },
+    "non_binary_input_layers": [
+      "net.prologue.0"
+    ]
+  },
+  "energy_crosscheck": {
+    "normal_snn_mj_stem_once": 2.9782469417299997,
+    "normal_snn_mj_stem_every_t": 4.60683947933,
+    "wrapper_snn_mj_as_executed": 2.9782469417299997,
+    "normal_stem_macs_every_t": 472055808.0,
+    "normal_stem_macs_once": 118013952.0,
+    "wrapper_stem_macs": 118013952.0,
+    "rel_diff": 0.0,
+    "wrapper_non_binary_input_layers": [
+      "net.prologue.0"
+    ]
+  },
+  "v1_crosscheck": {
+    "v1_n_images": 160,
+    "v1_snn_mj_stem_once": 2.9782469417299997,
+    "v1_ann_mj": 18.0210194688,
+    "v2_snn_mj_stem_once": 2.9782469417299997,
+    "v2_ann_mj": 18.0210194688
+  },
+  "table": [
+    {
+      "key": "same_arch",
+      "label": "SpikingResformer-Ti as dense ANN (same architecture, truncated at tap) + same GRU readout",
+      "model_kind": null,
+      "total_macs": 3917612928.0,
+      "backbone_macs": 3911520256.0,
+      "cbm_macs": 6092672,
+      "mj": 18.0210194688,
+      "ratio_vs_snn_stem_once": 6.050881549241842,
+      "ratio_vs_snn_stem_every_t": 3.9117966991593343
+    },
+    {
+      "key": "r18_linear",
+      "label": "ResNet-18 + linear CBM (fair ANN)",
+      "backbone": "resnet18",
+      "feature_dim": 512,
+      "model_kind": "ann_fair",
+      "trained_in": "seeds/, ann_baseline_fair/",
+      "decoder": "none",
+      "trainable_params": 80056,
+      "backbone_macs": 1813561344.0,
+      "cbm_macs": 79744.0,
+      "total_macs": 1813641088.0,
+      "mj": 8.342749004799998,
+      "ratio_vs_snn_stem_once": 2.8012280942539554,
+      "ratio_vs_snn_stem_every_t": 1.8109484913099978
+    },
+    {
+      "key": "r18_mlp",
+      "label": "ResNet-18 + MLP 512-1841-512 (capacity-matched)",
+      "backbone": "resnet18",
+      "feature_dim": 512,
+      "model_kind": "ann18_mlp",
+      "trained_in": "seeds_extra/",
+      "decoder": "MLP 512->1841->512",
+      "trainable_params": 1967593,
+      "backbone_macs": 1813561344.0,
+      "cbm_macs": 1964928.0,
+      "total_macs": 1815526272.0,
+      "mj": 8.351420851199999,
+      "ratio_vs_snn_stem_once": 2.804139822720287,
+      "ratio_vs_snn_stem_every_t": 1.8128308764981313
+    },
+    {
+      "key": "r34_linear",
+      "label": "ResNet-34 + linear CBM",
+      "backbone": "resnet34",
+      "feature_dim": 512,
+      "model_kind": "ann34_linear",
+      "trained_in": "seeds_extra/",
+      "decoder": "none",
+      "trainable_params": 80056,
+      "backbone_macs": 3663249408.0,
+      "cbm_macs": 79744.0,
+      "total_macs": 3663329152.0,
+      "mj": 16.8513140992,
+      "ratio_vs_snn_stem_once": 5.658131924215604,
+      "ratio_vs_snn_stem_every_t": 3.657890441984922
+    },
+    {
+      "key": "r34_mlp",
+      "label": "ResNet-34 + MLP 512-1841-512 (capacity-matched)",
+      "backbone": "resnet34",
+      "feature_dim": 512,
+      "model_kind": "ann34_mlp",
+      "trained_in": "seeds_extra/",
+      "decoder": "MLP 512->1841->512",
+      "trainable_params": 1967593,
+      "backbone_macs": 3663249408.0,
+      "cbm_macs": 1964928.0,
+      "total_macs": 3665214336.0,
+      "mj": 16.8599859456,
+      "ratio_vs_snn_stem_once": 5.6610436526819345,
+      "ratio_vs_snn_stem_every_t": 3.659772827173055
+    },
+    {
+      "key": "r50_linear",
+      "label": "ResNet-50 + linear CBM",
+      "backbone": "resnet50",
+      "feature_dim": 2048,
+      "model_kind": "ann50_linear",
+      "trained_in": "seeds_round3/",
+      "decoder": "none",
+      "trainable_params": 252088,
+      "backbone_macs": 4087136256.0,
+      "cbm_macs": 251776.0,
+      "total_macs": 4087388032.0,
+      "mj": 18.8019849472,
+      "ratio_vs_snn_stem_once": 6.313104760976715,
+      "ratio_vs_snn_stem_every_t": 4.081319748943041
+    },
+    {
+      "key": "r50_mlp",
+      "label": "ResNet-50 + MLP 2048-418-2048 (capacity-matched)",
+      "backbone": "resnet50",
+      "feature_dim": 2048,
+      "model_kind": "ann50_mlp",
+      "trained_in": "seeds_round3/",
+      "decoder": "MLP 2048->418->2048",
+      "trainable_params": 1966682,
+      "backbone_macs": 4087136256.0,
+      "cbm_macs": 1963904.0,
+      "total_macs": 4089100160.0,
+      "mj": 18.809860735999997,
+      "ratio_vs_snn_stem_once": 6.315749198779922,
+      "ratio_vs_snn_stem_every_t": 4.083029335056326
+    }
+  ],
+  "verification": {
+    "n": 5794,
+    "spike_mismatch": 0,
+    "spike_total": 6977273856,
+    "vmem_maxabs": 0.0,
+    "feat_maxabs": 0.0,
+    "cs_maxabs": 0.0,
+    "logits_maxabs": 0.0,
+    "pred_mismatch": 0,
+    "correct_normal": 3446,
+    "correct_once": 3446,
+    "sec_normal": 140.22660030000407,
+    "sec_once": 138.3641442000062,
+    "n_timed": 5762,
+    "acc_normal": 59.47531929582327,
+    "acc_once": 59.47531929582327,
+    "ms_per_image_normal": 24.336445730649785,
+    "ms_per_image_once": 24.01321489066404,
+    "speedup": 1.0134605400175474,
+    "wall_minutes": 5.1346168120702105,
+    "timing": {
+      "stem_T4": 0.5498450000004595,
+      "stem_T1": 0.1417031250070977
+    },
+    "pass": true,
+    "checks": {
+      "tap_spikes_identical": true,
+      "predictions_identical": true,
+      "accuracy_identical": true,
+      "full_test_split": true,
+      "normal_acc_is_59.48": true,
+      "stem_once_acc_is_59.48": true
+    },
+    "failure_explanation": []
+  },
+  "fast_recipe_context": {
+    "learned_decoder": {
+      "acc": 48.02669428144057,
+      "auc": 0.8980066823291878
+    },
+    "learned_decoder@perm": {
+      "acc": 38.073869520193306,
+      "auc": 0.8703120044930793
+    },
+    "mlp_notime": {
+      "acc": 47.980669658267175,
+      "auc": 0.8663560222229564
+    },
+    "spike_rate": {
+      "acc": 44.85099528247613,
+      "auc": 0.8652942955808637
+    },
+    "ann_fair": {
+      "acc": 56.178805661028655,
+      "auc": 0.8475104214421728
+    },
+    "snn_concat_mlp": {
+      "acc": 44.18363824646186,
+      "auc": 0.882942389832774
+    },
+    "ann18_mlp": {
+      "acc": 52.5716258198136,
+      "auc": 0.90931881226751
+    },
+    "ann34_linear": {
+      "acc": 58.04855597744793,
+      "auc": 0.8534880140188852
+    },
+    "ann34_mlp": {
+      "acc": 55.25256011966402,
+      "auc": 0.9165349421117569
+    },
+    "gru_shuffled": {
+      "acc": 49.91945690944655,
+      "auc": 0.9015617792657511
+    },
+    "ann50_linear": {
+      "acc": 60.982625704752046,
+      "auc": 0.8701695558705224
+    },
+    "ann50_mlp": {
+      "acc": 49.528247612472676,
+      "auc": 0.8953471988248145
+    },
+    "gru_shuffled@perm": {
+      "acc": 50.08054309055345,
+      "auc": 0.9055156654583704
+    }
+  },
+  "checkpoint": "cbm_checkpoints\\best_classacc_cbm_learned_decoder.pth",
+  "ckpt_epoch": 35,
+  "minutes": 5.391029445330302,
+  "dry_run": false
+}
