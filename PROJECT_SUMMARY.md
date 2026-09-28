@@ -1,5 +1,7 @@
 # SpikingResformer Concept Bottleneck Model (CBM): Consolidated Project Summary
 
+> **Updated results (September 2026):** several numbers below are out of date (energy ratio, ANN baseline, accuracy comparison). See [REVIEW_RESULTS.md](REVIEW_RESULTS.md) for the corrected, reviewed results. The text below is kept unchanged for history.
+
 ## 1. Project Overview & Pipeline
 
 This project implements an interpretable, energy-efficient **Spiking Concept Bottleneck Model (Spiking CBM)** for fine-grained visual classification on the **CUB-200-2011 dataset** (11,788 bird images across 200 species).

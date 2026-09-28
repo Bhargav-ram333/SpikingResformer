@@ -1,5 +1,7 @@
 # SpikingResformer + Calibrated Ante-Hoc Concept Bottlenecks
 
+> **Updated results (September 2026):** several numbers below are out of date (energy ratio, ANN baseline, accuracy comparison). See [REVIEW_RESULTS.md](REVIEW_RESULTS.md) for the corrected, reviewed results. The text below is kept unchanged for history.
+
 This repository is forked from [xyshi2000/SpikingResformer](https://github.com/xyshi2000/SpikingResformer) (CVPR 2024), used as the frozen spiking-vision backbone for an ante-hoc interpretable spiking concept bottleneck model (CBM) evaluated on CUB-200-2011 bird species classification.
 
 ## Project Overview
