@@ -1,0 +1,42 @@
+{
+  "k_views": 8,
+  "n_train_fit": 5095,
+  "view_param_seed": 20260929,
+  "dtype": "float16",
+  "augmentation": "train_mlp_notime.TRAIN_TF replayed from view_params.npz (RandomResizedCrop(224, scale=(0.7,1.0)), HorizontalFlip, ColorJitter(0.3,0.3,0.2))",
+  "backbones": {
+    "snn": {
+      "shape": [
+        4,
+        1536
+      ],
+      "label": "SpikingResformer-Ti (T=4)"
+    },
+    "r18": {
+      "shape": [
+        512
+      ],
+      "label": "ResNet-18"
+    },
+    "r34": {
+      "shape": [
+        512
+      ],
+      "label": "ResNet-34"
+    },
+    "r50": {
+      "shape": [
+        2048
+      ],
+      "label": "ResNet-50"
+    }
+  },
+  "eval_features": {
+    "snn": "seeds\\cache key 'snn' (float32, EVAL_TF)",
+    "r18": "seeds\\cache key 'ann' (float32, EVAL_TF)",
+    "r34": "seeds_extra\\cache key 'ann34' (float32, EVAL_TF)",
+    "r50": "seeds_round3\\cache key 'ann50' (float32, EVAL_TF)"
+  },
+  "bytes_on_disk": 751292416,
+  "built_at": "2026-09-28 17:56:41"
+}

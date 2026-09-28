@@ -1,6 +1,6 @@
 # SpikingResformer + Calibrated Ante-Hoc Concept Bottlenecks
 
-> **Updated results (September 2026):** the numbers below are out of date. Reviewed results: concept quality comparable to capacity-matched ANN backbones (AUC ≈ 0.90 vs 0.90–0.92), about 5.7–6× lower estimated energy, calibration accuracy-neutral and helpful for intervention. See [REVIEW_RESULTS.md](REVIEW_RESULTS.md). The text below is kept unchanged for history.
+> **Updated results (September 2026):** the numbers below are out of date. Reviewed results (3 seeds, augmentation, capacity-matched ANNs): class accuracy matches a capacity-matched ResNet-34 (58.6% vs 58.7%) at about 5.7× lower estimated compute energy; raw concept AUC slightly lower (0.917 vs 0.932); in-order spike decoding beats shuffled and time-averaged readouts; calibration is accuracy-neutral and improves intervention. See [REVIEW_RESULTS.md](REVIEW_RESULTS.md). The text below is kept unchanged for history.
 
 This repository is forked from [xyshi2000/SpikingResformer](https://github.com/xyshi2000/SpikingResformer) (CVPR 2024), used as the frozen spiking-vision backbone for an ante-hoc interpretable spiking concept bottleneck model (CBM) evaluated on CUB-200-2011 bird species classification.
 

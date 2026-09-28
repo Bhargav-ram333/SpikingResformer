@@ -1,0 +1,33 @@
+{
+  "view": 0,
+  "n": 5095,
+  "seconds": 180.37659239768982,
+  "stats": {
+    "snn": {
+      "max_abs": 0.8826530575752258,
+      "nonfinite": 0,
+      "max_fp16_abs_err": 0.00023919343948364258
+    },
+    "r18": {
+      "max_abs": 14.057517051696777,
+      "nonfinite": 0,
+      "max_fp16_abs_err": 0.0039014816284179688
+    },
+    "r34": {
+      "max_abs": 12.307674407958984,
+      "nonfinite": 0,
+      "max_fp16_abs_err": 0.0039052963256835938
+    },
+    "r50": {
+      "max_abs": 9.630541801452637,
+      "nonfinite": 0,
+      "max_fp16_abs_err": 0.003871917724609375
+    }
+  },
+  "files": {
+    "snn": "view0_snn.npy",
+    "r18": "view0_r18.npy",
+    "r34": "view0_r34.npy",
+    "r50": "view0_r50.npy"
+  }
+}
