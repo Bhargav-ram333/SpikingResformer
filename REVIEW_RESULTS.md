@@ -1,123 +1,122 @@
-# Review fixes: corrected results (September 2026)
+# Calibrated ante-hoc concept bottlenecks on a spiking vision backbone: reviewed results
 
-This file is the **current source of truth** for the project's claims. It replaces the headline numbers in `README.md` and `PROJECT_SUMMARY.md`, which are kept unchanged for history. Every number below comes from a report file in this repository (listed at the end). No original script, checkpoint or result file was modified by the review work.
+Last updated: 28 September 2026. This file is the **current source of truth** for the project's claims. It supersedes the headline numbers in `README.md` and `PROJECT_SUMMARY.md` (kept unchanged for history). Every number comes from a report in this repository (index at the end). No original script, checkpoint or result was modified during the review.
 
-> **Pending:** class accuracy vs. the ANN with the full (augmented) training recipe is currently backed by **one seed only**. Seeds 1 and 2 for the GRU and the fair ANN are being run; this file will be updated with the result.
-
----
-
-## Update after review round 2–3 (capacity-matched controls, 28 Sep 2026)
-
-**This update overrides the "vs fair ANN" rows in Section 1.** The fair ANN in Sections 1 and 4 had **no decoder** (80k trainable parameters vs 1.97M for the GRU model). With a decoder of the **same size** (fast cached recipe, no augmentation, seeds 0–2):
-
-| Model (all ≈1.97M trainable params) | Test acc | Concept AUC | Concept ECE |
-|:---|:---:|:---:|:---:|
-| SNN + GRU | 48.03 | 0.898 | 0.096 |
-| SNN + GRU trained on **shuffled** timesteps | 49.9 | 0.902 | 0.094 |
-| SNN + MLP on concatenated timesteps | 44.18 | 0.883 | 0.136 |
-| ResNet-18 + MLP | 52.57 | 0.909 | 0.100 |
-| ResNet-34 + MLP | 55.25 | 0.917 | 0.093 |
-| ResNet-50 + MLP (2048→418→2048, narrow bottleneck) | ≈49.5 | ≈0.895 | ≈0.101 |
-
-(Shuffled-GRU and ResNet-50 values are derived from the pooled gaps in `seeds_round3/results/seeds_round3_report.md`; see that report for exact per-seed numbers.)
-
-What changes:
-- **"SNN concepts beat the ANN" does not hold** against capacity-matched ANNs: ResNet-18 + MLP and ResNet-34 + MLP have higher concept AUC on all 3 seeds. The earlier advantage came from decoder capacity. ResNet-50 + MLP is roughly equal to the GRU, but its decoder is a narrow bottleneck, so it is not a clean comparison.
-- **Temporal order does not help:** a GRU trained on randomly shuffled timesteps is slightly *better* than the normal GRU (acc +1.89, AUC +0.004, ECE −0.002; all 3 seeds). The 3a drop under reordering reflects train/test mismatch, not information in the order.
-- **What still holds:** keeping per-timestep spike responses beats averaging them (GRU and shuffled GRU vs MLP-no-time); the GRU beats the concatenated-timestep MLP on all three metrics; calibration is accuracy-neutral and improves intervention; the SNN uses less energy.
-- **Honest framing:** a calibrated ante-hoc CBM on a frozen spiking backbone reaches concept quality comparable to ANN backbones with equal-size decoders, at lower estimated energy. Augmented-recipe versions of these comparisons are still pending.
+> **Status of the evidence.** All multi-seed comparisons in Sections 1 and 3 use the fast cached recipe **without data augmentation**, which penalises models with a decoder (they overfit; adding a decoder lowers ANN accuracy by 3–11 pts in this setting). They therefore **cannot settle the accuracy question**, and concept metrics are reported at the epoch selected for **accuracy**. Pending: (a) the same comparisons with augmentation (cached augmented views, 3 seeds), (b) concept metrics at epochs selected for held-out **concept AUC**. Sections 1 and 3 will be revised with those results.
 
 ---
 
-## 1. What the evidence supports
+## 1. Summary
 
-| Claim | Status | Evidence |
-|:---|:---|:---|
-| Temporal (GRU) decoding gives **more accurate concepts** than the fair ANN | **Holds on 3 seeds** | Concept AUC +0.0505 [+0.0483, +0.0527] (step 4) |
-| Temporal decoding gives **better-calibrated concepts** than the fair ANN | **Holds on 3 seeds** | Concept ECE −0.0252 [−0.0263, −0.0238] (step 4) |
-| Time (not extra parameters) improves concept quality | **Holds on 3 seeds** | GRU vs equal-size MLP without time: AUC +0.0317, ECE −0.0338 (step 4); seed-0 augmented: AUC 0.919 vs 0.878 (3c) |
-| Extra decoder parameters (not time) drive class accuracy | **Holds** | MLP-no-time vs spike_rate: +3.13 pts on 3 seeds (step 4); +11.06 pts seed 0 augmented (3c) |
-| The GRU decoder depends on spike order | **Holds** | Reversing the 4 time steps: −15.36 pts [14.10, 16.62] (3a) |
-| Calibration in the decision path is accuracy-neutral and improves intervention | **Holds (learned_decoder, 3 seeds)** | −0.07 pts [−0.55, +0.39]; accuracy at 25% intervention 81.64% vs 76.63% |
-| SNN inference uses less energy than the ANN (45 nm op-count estimate) | **Holds, corrected size** | 6.05× (stem computed once) / 3.91× (as the code runs now) |
-| GRU class accuracy matches or exceeds the fair ANN | **Seed 0 only (pending)** | 59.48% vs 57.23%, gap +2.24 [+0.88, +3.57] with augmentation; −8.15 without augmentation (3 seeds) |
+A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on top of a **frozen SpikingResformer-Ti** (T = 4 time steps). The review tested every earlier claim against fair controls, multiple seeds and corrected accounting.
 
-**One-line summary:** temporal decoding of spikes makes the concept bottleneck's concepts more accurate and better calibrated than both a time-blind decoder and an ANN backbone; class-accuracy gains come mainly from decoder capacity, and accuracy parity with the ANN is not yet established across seeds.
+**What the evidence supports**
+
+1. **Concept quality in the range of ANN backbones with equal-size decoders, not better** (no-augmentation recipe, accuracy-selected epochs): SNN + GRU concept AUC 0.898–0.902 vs 0.895–0.917 for ResNet-18/34/50 + equal-size MLP (3 seeds). To be re-checked with augmentation and AUC-selected epochs.
+2. **Lower estimated compute energy (memory traffic not counted):** 6.05× vs the same network run as a dense ANN, and 5.66× vs ResNet-34 (45 nm op-count estimate, verified stem-once implementation).
+3. **Calibration is accuracy-neutral and improves human intervention:** −0.07 pts accuracy [−0.55, +0.39]; 81.6% vs 76.6% accuracy when 25% of concepts are corrected (3 seeds).
+4. **Keeping per-time-step spike information helps concepts; time order does not.** GRU readouts beat time-averaged readouts on concept AUC (+0.032) and ECE (−0.034); a GRU trained on shuffled time steps is slightly *better* than the normal GRU (acc +1.89, AUC +0.004), so order carries no useful information here. Shuffled-time training is a free improvement.
+
+**What does not hold**
+
+- "The SNN gives better concepts than an ANN": true only against ANNs **without** a decoder; false against capacity-matched ANNs.
+- "The SNN is more accurate than the ANN": **not supported so far.** Without augmentation every ANN variant is more accurate (ResNet-34 + MLP +7.2 pts, ResNet-50 linear 61.0% vs 48.0%), but that recipe penalises decoders, so the accuracy question stays open until the augmented runs. The only augmented evidence is seed 0: GRU 59.48% vs linear ResNet-18 57.23%.
+- "Temporal order / dynamics drive the gains": no (shuffle control above).
+
+**Current best-supported claim (provisional):** a calibrated ante-hoc concept bottleneck on a frozen spiking backbone reaches concept quality and calibration in the range of capacity-matched ANN backbones at an estimated 5.7–6× lower compute energy; per-time-step spike information, not its order, drives the spiking readout's concept quality. Class accuracy relative to ANNs is unresolved.
 
 ---
 
 ## 2. Corrections to earlier claims
 
-| Earlier claim (README / PROJECT_SUMMARY) | Corrected | Why |
+| Earlier claim | Corrected | Why |
 |:---|:---|:---|
-| ANN baseline 58.82%; GRU "beats baseline" (+0.66 pts) | Fair ANN **57.23%**; GRU +2.24 pts, **one seed** | Old ANN trained on the full train split and selected its checkpoint on the test split. The fair ANN uses the same 5,095 / 899 split, held-out selection and recipe as the SNN (`ann_baseline_fair/`) |
-| Energy **7.27×** | **6.05×** (learned_decoder), **6.10×** (pre_reset_vmem), stem once, truncated at the tapped layer; **3.91× / 3.93×** with the stem recomputed every time step, as the code currently runs | The original counter under-counted conv MACs about 20× (182.9M vs 3.74G per image per step) and used one network-wide spike rate instead of per-layer rates (`energy_audit/`) |
-| pre_reset_vmem "1.15× more efficient" (README) | 6.10× / 3.93× | Same backbone as above; readout cost is negligible |
-| PROJECT_SUMMARY: learned_decoder 58.78% vs ANN 58.82% (+0.03) | Current checkpoint: **59.48%** vs fair ANN 57.23% | PROJECT_SUMMARY was written before the final checkpoint and before the fair baseline |
-| "Time is why the SNN works" (implied) | Time explains about **21%** of the GRU's +14-pt gain over spike_rate; **79%** comes from decoder parameters | 3c: equal-parameter MLP without time reaches 56.51% vs GRU 59.48% and spike_rate 45.44% |
-| ICRC "collapses at 75% / 100%" | In the calibration ablation (retrained heads, 3 seeds) there are **0** monotonicity violations and 98.3–98.5% accuracy at 100% intervention | The collapse result for the shipped head was not re-run in this review |
+| Energy **7.27×** | **6.05×** (same network, stem once) / **5.66×** (ResNet-34); 3.91× / 3.66× if the stem is recomputed every step | Old counter under-counted conv MACs ~20× and used one network-wide spike rate (`energy_audit/`, `energy_audit_v2/`) |
+| ANN baseline 58.82%, GRU "beats baseline" | Fair linear ANN 57.23% (seed 0); capacity-matched ANNs are stronger (Section 3) | Old ANN used the full train split and selected on test |
+| pre_reset_vmem "1.15× more efficient" | 6.10× / 3.93× (same backbone) | Same accounting fix |
+| "SNN concepts beat the ANN" (earlier version of this file) | Holds only vs ANNs without a decoder | Decoder capacity, not spiking, explained the gap |
+| "Time is why the SNN works" | Per-step information helps concepts; order does not; decoder parameters drive most accuracy gains | 3c, step 4, round 3 |
+| ICRC "collapses at 75% / 100%" | Retrained heads (3 seeds): 0 monotonicity violations, 98.3–98.5% at 100% | Shipped-head collapse not re-run in this review |
 
-Not re-checked in this review: the Cohen's d values in `gate_result.json` / PROJECT_SUMMARY Criterion A. Treat them with caution.
-
----
-
-## 3. What the decoder does (steps 3a–3c, seed 0, augmented recipe)
-
-| Model | Decoder params | Uses time order | Test acc | Concept AUC | Concept ECE |
-|:---|:---:|:---:|:---:|:---:|:---:|
-| spike_rate (no decoder) | 0 | No | 45.44% | 0.865 | 0.119 |
-| MLP without time | 1,771,584 | No | 56.51% | 0.878 | 0.107 |
-| GRU learned_decoder | 1,772,544 | Yes | 59.48% | 0.919 | 0.079 |
-| Fair ANN (ResNet-18) | — | — | 57.23% | 0.852 | 0.116 |
-
-- GRU − MLP: +2.97 pts [+1.90, +4.04], McNemar p = 8.5e−8.
-- MLP − spike_rate: +11.06 pts [+9.80, +12.34].
-- Timing shuffle (3a, no retraining): reversed −15.36 pts, averaged −4.59 pts, random orders −0.33 to −13.43 pts. The GRU was trained on natural order only, so reordered input is also out-of-distribution.
+Not re-checked: Cohen's d values in `gate_result.json` / PROJECT_SUMMARY Criterion A.
 
 ---
 
-## 4. Multi-seed check (step 4)
+## 3. Main comparison (fast cached recipe, NO augmentation, accuracy-selected epochs, seeds 0–2, mean ± std, test n = 5,794)
 
-Seeds 0, 1, 2. Both backbones are frozen, so features were cached once; **these runs train without augmentation** and are compared only with each other. The cache reproduces all four seed-0 checkpoints exactly (differences < 0.01 pts).
+| Model | Trainable params | Test acc | Concept AUC ↑ | Concept ECE ↓ |
+|:---|---:|:---:|:---:|:---:|
+| SNN + GRU | 1.97M | 48.03 ± 0.54 | 0.8980 ± 0.0025 | 0.0961 ± 0.0106 |
+| **SNN + GRU, time-shuffled training** | 1.97M | 49.92 ± 0.93 | 0.9016 ± 0.0024 | 0.0943 ± 0.0073 |
+| SNN + MLP, time-averaged | 1.97M | 47.98 ± 0.32 | 0.8664 ± 0.0004 | 0.1299 ± 0.0073 |
+| SNN + MLP, time steps concatenated | 1.97M | 44.18 ± 0.66 | 0.8829 ± 0.0010 | 0.1355 ± 0.0090 |
+| SNN spike rate, no decoder | 0.19M | 44.85 ± 0.34 | 0.8653 ± 0.0002 | 0.1217 ± 0.0004 |
+| ResNet-18, linear | 0.08M | 56.18 ± 0.63 | 0.8475 ± 0.0003 | 0.1213 ± 0.0033 |
+| ResNet-18 + MLP | 1.97M | 52.57 ± 0.50 | 0.9093 ± 0.0051 | 0.0995 ± 0.0266 |
+| ResNet-34, linear | 0.08M | 58.05 ± 0.38 | 0.8535 ± 0.0010 | 0.1198 ± 0.0050 |
+| **ResNet-34 + MLP** | 1.97M | 55.25 ± 0.13 | **0.9165 ± 0.0018** | **0.0925 ± 0.0099** |
+| ResNet-50, linear | 0.25M | **60.98 ± 0.50** | 0.8702 ± 0.0004 | 0.1059 ± 0.0051 |
+| ResNet-50 + MLP (2048→418→2048, narrow) | 1.97M | 49.53 ± 1.03 | 0.8953 ± 0.0008 | 0.1007 ± 0.0106 |
 
-| Model | Test acc (mean ± std) | Concept AUC | Concept ECE |
+ImageNet top-1 of the frozen backbones: SpikingResformer-Ti 74.4%, ResNet-18 69.8%, ResNet-34 73.3%, ResNet-50 76.1%.
+
+Key paired tests (bootstrap 10k, pooled over seeds):
+- GRU vs ResNet-34 + MLP: AUC −0.0185, ECE +0.0036, acc −7.23 (ANN better on all three).
+- GRU vs ResNet-18 + MLP: AUC −0.0113, acc −4.54; ECE −0.0033 (on average only).
+- GRU vs time-shuffled GRU: acc −1.89, AUC −0.0036, ECE +0.0019 (shuffled better, all seeds).
+- GRU vs concatenated-time MLP: acc +3.84, AUC +0.0151, ECE −0.0393 (GRU better, all seeds).
+- GRU vs time-averaged MLP: AUC +0.0317, ECE −0.0338 (all seeds); accuracy equal.
+
+Notes: without augmentation the decoder models overfit (train loss ≈ 0.1–0.15); the shipped augmented GRU reaches 59.48% / AUC 0.919 (seed 0). The ResNet-50 + MLP decoder is a narrow bottleneck forced by parameter matching, so it is not a clean "stronger backbone" test.
+
+---
+
+## 4. Energy (45 nm op-count estimate: 4.6 pJ/MAC, 0.9 pJ/AC)
+
+| Compared with | ANN energy | Ratio (SNN stem once, 2.978 mJ) | Ratio (stem every step, 4.607 mJ) |
 |:---|:---:|:---:|:---:|
-| GRU learned_decoder | 48.03 ± 0.54 | 0.8980 ± 0.0025 | 0.0961 ± 0.0106 |
-| MLP without time | 47.98 ± 0.32 | 0.8664 ± 0.0004 | 0.1299 ± 0.0073 |
-| spike_rate | 44.85 ± 0.34 | 0.8653 ± 0.0002 | 0.1217 ± 0.0004 |
-| Fair ANN | 56.18 (seeds 56.73 / 56.32 / 55.49) | ~0.848 | ~0.121 |
+| SpikingResformer-Ti as dense ANN (same architecture) | 18.02 mJ | **6.05×** | 3.91× |
+| ResNet-18 (+ linear or MLP) | 8.34 mJ | 2.80× | 1.81× |
+| **ResNet-34 (+ linear or MLP)** | 16.86 mJ | **5.66×** | 3.66× |
+| ResNet-50 (+ linear or MLP) | 18.81 mJ | 6.32× | 4.08× |
 
-| Comparison | Accuracy | Concept AUC | Concept ECE |
-|:---|:---|:---|:---|
-| GRU vs fair ANN | −8.15 (ANN better) | **+0.0505, all 3 seeds** | **−0.0252, all 3 seeds** |
-| GRU vs MLP without time | +0.05 (no difference) | **+0.0317, all 3 seeds** | **−0.0338, all 3 seeds** |
-| MLP vs spike_rate | **+3.13, all 3 seeds** | +0.0011 (no difference) | worse |
-
-Without augmentation the decoder models overfit (GRU train loss ≈ 0.15) while the ANN is barely affected (57.2% → 56.2%). This recipe therefore cannot confirm or reject the augmented accuracy result; it does confirm the concept-quality advantage.
+**Stem-once is implemented and verified** (`energy_audit_v2.py`): computing the stateless stem (Conv 7×7 → BN → MaxPool) once and reusing it for all 4 steps gives identical spikes (0 of 6.98 billion differ), identical predictions (0 of 5,794) and identical accuracy (59.48%), while cutting stem MACs from 472M to 118M per image. **Limitation:** this is a compute-only operation-count estimate. It **ignores memory traffic** (weight, activation and membrane-state reads/writes), which often dominates energy on real hardware, and an SNN must also store and update membrane potentials at every time step. The ratios are therefore upper bounds on the saving, not measurements; on a GPU the runtime is unchanged (24.3 vs 24.0 ms/image).
 
 ---
 
-## 5. Calibration ablation (system with vs. without the calibration novelty)
-
-Head retrained on raw vs. per-concept-Platt-calibrated concepts, 3 seeds each.
+## 5. Calibration ablation (system with vs without the calibration novelty; head retrained, 3 seeds)
 
 | Readout | Accuracy change | Accuracy at 25% intervention (without → with) |
 |:---|:---|:---|
-| learned_decoder | −0.07 pts [−0.55, +0.39] (no significant change) | 76.63% → 81.64% |
+| learned_decoder (GRU) | −0.07 pts [−0.55, +0.39] | 76.63% → 81.64% |
 | pre_reset_vmem | −1.29 pts [−1.96, −0.63] | 76.99% → 83.64% |
 
-Feeding calibrated concepts into the already-trained head **without** retraining costs −1.73 pts (learned_decoder) and −4.42 pts (pre_reset_vmem), which is why the shipped model keeps calibration display-only.
+Feeding calibrated concepts into the shipped head **without** retraining costs −1.73 / −4.42 pts, which is why the shipped model keeps calibration display-only.
 
 ---
 
-## 6. Where each number comes from
+## 6. Earlier single-seed analyses (augmented recipe, seed 0)
+
+| Model | Test acc | Concept AUC | Concept ECE |
+|:---|:---:|:---:|:---:|
+| spike_rate (no decoder) | 45.44% | 0.865 | 0.119 |
+| MLP, time-averaged | 56.51% | 0.878 | 0.107 |
+| GRU learned_decoder | 59.48% | 0.919 | 0.079 |
+| ResNet-18, linear (fair) | 57.23% | 0.852 | 0.116 |
+
+Timing shuffle at test time only (3a): reversed order −15.36 pts. Round 3 shows this reflects train/test order mismatch, not information in the order.
+
+---
+
+## 7. Where each number comes from
 
 | Topic | Script | Report |
 |:---|:---|:---|
 | Calibration ablation | `ablation_calibrated_head.py` | `ablation_calibration/results/` |
-| Energy (step 1) | `energy_audit.py` | `energy_audit/` |
-| Fair ANN (step 2) | `ann_baseline_fair.py` | `ann_baseline_fair/results/` |
-| Timing shuffle (3a) | `timing_shuffle_test.py` | `timing_shuffle/results/` |
-| spike_rate fair (3b) | `train_spike_rate_fair.py` | `spike_rate_fair/results/` |
-| MLP without time (3c) | `train_mlp_notime.py` | `mlp_notime/results/` |
-| Multi-seed (step 4) | `run_seeds.py` | `seeds/results/seeds_report.md` |
+| Energy v1 / v2 | `energy_audit.py`, `energy_audit_v2.py` | `energy_audit/`, `energy_audit_v2/` |
+| Fair linear ANN | `ann_baseline_fair.py` | `ann_baseline_fair/results/` |
+| Timing shuffle (test-time) | `timing_shuffle_test.py` | `timing_shuffle/results/` |
+| spike_rate, MLP-no-time (augmented) | `train_spike_rate_fair.py`, `train_mlp_notime.py` | `spike_rate_fair/`, `mlp_notime/` |
+| Multi-seed, cached | `run_seeds.py` | `seeds/results/` |
+| Capacity-matched ANNs, concat MLP | `run_seeds_extra.py` | `seeds_extra/results/` |
+| Time-shuffled GRU, ResNet-50 | `run_seeds_round3.py` | `seeds_round3/results/` |
