@@ -1,0 +1,720 @@
+========================================================================
+  MULTI-SEED CHECK (Step 4)  [2026-09-28 08:24:23]  mode: build-cache
+  Standalone -- existing files are read, never written.
+========================================================================
+[Guard] Fingerprinted 170 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\seeds
+[Env] device=cuda  seeds=(0, 1, 2)  models=('learned_decoder', 'mlp_notime', 'spike_rate', 'ann_fair')
+[Cache] Backbones: SpikingResformer-Ti (T=4, hooked LIF layers.2.6.down.0) and ImageNet ResNet-18, both frozen, eval mode, EVAL_TF (Resize 224), no augmentation.
+  [train_fit] 40/160 batches | 0.9 min
+  [train_fit] 80/160 batches | 1.7 min
+========================================================================
+  MULTI-SEED CHECK (Step 4)  [2026-09-28 08:53:55]  mode: build-cache
+  Standalone -- existing files are read, never written.
+========================================================================
+[Guard] Fingerprinted 170 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\seeds
+[Env] device=cuda  seeds=(0, 1, 2)  models=('learned_decoder', 'mlp_notime', 'spike_rate', 'ann_fair')
+[Cache] Backbones: SpikingResformer-Ti (T=4, hooked LIF layers.2.6.down.0) and ImageNet ResNet-18, both frozen, eval mode, EVAL_TF (Resize 224), no augmentation.
+  [train_fit] 40/160 batches | 0.7 min
+  [train_fit] 80/160 batches | 1.4 min
+  [train_fit] 120/160 batches | 2.0 min
+  [train_fit] 160/160 batches | 2.6 min
+[Cache] train_fit: 5095 images -> snn (5095, 4, 1536), ann (5095, 512) (2.7 min)
+[Cache] held_out: 899 images -> snn (899, 4, 1536), ann (899, 512) (3.1 min)
+  [test] 40/182 batches | 3.8 min
+  [test] 80/182 batches | 4.4 min
+  [test] 120/182 batches | 5.1 min
+  [test] 160/182 batches | 5.7 min
+[Cache] test: 5794 images -> snn (5794, 4, 1536), ann (5794, 512) (6.1 min)
+[Cache] Done in 6.1 min -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\cache
+
+[Guard] PROTECTED FILES UNCHANGED: all 170 pre-existing files verified.
+========================================================================
+========================================================================
+  MULTI-SEED CHECK (Step 4)  [2026-09-28 09:07:26]  mode: check-cache
+  Standalone -- existing files are read, never written.
+========================================================================
+[Guard] Fingerprinted 170 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\seeds
+[Env] device=cuda  seeds=(0, 1, 2)  models=('learned_decoder', 'mlp_notime', 'spike_rate', 'ann_fair')
+
+[Check] Existing seed-0 checkpoints evaluated from the cached features (tolerance 0.1 pt on test accuracy)
+  model                    reported   cached    diff | held-out ckpt  cached |    AUC    ECE
+  learned_decoder (GRU)       59.48    59.48  -0.005 |         57.62   57.62 | 0.9194 0.0788  PASS
+  MLP-no-time                 56.51    56.51  -0.003 |         55.06   55.06 | 0.8782 0.1069  PASS
+  spike_rate (no decoder)     45.44    45.44  +0.004 |         40.93   40.93 | 0.8652 0.1193  PASS
+  fair ANN (ResNet-18)        57.23    57.23  +0.002 |         56.51   56.51 | 0.8518 0.1160  PASS
+
+[Check] PASSED -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\cache\cache_check.json
+
+[Guard] PROTECTED FILES UNCHANGED: all 170 pre-existing files verified.
+========================================================================
+========================================================================
+  MULTI-SEED CHECK (Step 4)  [2026-09-28 09:50:42]  mode: full run
+  Standalone -- existing files are read, never written.
+========================================================================
+[Guard] Fingerprinted 170 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\seeds
+[Env] device=cuda  seeds=(0, 1, 2)  models=('learned_decoder', 'mlp_notime', 'spike_rate', 'ann_fair')
+
+[1/12] learned_decoder seed 0 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\learned_decoder_seed0
+  learned_decoder seed 0 | Ep  1/50 | TrainLoss=5.4884 | ValLoss=5.1329 | ValAUC=0.8334 | ValAcc=2.45% | LR=1.00e-03 | 0.0 min  *best*
+  learned_decoder seed 0 | Ep  2/50 | TrainLoss=4.6870 | ValLoss=4.4892 | ValAUC=0.8646 | ValAcc=7.79% | LR=9.99e-04 | 0.1 min  *best*
+  learned_decoder seed 0 | Ep  3/50 | TrainLoss=4.0684 | ValLoss=4.0813 | ValAUC=0.8726 | ValAcc=15.13% | LR=9.96e-04 | 0.1 min  *best*
+  learned_decoder seed 0 | Ep  4/50 | TrainLoss=3.5797 | ValLoss=3.7378 | ValAUC=0.8760 | ValAcc=22.25% | LR=9.91e-04 | 0.1 min  *best*
+  learned_decoder seed 0 | Ep  5/50 | TrainLoss=3.1655 | ValLoss=3.4477 | ValAUC=0.8772 | ValAcc=26.47% | LR=9.84e-04 | 0.1 min  *best*
+  learned_decoder seed 0 | Ep  6/50 | TrainLoss=2.8281 | ValLoss=3.2880 | ValAUC=0.8780 | ValAcc=29.70% | LR=9.76e-04 | 0.1 min  *best*
+  learned_decoder seed 0 | Ep  7/50 | TrainLoss=2.5046 | ValLoss=3.0725 | ValAUC=0.8774 | ValAcc=34.37% | LR=9.65e-04 | 0.2 min  *best*
+  learned_decoder seed 0 | Ep  8/50 | TrainLoss=2.2310 | ValLoss=2.9272 | ValAUC=0.8833 | ValAcc=36.37% | LR=9.52e-04 | 0.2 min  *best*
+  learned_decoder seed 0 | Ep  9/50 | TrainLoss=2.0006 | ValLoss=2.7712 | ValAUC=0.8850 | ValAcc=42.83% | LR=9.38e-04 | 0.2 min  *best*
+  learned_decoder seed 0 | Ep 10/50 | TrainLoss=1.7741 | ValLoss=2.7834 | ValAUC=0.8835 | ValAcc=39.49% | LR=9.22e-04 | 0.2 min
+  learned_decoder seed 0 | Ep 11/50 | TrainLoss=1.5986 | ValLoss=2.6246 | ValAUC=0.8874 | ValAcc=42.49% | LR=9.05e-04 | 0.2 min
+  learned_decoder seed 0 | Ep 12/50 | TrainLoss=1.4122 | ValLoss=2.5749 | ValAUC=0.8882 | ValAcc=41.82% | LR=8.85e-04 | 0.2 min
+  learned_decoder seed 0 | Ep 13/50 | TrainLoss=1.2666 | ValLoss=2.4898 | ValAUC=0.8859 | ValAcc=45.27% | LR=8.65e-04 | 0.3 min  *best*
+  learned_decoder seed 0 | Ep 14/50 | TrainLoss=1.1390 | ValLoss=2.5050 | ValAUC=0.8837 | ValAcc=43.94% | LR=8.42e-04 | 0.3 min
+  learned_decoder seed 0 | Ep 15/50 | TrainLoss=1.0201 | ValLoss=2.5076 | ValAUC=0.8863 | ValAcc=42.38% | LR=8.19e-04 | 0.3 min
+  learned_decoder seed 0 | Ep 16/50 | TrainLoss=0.9020 | ValLoss=2.4380 | ValAUC=0.8907 | ValAcc=44.61% | LR=7.94e-04 | 0.3 min
+  learned_decoder seed 0 | Ep 17/50 | TrainLoss=0.8108 | ValLoss=2.4395 | ValAUC=0.8921 | ValAcc=46.38% | LR=7.68e-04 | 0.3 min  *best*
+  learned_decoder seed 0 | Ep 18/50 | TrainLoss=0.7244 | ValLoss=2.4695 | ValAUC=0.8862 | ValAcc=45.38% | LR=7.41e-04 | 0.3 min
+  learned_decoder seed 0 | Ep 19/50 | TrainLoss=0.6509 | ValLoss=2.4056 | ValAUC=0.8924 | ValAcc=46.50% | LR=7.13e-04 | 0.4 min  *best*
+  learned_decoder seed 0 | Ep 20/50 | TrainLoss=0.5846 | ValLoss=2.4452 | ValAUC=0.8905 | ValAcc=47.16% | LR=6.84e-04 | 0.4 min  *best*
+  learned_decoder seed 0 | Ep 21/50 | TrainLoss=0.5344 | ValLoss=2.4448 | ValAUC=0.8896 | ValAcc=47.05% | LR=6.55e-04 | 0.4 min
+  learned_decoder seed 0 | Ep 22/50 | TrainLoss=0.4844 | ValLoss=2.5040 | ValAUC=0.8938 | ValAcc=45.05% | LR=6.25e-04 | 0.4 min
+  learned_decoder seed 0 | Ep 23/50 | TrainLoss=0.4425 | ValLoss=2.4580 | ValAUC=0.8920 | ValAcc=45.83% | LR=5.94e-04 | 0.4 min
+  learned_decoder seed 0 | Ep 24/50 | TrainLoss=0.4021 | ValLoss=2.4760 | ValAUC=0.8939 | ValAcc=45.16% | LR=5.63e-04 | 0.4 min
+  learned_decoder seed 0 | Ep 25/50 | TrainLoss=0.3716 | ValLoss=2.4702 | ValAUC=0.8930 | ValAcc=45.83% | LR=5.32e-04 | 0.5 min
+  learned_decoder seed 0 | Ep 26/50 | TrainLoss=0.3457 | ValLoss=2.4840 | ValAUC=0.8941 | ValAcc=45.05% | LR=5.01e-04 | 0.5 min
+  learned_decoder seed 0 | Ep 27/50 | TrainLoss=0.3202 | ValLoss=2.5022 | ValAUC=0.8941 | ValAcc=46.61% | LR=4.69e-04 | 0.5 min
+  learned_decoder seed 0 | Ep 28/50 | TrainLoss=0.2973 | ValLoss=2.5037 | ValAUC=0.8952 | ValAcc=45.83% | LR=4.38e-04 | 0.5 min
+  learned_decoder seed 0 | Ep 29/50 | TrainLoss=0.2802 | ValLoss=2.4881 | ValAUC=0.8975 | ValAcc=47.05% | LR=4.07e-04 | 0.5 min
+  learned_decoder seed 0 | Ep 30/50 | TrainLoss=0.2615 | ValLoss=2.5183 | ValAUC=0.8970 | ValAcc=46.61% | LR=3.76e-04 | 0.5 min
+  learned_decoder seed 0 | Ep 31/50 | TrainLoss=0.2482 | ValLoss=2.5512 | ValAUC=0.8975 | ValAcc=46.05% | LR=3.46e-04 | 0.6 min
+  learned_decoder seed 0 | Ep 32/50 | TrainLoss=0.2367 | ValLoss=2.5496 | ValAUC=0.8968 | ValAcc=46.05% | LR=3.17e-04 | 0.6 min
+  learned_decoder seed 0 | Ep 33/50 | TrainLoss=0.2245 | ValLoss=2.5593 | ValAUC=0.8979 | ValAcc=45.94% | LR=2.88e-04 | 0.6 min
+  learned_decoder seed 0 | Ep 34/50 | TrainLoss=0.2145 | ValLoss=2.5426 | ValAUC=0.8997 | ValAcc=45.72% | LR=2.60e-04 | 0.6 min
+  learned_decoder seed 0 | Ep 35/50 | TrainLoss=0.2040 | ValLoss=2.5901 | ValAUC=0.8998 | ValAcc=45.72% | LR=2.33e-04 | 0.6 min
+  learned_decoder seed 0 | Ep 36/50 | TrainLoss=0.1956 | ValLoss=2.5763 | ValAUC=0.8992 | ValAcc=45.49% | LR=2.07e-04 | 0.6 min
+  learned_decoder seed 0 | Ep 37/50 | TrainLoss=0.1889 | ValLoss=2.5951 | ValAUC=0.8995 | ValAcc=45.05% | LR=1.82e-04 | 0.7 min
+  learned_decoder seed 0 | Ep 38/50 | TrainLoss=0.1823 | ValLoss=2.6090 | ValAUC=0.8991 | ValAcc=44.83% | LR=1.59e-04 | 0.7 min
+  learned_decoder seed 0 | Ep 39/50 | TrainLoss=0.1778 | ValLoss=2.6144 | ValAUC=0.8994 | ValAcc=45.05% | LR=1.36e-04 | 0.7 min
+  learned_decoder seed 0 | Ep 40/50 | TrainLoss=0.1725 | ValLoss=2.6123 | ValAUC=0.9008 | ValAcc=44.83% | LR=1.16e-04 | 0.7 min
+  learned_decoder seed 0 | Ep 41/50 | TrainLoss=0.1683 | ValLoss=2.6163 | ValAUC=0.9008 | ValAcc=44.61% | LR=9.64e-05 | 0.7 min
+  learned_decoder seed 0 | Ep 42/50 | TrainLoss=0.1662 | ValLoss=2.6273 | ValAUC=0.8999 | ValAcc=44.38% | LR=7.88e-05 | 0.7 min
+  learned_decoder seed 0 | Ep 43/50 | TrainLoss=0.1625 | ValLoss=2.6233 | ValAUC=0.9011 | ValAcc=43.38% | LR=6.28e-05 | 0.7 min
+  learned_decoder seed 0 | Ep 44/50 | TrainLoss=0.1591 | ValLoss=2.6208 | ValAUC=0.9004 | ValAcc=43.72% | LR=4.85e-05 | 0.8 min
+  learned_decoder seed 0 | Ep 45/50 | TrainLoss=0.1581 | ValLoss=2.6345 | ValAUC=0.9004 | ValAcc=43.49% | LR=3.61e-05 | 0.8 min
+  learned_decoder seed 0 | Ep 46/50 | TrainLoss=0.1564 | ValLoss=2.6295 | ValAUC=0.9010 | ValAcc=44.38% | LR=2.54e-05 | 0.8 min
+  learned_decoder seed 0 | Ep 47/50 | TrainLoss=0.1551 | ValLoss=2.6314 | ValAUC=0.9010 | ValAcc=44.05% | LR=1.67e-05 | 0.8 min
+  learned_decoder seed 0 | Ep 48/50 | TrainLoss=0.1547 | ValLoss=2.6340 | ValAUC=0.9008 | ValAcc=43.83% | LR=9.85e-06 | 0.8 min
+  learned_decoder seed 0 | Ep 49/50 | TrainLoss=0.1542 | ValLoss=2.6316 | ValAUC=0.9010 | ValAcc=43.60% | LR=4.94e-06 | 0.8 min
+  learned_decoder seed 0 | Ep 50/50 | TrainLoss=0.1535 | ValLoss=2.6323 | ValAUC=0.9010 | ValAcc=43.72% | LR=1.99e-06 | 0.9 min
+  [Done] learned_decoder seed 0: epoch 20 (held-out 47.16%) -> test acc 47.95%  AUC 0.8951  ECE 0.1083
+  total elapsed this invocation: 0.9 min
+
+[2/12] mlp_notime seed 0 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\mlp_notime_seed0
+  mlp_notime seed 0 | Ep  1/50 | TrainLoss=5.5450 | ValLoss=5.2319 | ValAUC=0.8154 | ValAcc=1.78% | LR=1.00e-03 | 0.0 min  *best*
+  mlp_notime seed 0 | Ep  2/50 | TrainLoss=4.7879 | ValLoss=4.6030 | ValAUC=0.8488 | ValAcc=6.45% | LR=9.99e-04 | 0.0 min  *best*
+  mlp_notime seed 0 | Ep  3/50 | TrainLoss=4.1996 | ValLoss=4.1840 | ValAUC=0.8604 | ValAcc=12.79% | LR=9.96e-04 | 0.0 min  *best*
+  mlp_notime seed 0 | Ep  4/50 | TrainLoss=3.7477 | ValLoss=3.8869 | ValAUC=0.8669 | ValAcc=18.02% | LR=9.91e-04 | 0.1 min  *best*
+  mlp_notime seed 0 | Ep  5/50 | TrainLoss=3.3607 | ValLoss=3.6291 | ValAUC=0.8655 | ValAcc=25.92% | LR=9.84e-04 | 0.1 min  *best*
+  mlp_notime seed 0 | Ep  6/50 | TrainLoss=3.0444 | ValLoss=3.3969 | ValAUC=0.8656 | ValAcc=29.37% | LR=9.76e-04 | 0.1 min  *best*
+  mlp_notime seed 0 | Ep  7/50 | TrainLoss=2.7600 | ValLoss=3.2435 | ValAUC=0.8671 | ValAcc=32.15% | LR=9.65e-04 | 0.1 min  *best*
+  mlp_notime seed 0 | Ep  8/50 | TrainLoss=2.5060 | ValLoss=3.1621 | ValAUC=0.8691 | ValAcc=32.26% | LR=9.52e-04 | 0.1 min  *best*
+  mlp_notime seed 0 | Ep  9/50 | TrainLoss=2.3181 | ValLoss=2.9664 | ValAUC=0.8678 | ValAcc=39.04% | LR=9.38e-04 | 0.1 min  *best*
+  mlp_notime seed 0 | Ep 10/50 | TrainLoss=2.1106 | ValLoss=2.9297 | ValAUC=0.8674 | ValAcc=37.37% | LR=9.22e-04 | 0.1 min
+  mlp_notime seed 0 | Ep 11/50 | TrainLoss=1.9581 | ValLoss=2.8088 | ValAUC=0.8693 | ValAcc=41.16% | LR=9.05e-04 | 0.1 min  *best*
+  mlp_notime seed 0 | Ep 12/50 | TrainLoss=1.8054 | ValLoss=2.7321 | ValAUC=0.8683 | ValAcc=42.38% | LR=8.85e-04 | 0.2 min  *best*
+  mlp_notime seed 0 | Ep 13/50 | TrainLoss=1.6764 | ValLoss=2.6428 | ValAUC=0.8699 | ValAcc=45.05% | LR=8.65e-04 | 0.2 min  *best*
+  mlp_notime seed 0 | Ep 14/50 | TrainLoss=1.5771 | ValLoss=2.7239 | ValAUC=0.8670 | ValAcc=41.38% | LR=8.42e-04 | 0.2 min
+  mlp_notime seed 0 | Ep 15/50 | TrainLoss=1.4785 | ValLoss=2.6985 | ValAUC=0.8701 | ValAcc=43.38% | LR=8.19e-04 | 0.2 min
+  mlp_notime seed 0 | Ep 16/50 | TrainLoss=1.3833 | ValLoss=2.6106 | ValAUC=0.8660 | ValAcc=45.05% | LR=7.94e-04 | 0.2 min
+  mlp_notime seed 0 | Ep 17/50 | TrainLoss=1.2958 | ValLoss=2.5501 | ValAUC=0.8688 | ValAcc=45.72% | LR=7.68e-04 | 0.2 min  *best*
+  mlp_notime seed 0 | Ep 18/50 | TrainLoss=1.2148 | ValLoss=2.5567 | ValAUC=0.8660 | ValAcc=45.05% | LR=7.41e-04 | 0.2 min
+  mlp_notime seed 0 | Ep 19/50 | TrainLoss=1.1675 | ValLoss=2.5363 | ValAUC=0.8649 | ValAcc=44.27% | LR=7.13e-04 | 0.3 min
+  mlp_notime seed 0 | Ep 20/50 | TrainLoss=1.1005 | ValLoss=2.5175 | ValAUC=0.8658 | ValAcc=47.05% | LR=6.84e-04 | 0.3 min  *best*
+  mlp_notime seed 0 | Ep 21/50 | TrainLoss=1.0385 | ValLoss=2.5337 | ValAUC=0.8644 | ValAcc=44.83% | LR=6.55e-04 | 0.3 min
+  mlp_notime seed 0 | Ep 22/50 | TrainLoss=0.9995 | ValLoss=2.4875 | ValAUC=0.8659 | ValAcc=45.94% | LR=6.25e-04 | 0.3 min
+  mlp_notime seed 0 | Ep 23/50 | TrainLoss=0.9507 | ValLoss=2.4805 | ValAUC=0.8618 | ValAcc=46.83% | LR=5.94e-04 | 0.3 min
+  mlp_notime seed 0 | Ep 24/50 | TrainLoss=0.9044 | ValLoss=2.5385 | ValAUC=0.8642 | ValAcc=46.50% | LR=5.63e-04 | 0.3 min
+  mlp_notime seed 0 | Ep 25/50 | TrainLoss=0.8688 | ValLoss=2.5273 | ValAUC=0.8632 | ValAcc=45.83% | LR=5.32e-04 | 0.3 min
+  mlp_notime seed 0 | Ep 26/50 | TrainLoss=0.8347 | ValLoss=2.5574 | ValAUC=0.8624 | ValAcc=45.27% | LR=5.01e-04 | 0.3 min
+  mlp_notime seed 0 | Ep 27/50 | TrainLoss=0.8086 | ValLoss=2.5132 | ValAUC=0.8623 | ValAcc=46.16% | LR=4.69e-04 | 0.4 min
+  mlp_notime seed 0 | Ep 28/50 | TrainLoss=0.7721 | ValLoss=2.4937 | ValAUC=0.8627 | ValAcc=44.61% | LR=4.38e-04 | 0.4 min
+  mlp_notime seed 0 | Ep 29/50 | TrainLoss=0.7497 | ValLoss=2.5046 | ValAUC=0.8631 | ValAcc=45.27% | LR=4.07e-04 | 0.4 min
+  mlp_notime seed 0 | Ep 30/50 | TrainLoss=0.7199 | ValLoss=2.4708 | ValAUC=0.8629 | ValAcc=48.28% | LR=3.76e-04 | 0.4 min  *best*
+  mlp_notime seed 0 | Ep 31/50 | TrainLoss=0.7064 | ValLoss=2.5044 | ValAUC=0.8615 | ValAcc=46.50% | LR=3.46e-04 | 0.4 min
+  mlp_notime seed 0 | Ep 32/50 | TrainLoss=0.6825 | ValLoss=2.4947 | ValAUC=0.8628 | ValAcc=45.83% | LR=3.17e-04 | 0.4 min
+  mlp_notime seed 0 | Ep 33/50 | TrainLoss=0.6718 | ValLoss=2.5324 | ValAUC=0.8627 | ValAcc=46.50% | LR=2.88e-04 | 0.4 min
+  mlp_notime seed 0 | Ep 34/50 | TrainLoss=0.6503 | ValLoss=2.4930 | ValAUC=0.8620 | ValAcc=46.72% | LR=2.60e-04 | 0.5 min
+  mlp_notime seed 0 | Ep 35/50 | TrainLoss=0.6296 | ValLoss=2.4928 | ValAUC=0.8629 | ValAcc=46.16% | LR=2.33e-04 | 0.5 min
+  mlp_notime seed 0 | Ep 36/50 | TrainLoss=0.6201 | ValLoss=2.4935 | ValAUC=0.8626 | ValAcc=46.38% | LR=2.07e-04 | 0.5 min
+  mlp_notime seed 0 | Ep 37/50 | TrainLoss=0.6057 | ValLoss=2.4976 | ValAUC=0.8616 | ValAcc=46.16% | LR=1.82e-04 | 0.5 min
+  mlp_notime seed 0 | Ep 38/50 | TrainLoss=0.5929 | ValLoss=2.5298 | ValAUC=0.8610 | ValAcc=46.27% | LR=1.59e-04 | 0.5 min
+  mlp_notime seed 0 | Ep 39/50 | TrainLoss=0.5869 | ValLoss=2.5075 | ValAUC=0.8626 | ValAcc=47.05% | LR=1.36e-04 | 0.5 min
+  mlp_notime seed 0 | Ep 40/50 | TrainLoss=0.5765 | ValLoss=2.4978 | ValAUC=0.8619 | ValAcc=46.38% | LR=1.16e-04 | 0.5 min
+  mlp_notime seed 0 | Ep 41/50 | TrainLoss=0.5701 | ValLoss=2.5199 | ValAUC=0.8617 | ValAcc=45.83% | LR=9.64e-05 | 0.5 min
+  mlp_notime seed 0 | Ep 42/50 | TrainLoss=0.5641 | ValLoss=2.5127 | ValAUC=0.8609 | ValAcc=46.61% | LR=7.88e-05 | 0.6 min
+  mlp_notime seed 0 | Ep 43/50 | TrainLoss=0.5601 | ValLoss=2.5011 | ValAUC=0.8614 | ValAcc=47.05% | LR=6.28e-05 | 0.6 min
+  mlp_notime seed 0 | Ep 44/50 | TrainLoss=0.5538 | ValLoss=2.5027 | ValAUC=0.8615 | ValAcc=46.94% | LR=4.85e-05 | 0.6 min
+  mlp_notime seed 0 | Ep 45/50 | TrainLoss=0.5518 | ValLoss=2.5116 | ValAUC=0.8614 | ValAcc=46.83% | LR=3.61e-05 | 0.6 min
+  mlp_notime seed 0 | Ep 46/50 | TrainLoss=0.5509 | ValLoss=2.4997 | ValAUC=0.8616 | ValAcc=47.27% | LR=2.54e-05 | 0.6 min
+  mlp_notime seed 0 | Ep 47/50 | TrainLoss=0.5473 | ValLoss=2.5157 | ValAUC=0.8615 | ValAcc=46.94% | LR=1.67e-05 | 0.6 min
+  mlp_notime seed 0 | Ep 48/50 | TrainLoss=0.5454 | ValLoss=2.5067 | ValAUC=0.8615 | ValAcc=47.39% | LR=9.85e-06 | 0.6 min
+  mlp_notime seed 0 | Ep 49/50 | TrainLoss=0.5454 | ValLoss=2.5071 | ValAUC=0.8615 | ValAcc=47.27% | LR=4.94e-06 | 0.7 min
+  mlp_notime seed 0 | Ep 50/50 | TrainLoss=0.5419 | ValLoss=2.5070 | ValAUC=0.8614 | ValAcc=47.27% | LR=1.99e-06 | 0.7 min
+  [Done] mlp_notime seed 0: epoch 30 (held-out 48.28%) -> test acc 48.26%  AUC 0.8664  ECE 0.1222
+  total elapsed this invocation: 1.6 min
+
+[3/12] spike_rate seed 0 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\spike_rate_seed0
+  spike_rate seed 0 | Ep  1/50 | TrainLoss=5.7293 | ValLoss=5.7190 | ValAUC=0.6602 | ValAcc=0.33% | LR=1.00e-03 | 0.0 min  *best*
+  spike_rate seed 0 | Ep  2/50 | TrainLoss=5.4960 | ValLoss=5.6356 | ValAUC=0.7435 | ValAcc=1.56% | LR=9.99e-04 | 0.0 min  *best*
+  spike_rate seed 0 | Ep  3/50 | TrainLoss=5.2488 | ValLoss=5.4627 | ValAUC=0.7844 | ValAcc=3.00% | LR=9.96e-04 | 0.0 min  *best*
+  spike_rate seed 0 | Ep  4/50 | TrainLoss=4.9352 | ValLoss=5.2173 | ValAUC=0.8075 | ValAcc=4.45% | LR=9.91e-04 | 0.0 min  *best*
+  spike_rate seed 0 | Ep  5/50 | TrainLoss=4.5991 | ValLoss=4.9576 | ValAUC=0.8220 | ValAcc=5.78% | LR=9.84e-04 | 0.0 min  *best*
+  spike_rate seed 0 | Ep  6/50 | TrainLoss=4.2884 | ValLoss=4.7187 | ValAUC=0.8310 | ValAcc=8.01% | LR=9.76e-04 | 0.1 min  *best*
+  spike_rate seed 0 | Ep  7/50 | TrainLoss=4.0095 | ValLoss=4.5072 | ValAUC=0.8380 | ValAcc=11.79% | LR=9.65e-04 | 0.1 min  *best*
+  spike_rate seed 0 | Ep  8/50 | TrainLoss=3.7518 | ValLoss=4.3304 | ValAUC=0.8426 | ValAcc=15.24% | LR=9.52e-04 | 0.1 min  *best*
+  spike_rate seed 0 | Ep  9/50 | TrainLoss=3.5357 | ValLoss=4.1734 | ValAUC=0.8461 | ValAcc=17.69% | LR=9.38e-04 | 0.1 min  *best*
+  spike_rate seed 0 | Ep 10/50 | TrainLoss=3.3338 | ValLoss=4.0267 | ValAUC=0.8487 | ValAcc=17.35% | LR=9.22e-04 | 0.1 min
+  spike_rate seed 0 | Ep 11/50 | TrainLoss=3.1473 | ValLoss=3.8992 | ValAUC=0.8511 | ValAcc=22.80% | LR=9.05e-04 | 0.1 min  *best*
+  spike_rate seed 0 | Ep 12/50 | TrainLoss=2.9796 | ValLoss=3.7838 | ValAUC=0.8529 | ValAcc=26.25% | LR=8.85e-04 | 0.1 min  *best*
+  spike_rate seed 0 | Ep 13/50 | TrainLoss=2.8310 | ValLoss=3.6822 | ValAUC=0.8544 | ValAcc=26.25% | LR=8.65e-04 | 0.1 min
+  spike_rate seed 0 | Ep 14/50 | TrainLoss=2.6962 | ValLoss=3.5961 | ValAUC=0.8557 | ValAcc=26.81% | LR=8.42e-04 | 0.1 min  *best*
+  spike_rate seed 0 | Ep 15/50 | TrainLoss=2.5730 | ValLoss=3.5079 | ValAUC=0.8567 | ValAcc=29.03% | LR=8.19e-04 | 0.1 min  *best*
+  spike_rate seed 0 | Ep 16/50 | TrainLoss=2.4556 | ValLoss=3.4319 | ValAUC=0.8574 | ValAcc=28.59% | LR=7.94e-04 | 0.2 min
+  spike_rate seed 0 | Ep 17/50 | TrainLoss=2.3577 | ValLoss=3.3638 | ValAUC=0.8582 | ValAcc=30.70% | LR=7.68e-04 | 0.2 min  *best*
+  spike_rate seed 0 | Ep 18/50 | TrainLoss=2.2658 | ValLoss=3.3019 | ValAUC=0.8588 | ValAcc=32.70% | LR=7.41e-04 | 0.2 min  *best*
+  spike_rate seed 0 | Ep 19/50 | TrainLoss=2.1877 | ValLoss=3.2414 | ValAUC=0.8594 | ValAcc=34.15% | LR=7.13e-04 | 0.2 min  *best*
+  spike_rate seed 0 | Ep 20/50 | TrainLoss=2.1079 | ValLoss=3.1942 | ValAUC=0.8598 | ValAcc=34.82% | LR=6.84e-04 | 0.2 min  *best*
+  spike_rate seed 0 | Ep 21/50 | TrainLoss=2.0398 | ValLoss=3.1517 | ValAUC=0.8603 | ValAcc=34.04% | LR=6.55e-04 | 0.2 min
+  spike_rate seed 0 | Ep 22/50 | TrainLoss=1.9889 | ValLoss=3.1083 | ValAUC=0.8607 | ValAcc=35.82% | LR=6.25e-04 | 0.2 min  *best*
+  spike_rate seed 0 | Ep 23/50 | TrainLoss=1.9263 | ValLoss=3.0719 | ValAUC=0.8610 | ValAcc=35.93% | LR=5.94e-04 | 0.2 min  *best*
+  spike_rate seed 0 | Ep 24/50 | TrainLoss=1.8816 | ValLoss=3.0387 | ValAUC=0.8613 | ValAcc=36.15% | LR=5.63e-04 | 0.2 min  *best*
+  spike_rate seed 0 | Ep 25/50 | TrainLoss=1.8343 | ValLoss=3.0065 | ValAUC=0.8616 | ValAcc=36.82% | LR=5.32e-04 | 0.2 min  *best*
+  spike_rate seed 0 | Ep 26/50 | TrainLoss=1.7862 | ValLoss=2.9779 | ValAUC=0.8618 | ValAcc=36.15% | LR=5.01e-04 | 0.2 min
+  spike_rate seed 0 | Ep 27/50 | TrainLoss=1.7543 | ValLoss=2.9566 | ValAUC=0.8621 | ValAcc=37.60% | LR=4.69e-04 | 0.3 min  *best*
+  spike_rate seed 0 | Ep 28/50 | TrainLoss=1.7122 | ValLoss=2.9328 | ValAUC=0.8622 | ValAcc=38.15% | LR=4.38e-04 | 0.3 min  *best*
+  spike_rate seed 0 | Ep 29/50 | TrainLoss=1.6838 | ValLoss=2.9104 | ValAUC=0.8623 | ValAcc=38.04% | LR=4.07e-04 | 0.3 min
+  spike_rate seed 0 | Ep 30/50 | TrainLoss=1.6436 | ValLoss=2.8957 | ValAUC=0.8625 | ValAcc=37.26% | LR=3.76e-04 | 0.3 min
+  spike_rate seed 0 | Ep 31/50 | TrainLoss=1.6371 | ValLoss=2.8766 | ValAUC=0.8626 | ValAcc=38.38% | LR=3.46e-04 | 0.3 min  *best*
+  spike_rate seed 0 | Ep 32/50 | TrainLoss=1.6098 | ValLoss=2.8626 | ValAUC=0.8627 | ValAcc=38.38% | LR=3.17e-04 | 0.3 min
+  spike_rate seed 0 | Ep 33/50 | TrainLoss=1.5952 | ValLoss=2.8469 | ValAUC=0.8629 | ValAcc=37.60% | LR=2.88e-04 | 0.3 min
+  spike_rate seed 0 | Ep 34/50 | TrainLoss=1.5730 | ValLoss=2.8367 | ValAUC=0.8630 | ValAcc=38.38% | LR=2.60e-04 | 0.3 min
+  spike_rate seed 0 | Ep 35/50 | TrainLoss=1.5571 | ValLoss=2.8242 | ValAUC=0.8630 | ValAcc=38.71% | LR=2.33e-04 | 0.3 min  *best*
+  spike_rate seed 0 | Ep 36/50 | TrainLoss=1.5417 | ValLoss=2.8172 | ValAUC=0.8631 | ValAcc=38.71% | LR=2.07e-04 | 0.3 min
+  spike_rate seed 0 | Ep 37/50 | TrainLoss=1.5263 | ValLoss=2.8092 | ValAUC=0.8632 | ValAcc=39.49% | LR=1.82e-04 | 0.4 min  *best*
+  spike_rate seed 0 | Ep 38/50 | TrainLoss=1.5074 | ValLoss=2.8032 | ValAUC=0.8632 | ValAcc=39.15% | LR=1.59e-04 | 0.4 min
+  spike_rate seed 0 | Ep 39/50 | TrainLoss=1.5057 | ValLoss=2.7967 | ValAUC=0.8633 | ValAcc=39.38% | LR=1.36e-04 | 0.4 min
+  spike_rate seed 0 | Ep 40/50 | TrainLoss=1.5000 | ValLoss=2.7922 | ValAUC=0.8633 | ValAcc=38.93% | LR=1.16e-04 | 0.4 min
+  spike_rate seed 0 | Ep 41/50 | TrainLoss=1.4975 | ValLoss=2.7876 | ValAUC=0.8633 | ValAcc=39.04% | LR=9.64e-05 | 0.4 min
+  spike_rate seed 0 | Ep 42/50 | TrainLoss=1.4888 | ValLoss=2.7837 | ValAUC=0.8634 | ValAcc=39.49% | LR=7.88e-05 | 0.4 min
+  spike_rate seed 0 | Ep 43/50 | TrainLoss=1.4810 | ValLoss=2.7817 | ValAUC=0.8634 | ValAcc=39.82% | LR=6.28e-05 | 0.4 min  *best*
+  spike_rate seed 0 | Ep 44/50 | TrainLoss=1.4785 | ValLoss=2.7798 | ValAUC=0.8634 | ValAcc=39.49% | LR=4.85e-05 | 0.4 min
+  spike_rate seed 0 | Ep 45/50 | TrainLoss=1.4838 | ValLoss=2.7781 | ValAUC=0.8634 | ValAcc=39.49% | LR=3.61e-05 | 0.4 min
+  spike_rate seed 0 | Ep 46/50 | TrainLoss=1.4860 | ValLoss=2.7765 | ValAUC=0.8634 | ValAcc=39.93% | LR=2.54e-05 | 0.4 min  *best*
+  spike_rate seed 0 | Ep 47/50 | TrainLoss=1.4783 | ValLoss=2.7760 | ValAUC=0.8634 | ValAcc=39.82% | LR=1.67e-05 | 0.5 min
+  spike_rate seed 0 | Ep 48/50 | TrainLoss=1.4731 | ValLoss=2.7755 | ValAUC=0.8634 | ValAcc=39.82% | LR=9.85e-06 | 0.5 min
+  spike_rate seed 0 | Ep 49/50 | TrainLoss=1.4728 | ValLoss=2.7753 | ValAUC=0.8635 | ValAcc=39.82% | LR=4.94e-06 | 0.5 min
+  spike_rate seed 0 | Ep 50/50 | TrainLoss=1.4654 | ValLoss=2.7753 | ValAUC=0.8635 | ValAcc=39.82% | LR=1.99e-06 | 0.5 min
+  [Done] spike_rate seed 0: epoch 46 (held-out 39.93%) -> test acc 45.05%  AUC 0.8654  ECE 0.1216
+  total elapsed this invocation: 2.0 min
+
+[4/12] ann_fair seed 0 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\ann_fair_seed0
+  ann_fair seed 0 | Ep  1/50 | TrainLoss=5.4891 | ValLoss=5.1749 | ValAUC=0.8325 | ValAcc=5.78% | LR=1.00e-03 | 0.0 min  *best*
+  ann_fair seed 0 | Ep  2/50 | TrainLoss=4.6807 | ValLoss=4.4603 | ValAUC=0.8590 | ValAcc=16.46% | LR=9.99e-04 | 0.0 min  *best*
+  ann_fair seed 0 | Ep  3/50 | TrainLoss=4.0011 | ValLoss=3.9404 | ValAUC=0.8618 | ValAcc=26.81% | LR=9.96e-04 | 0.0 min  *best*
+  ann_fair seed 0 | Ep  4/50 | TrainLoss=3.4781 | ValLoss=3.5683 | ValAUC=0.8608 | ValAcc=32.70% | LR=9.91e-04 | 0.0 min  *best*
+  ann_fair seed 0 | Ep  5/50 | TrainLoss=3.0653 | ValLoss=3.2922 | ValAUC=0.8592 | ValAcc=38.71% | LR=9.84e-04 | 0.0 min  *best*
+  ann_fair seed 0 | Ep  6/50 | TrainLoss=2.7412 | ValLoss=3.0946 | ValAUC=0.8580 | ValAcc=41.38% | LR=9.76e-04 | 0.1 min  *best*
+  ann_fair seed 0 | Ep  7/50 | TrainLoss=2.4809 | ValLoss=2.9605 | ValAUC=0.8571 | ValAcc=43.05% | LR=9.65e-04 | 0.1 min  *best*
+  ann_fair seed 0 | Ep  8/50 | TrainLoss=2.2626 | ValLoss=2.8037 | ValAUC=0.8556 | ValAcc=47.83% | LR=9.52e-04 | 0.1 min  *best*
+  ann_fair seed 0 | Ep  9/50 | TrainLoss=2.0946 | ValLoss=2.7009 | ValAUC=0.8542 | ValAcc=48.94% | LR=9.38e-04 | 0.1 min  *best*
+  ann_fair seed 0 | Ep 10/50 | TrainLoss=1.9437 | ValLoss=2.6157 | ValAUC=0.8531 | ValAcc=49.94% | LR=9.22e-04 | 0.1 min  *best*
+  ann_fair seed 0 | Ep 11/50 | TrainLoss=1.8071 | ValLoss=2.5508 | ValAUC=0.8519 | ValAcc=50.17% | LR=9.05e-04 | 0.1 min  *best*
+  ann_fair seed 0 | Ep 12/50 | TrainLoss=1.6993 | ValLoss=2.4946 | ValAUC=0.8510 | ValAcc=51.72% | LR=8.85e-04 | 0.1 min  *best*
+  ann_fair seed 0 | Ep 13/50 | TrainLoss=1.6063 | ValLoss=2.4617 | ValAUC=0.8505 | ValAcc=51.61% | LR=8.65e-04 | 0.1 min
+  ann_fair seed 0 | Ep 14/50 | TrainLoss=1.5264 | ValLoss=2.4119 | ValAUC=0.8498 | ValAcc=53.39% | LR=8.42e-04 | 0.1 min  *best*
+  ann_fair seed 0 | Ep 15/50 | TrainLoss=1.4489 | ValLoss=2.3856 | ValAUC=0.8492 | ValAcc=51.72% | LR=8.19e-04 | 0.1 min
+  ann_fair seed 0 | Ep 16/50 | TrainLoss=1.3780 | ValLoss=2.3622 | ValAUC=0.8485 | ValAcc=52.84% | LR=7.94e-04 | 0.2 min
+  ann_fair seed 0 | Ep 17/50 | TrainLoss=1.3177 | ValLoss=2.3503 | ValAUC=0.8482 | ValAcc=51.72% | LR=7.68e-04 | 0.2 min
+  ann_fair seed 0 | Ep 18/50 | TrainLoss=1.2649 | ValLoss=2.3023 | ValAUC=0.8481 | ValAcc=50.72% | LR=7.41e-04 | 0.2 min
+  ann_fair seed 0 | Ep 19/50 | TrainLoss=1.2137 | ValLoss=2.2954 | ValAUC=0.8476 | ValAcc=51.84% | LR=7.13e-04 | 0.2 min
+  ann_fair seed 0 | Ep 20/50 | TrainLoss=1.1719 | ValLoss=2.2616 | ValAUC=0.8471 | ValAcc=52.73% | LR=6.84e-04 | 0.2 min
+  ann_fair seed 0 | Ep 21/50 | TrainLoss=1.1328 | ValLoss=2.2628 | ValAUC=0.8473 | ValAcc=52.39% | LR=6.55e-04 | 0.2 min
+  ann_fair seed 0 | Ep 22/50 | TrainLoss=1.1013 | ValLoss=2.2491 | ValAUC=0.8466 | ValAcc=53.62% | LR=6.25e-04 | 0.2 min  *best*
+  ann_fair seed 0 | Ep 23/50 | TrainLoss=1.0624 | ValLoss=2.2471 | ValAUC=0.8463 | ValAcc=53.95% | LR=5.94e-04 | 0.2 min  *best*
+  ann_fair seed 0 | Ep 24/50 | TrainLoss=1.0394 | ValLoss=2.2332 | ValAUC=0.8462 | ValAcc=55.06% | LR=5.63e-04 | 0.2 min  *best*
+  ann_fair seed 0 | Ep 25/50 | TrainLoss=1.0067 | ValLoss=2.2226 | ValAUC=0.8464 | ValAcc=52.84% | LR=5.32e-04 | 0.2 min
+  ann_fair seed 0 | Ep 26/50 | TrainLoss=0.9820 | ValLoss=2.2165 | ValAUC=0.8462 | ValAcc=53.95% | LR=5.01e-04 | 0.2 min
+  ann_fair seed 0 | Ep 27/50 | TrainLoss=0.9601 | ValLoss=2.2110 | ValAUC=0.8464 | ValAcc=53.84% | LR=4.69e-04 | 0.3 min
+  ann_fair seed 0 | Ep 28/50 | TrainLoss=0.9355 | ValLoss=2.2013 | ValAUC=0.8460 | ValAcc=54.62% | LR=4.38e-04 | 0.3 min
+  ann_fair seed 0 | Ep 29/50 | TrainLoss=0.9174 | ValLoss=2.1858 | ValAUC=0.8460 | ValAcc=54.51% | LR=4.07e-04 | 0.3 min
+  ann_fair seed 0 | Ep 30/50 | TrainLoss=0.8978 | ValLoss=2.1915 | ValAUC=0.8464 | ValAcc=54.51% | LR=3.76e-04 | 0.3 min
+  ann_fair seed 0 | Ep 31/50 | TrainLoss=0.8809 | ValLoss=2.1809 | ValAUC=0.8461 | ValAcc=55.17% | LR=3.46e-04 | 0.3 min  *best*
+  ann_fair seed 0 | Ep 32/50 | TrainLoss=0.8691 | ValLoss=2.1826 | ValAUC=0.8458 | ValAcc=54.06% | LR=3.17e-04 | 0.3 min
+  ann_fair seed 0 | Ep 33/50 | TrainLoss=0.8622 | ValLoss=2.1775 | ValAUC=0.8459 | ValAcc=54.39% | LR=2.88e-04 | 0.3 min
+  ann_fair seed 0 | Ep 34/50 | TrainLoss=0.8500 | ValLoss=2.1727 | ValAUC=0.8458 | ValAcc=54.62% | LR=2.60e-04 | 0.3 min
+  ann_fair seed 0 | Ep 35/50 | TrainLoss=0.8358 | ValLoss=2.1707 | ValAUC=0.8456 | ValAcc=55.06% | LR=2.33e-04 | 0.3 min
+  ann_fair seed 0 | Ep 36/50 | TrainLoss=0.8255 | ValLoss=2.1674 | ValAUC=0.8458 | ValAcc=55.06% | LR=2.07e-04 | 0.3 min
+  ann_fair seed 0 | Ep 37/50 | TrainLoss=0.8155 | ValLoss=2.1572 | ValAUC=0.8457 | ValAcc=55.39% | LR=1.82e-04 | 0.4 min  *best*
+  ann_fair seed 0 | Ep 38/50 | TrainLoss=0.8035 | ValLoss=2.1584 | ValAUC=0.8455 | ValAcc=55.73% | LR=1.59e-04 | 0.4 min  *best*
+  ann_fair seed 0 | Ep 39/50 | TrainLoss=0.8067 | ValLoss=2.1577 | ValAUC=0.8455 | ValAcc=55.28% | LR=1.36e-04 | 0.4 min
+  ann_fair seed 0 | Ep 40/50 | TrainLoss=0.7992 | ValLoss=2.1575 | ValAUC=0.8455 | ValAcc=55.51% | LR=1.16e-04 | 0.4 min
+  ann_fair seed 0 | Ep 41/50 | TrainLoss=0.7947 | ValLoss=2.1584 | ValAUC=0.8455 | ValAcc=54.73% | LR=9.64e-05 | 0.4 min
+  ann_fair seed 0 | Ep 42/50 | TrainLoss=0.7896 | ValLoss=2.1539 | ValAUC=0.8455 | ValAcc=54.73% | LR=7.88e-05 | 0.4 min
+  ann_fair seed 0 | Ep 43/50 | TrainLoss=0.7868 | ValLoss=2.1523 | ValAUC=0.8455 | ValAcc=55.17% | LR=6.28e-05 | 0.4 min
+  ann_fair seed 0 | Ep 44/50 | TrainLoss=0.7810 | ValLoss=2.1553 | ValAUC=0.8454 | ValAcc=55.06% | LR=4.85e-05 | 0.4 min
+  ann_fair seed 0 | Ep 45/50 | TrainLoss=0.7842 | ValLoss=2.1520 | ValAUC=0.8455 | ValAcc=55.51% | LR=3.61e-05 | 0.4 min
+  ann_fair seed 0 | Ep 46/50 | TrainLoss=0.7851 | ValLoss=2.1533 | ValAUC=0.8454 | ValAcc=55.39% | LR=2.54e-05 | 0.4 min
+  ann_fair seed 0 | Ep 47/50 | TrainLoss=0.7809 | ValLoss=2.1527 | ValAUC=0.8455 | ValAcc=55.28% | LR=1.67e-05 | 0.4 min
+  ann_fair seed 0 | Ep 48/50 | TrainLoss=0.7776 | ValLoss=2.1520 | ValAUC=0.8455 | ValAcc=55.39% | LR=9.85e-06 | 0.5 min
+  ann_fair seed 0 | Ep 49/50 | TrainLoss=0.7793 | ValLoss=2.1522 | ValAUC=0.8455 | ValAcc=55.39% | LR=4.94e-06 | 0.5 min
+  ann_fair seed 0 | Ep 50/50 | TrainLoss=0.7707 | ValLoss=2.1521 | ValAUC=0.8455 | ValAcc=55.39% | LR=1.99e-06 | 0.5 min
+  [Done] ann_fair seed 0: epoch 38 (held-out 55.73%) -> test acc 56.73%  AUC 0.8474  ECE 0.1190
+  total elapsed this invocation: 2.5 min
+
+[5/12] learned_decoder seed 1 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\learned_decoder_seed1
+  learned_decoder seed 1 | Ep  1/50 | TrainLoss=5.5018 | ValLoss=5.1622 | ValAUC=0.8265 | ValAcc=2.56% | LR=1.00e-03 | 0.0 min  *best*
+  learned_decoder seed 1 | Ep  2/50 | TrainLoss=4.7215 | ValLoss=4.5397 | ValAUC=0.8623 | ValAcc=7.12% | LR=9.99e-04 | 0.0 min  *best*
+  learned_decoder seed 1 | Ep  3/50 | TrainLoss=4.0941 | ValLoss=4.0967 | ValAUC=0.8707 | ValAcc=15.02% | LR=9.96e-04 | 0.0 min  *best*
+  learned_decoder seed 1 | Ep  4/50 | TrainLoss=3.5976 | ValLoss=3.7210 | ValAUC=0.8762 | ValAcc=21.47% | LR=9.91e-04 | 0.1 min  *best*
+  learned_decoder seed 1 | Ep  5/50 | TrainLoss=3.1746 | ValLoss=3.4819 | ValAUC=0.8724 | ValAcc=26.81% | LR=9.84e-04 | 0.1 min  *best*
+  learned_decoder seed 1 | Ep  6/50 | TrainLoss=2.8290 | ValLoss=3.2423 | ValAUC=0.8805 | ValAcc=32.48% | LR=9.76e-04 | 0.1 min  *best*
+  learned_decoder seed 1 | Ep  7/50 | TrainLoss=2.5274 | ValLoss=3.0766 | ValAUC=0.8816 | ValAcc=36.60% | LR=9.65e-04 | 0.1 min  *best*
+  learned_decoder seed 1 | Ep  8/50 | TrainLoss=2.2569 | ValLoss=2.8948 | ValAUC=0.8804 | ValAcc=37.37% | LR=9.52e-04 | 0.1 min  *best*
+  learned_decoder seed 1 | Ep  9/50 | TrainLoss=2.0014 | ValLoss=2.7604 | ValAUC=0.8861 | ValAcc=40.49% | LR=9.38e-04 | 0.1 min  *best*
+  learned_decoder seed 1 | Ep 10/50 | TrainLoss=1.7893 | ValLoss=2.7330 | ValAUC=0.8836 | ValAcc=43.72% | LR=9.22e-04 | 0.2 min  *best*
+  learned_decoder seed 1 | Ep 11/50 | TrainLoss=1.5917 | ValLoss=2.6185 | ValAUC=0.8858 | ValAcc=44.38% | LR=9.05e-04 | 0.2 min  *best*
+  learned_decoder seed 1 | Ep 12/50 | TrainLoss=1.4251 | ValLoss=2.6395 | ValAUC=0.8861 | ValAcc=43.27% | LR=8.85e-04 | 0.2 min
+  learned_decoder seed 1 | Ep 13/50 | TrainLoss=1.2725 | ValLoss=2.6114 | ValAUC=0.8849 | ValAcc=45.61% | LR=8.65e-04 | 0.2 min  *best*
+  learned_decoder seed 1 | Ep 14/50 | TrainLoss=1.1391 | ValLoss=2.5072 | ValAUC=0.8875 | ValAcc=45.83% | LR=8.42e-04 | 0.2 min  *best*
+  learned_decoder seed 1 | Ep 15/50 | TrainLoss=1.0003 | ValLoss=2.4362 | ValAUC=0.8885 | ValAcc=47.61% | LR=8.19e-04 | 0.2 min  *best*
+  learned_decoder seed 1 | Ep 16/50 | TrainLoss=0.8923 | ValLoss=2.4552 | ValAUC=0.8881 | ValAcc=46.94% | LR=7.94e-04 | 0.3 min
+  learned_decoder seed 1 | Ep 17/50 | TrainLoss=0.8012 | ValLoss=2.4194 | ValAUC=0.8925 | ValAcc=47.83% | LR=7.68e-04 | 0.3 min  *best*
+  learned_decoder seed 1 | Ep 18/50 | TrainLoss=0.7182 | ValLoss=2.4352 | ValAUC=0.8898 | ValAcc=45.38% | LR=7.41e-04 | 0.3 min
+  learned_decoder seed 1 | Ep 19/50 | TrainLoss=0.6424 | ValLoss=2.4412 | ValAUC=0.8879 | ValAcc=46.50% | LR=7.13e-04 | 0.3 min
+  learned_decoder seed 1 | Ep 20/50 | TrainLoss=0.5832 | ValLoss=2.4508 | ValAUC=0.8913 | ValAcc=46.50% | LR=6.84e-04 | 0.3 min
+  learned_decoder seed 1 | Ep 21/50 | TrainLoss=0.5324 | ValLoss=2.4835 | ValAUC=0.8917 | ValAcc=45.27% | LR=6.55e-04 | 0.3 min
+  learned_decoder seed 1 | Ep 22/50 | TrainLoss=0.4799 | ValLoss=2.4659 | ValAUC=0.8888 | ValAcc=47.05% | LR=6.25e-04 | 0.3 min
+  learned_decoder seed 1 | Ep 23/50 | TrainLoss=0.4393 | ValLoss=2.4543 | ValAUC=0.8908 | ValAcc=47.27% | LR=5.94e-04 | 0.4 min
+  learned_decoder seed 1 | Ep 24/50 | TrainLoss=0.4000 | ValLoss=2.4473 | ValAUC=0.8938 | ValAcc=46.94% | LR=5.63e-04 | 0.4 min
+  learned_decoder seed 1 | Ep 25/50 | TrainLoss=0.3692 | ValLoss=2.4635 | ValAUC=0.8951 | ValAcc=46.83% | LR=5.32e-04 | 0.4 min
+  learned_decoder seed 1 | Ep 26/50 | TrainLoss=0.3422 | ValLoss=2.4743 | ValAUC=0.8942 | ValAcc=48.39% | LR=5.01e-04 | 0.4 min  *best*
+  learned_decoder seed 1 | Ep 27/50 | TrainLoss=0.3199 | ValLoss=2.4706 | ValAUC=0.8965 | ValAcc=47.05% | LR=4.69e-04 | 0.4 min
+  learned_decoder seed 1 | Ep 28/50 | TrainLoss=0.2972 | ValLoss=2.5284 | ValAUC=0.8951 | ValAcc=46.16% | LR=4.38e-04 | 0.4 min
+  learned_decoder seed 1 | Ep 29/50 | TrainLoss=0.2793 | ValLoss=2.5179 | ValAUC=0.8958 | ValAcc=45.94% | LR=4.07e-04 | 0.5 min
+  learned_decoder seed 1 | Ep 30/50 | TrainLoss=0.2615 | ValLoss=2.5236 | ValAUC=0.8968 | ValAcc=46.38% | LR=3.76e-04 | 0.5 min
+  learned_decoder seed 1 | Ep 31/50 | TrainLoss=0.2478 | ValLoss=2.5073 | ValAUC=0.8969 | ValAcc=46.27% | LR=3.46e-04 | 0.5 min
+  learned_decoder seed 1 | Ep 32/50 | TrainLoss=0.2370 | ValLoss=2.5564 | ValAUC=0.8977 | ValAcc=45.49% | LR=3.17e-04 | 0.5 min
+  learned_decoder seed 1 | Ep 33/50 | TrainLoss=0.2239 | ValLoss=2.5346 | ValAUC=0.8980 | ValAcc=46.94% | LR=2.88e-04 | 0.5 min
+  learned_decoder seed 1 | Ep 34/50 | TrainLoss=0.2144 | ValLoss=2.5527 | ValAUC=0.8995 | ValAcc=47.16% | LR=2.60e-04 | 0.5 min
+  learned_decoder seed 1 | Ep 35/50 | TrainLoss=0.2043 | ValLoss=2.5502 | ValAUC=0.8982 | ValAcc=46.38% | LR=2.33e-04 | 0.6 min
+  learned_decoder seed 1 | Ep 36/50 | TrainLoss=0.1956 | ValLoss=2.5732 | ValAUC=0.8984 | ValAcc=46.27% | LR=2.07e-04 | 0.6 min
+  learned_decoder seed 1 | Ep 37/50 | TrainLoss=0.1895 | ValLoss=2.5814 | ValAUC=0.9004 | ValAcc=46.72% | LR=1.82e-04 | 0.6 min
+  learned_decoder seed 1 | Ep 38/50 | TrainLoss=0.1829 | ValLoss=2.5829 | ValAUC=0.8999 | ValAcc=46.61% | LR=1.59e-04 | 0.6 min
+  learned_decoder seed 1 | Ep 39/50 | TrainLoss=0.1774 | ValLoss=2.5958 | ValAUC=0.9001 | ValAcc=47.94% | LR=1.36e-04 | 0.6 min
+  learned_decoder seed 1 | Ep 40/50 | TrainLoss=0.1736 | ValLoss=2.6036 | ValAUC=0.9009 | ValAcc=46.61% | LR=1.16e-04 | 0.6 min
+  learned_decoder seed 1 | Ep 41/50 | TrainLoss=0.1677 | ValLoss=2.6126 | ValAUC=0.9004 | ValAcc=46.72% | LR=9.64e-05 | 0.7 min
+  learned_decoder seed 1 | Ep 42/50 | TrainLoss=0.1648 | ValLoss=2.6062 | ValAUC=0.9002 | ValAcc=46.27% | LR=7.88e-05 | 0.7 min
+  learned_decoder seed 1 | Ep 43/50 | TrainLoss=0.1624 | ValLoss=2.6120 | ValAUC=0.9009 | ValAcc=46.72% | LR=6.28e-05 | 0.7 min
+  learned_decoder seed 1 | Ep 44/50 | TrainLoss=0.1594 | ValLoss=2.6127 | ValAUC=0.9005 | ValAcc=47.27% | LR=4.85e-05 | 0.7 min
+  learned_decoder seed 1 | Ep 45/50 | TrainLoss=0.1578 | ValLoss=2.6091 | ValAUC=0.9006 | ValAcc=46.83% | LR=3.61e-05 | 0.7 min
+  learned_decoder seed 1 | Ep 46/50 | TrainLoss=0.1565 | ValLoss=2.6174 | ValAUC=0.9007 | ValAcc=46.38% | LR=2.54e-05 | 0.7 min
+  learned_decoder seed 1 | Ep 47/50 | TrainLoss=0.1547 | ValLoss=2.6195 | ValAUC=0.9009 | ValAcc=47.05% | LR=1.67e-05 | 0.8 min
+  learned_decoder seed 1 | Ep 48/50 | TrainLoss=0.1536 | ValLoss=2.6191 | ValAUC=0.9010 | ValAcc=46.50% | LR=9.85e-06 | 0.8 min
+  learned_decoder seed 1 | Ep 49/50 | TrainLoss=0.1546 | ValLoss=2.6221 | ValAUC=0.9010 | ValAcc=46.72% | LR=4.94e-06 | 0.8 min
+  learned_decoder seed 1 | Ep 50/50 | TrainLoss=0.1540 | ValLoss=2.6227 | ValAUC=0.9010 | ValAcc=46.50% | LR=1.99e-06 | 0.8 min
+  [Done] learned_decoder seed 1: epoch 26 (held-out 48.39%) -> test acc 47.53%  AUC 0.9000  ECE 0.0889
+  total elapsed this invocation: 3.3 min
+
+[6/12] mlp_notime seed 1 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\mlp_notime_seed1
+  mlp_notime seed 1 | Ep  1/50 | TrainLoss=5.5610 | ValLoss=5.2471 | ValAUC=0.8131 | ValAcc=2.11% | LR=1.00e-03 | 0.0 min  *best*
+  mlp_notime seed 1 | Ep  2/50 | TrainLoss=4.8210 | ValLoss=4.6277 | ValAUC=0.8461 | ValAcc=6.79% | LR=9.99e-04 | 0.0 min  *best*
+  mlp_notime seed 1 | Ep  3/50 | TrainLoss=4.2290 | ValLoss=4.2220 | ValAUC=0.8587 | ValAcc=12.12% | LR=9.96e-04 | 0.0 min  *best*
+  mlp_notime seed 1 | Ep  4/50 | TrainLoss=3.7683 | ValLoss=3.9087 | ValAUC=0.8640 | ValAcc=16.80% | LR=9.91e-04 | 0.1 min  *best*
+  mlp_notime seed 1 | Ep  5/50 | TrainLoss=3.3793 | ValLoss=3.6333 | ValAUC=0.8603 | ValAcc=25.58% | LR=9.84e-04 | 0.1 min  *best*
+  mlp_notime seed 1 | Ep  6/50 | TrainLoss=3.0483 | ValLoss=3.4736 | ValAUC=0.8657 | ValAcc=27.25% | LR=9.76e-04 | 0.1 min  *best*
+  mlp_notime seed 1 | Ep  7/50 | TrainLoss=2.7728 | ValLoss=3.2507 | ValAUC=0.8656 | ValAcc=31.70% | LR=9.65e-04 | 0.1 min  *best*
+  mlp_notime seed 1 | Ep  8/50 | TrainLoss=2.5334 | ValLoss=3.1612 | ValAUC=0.8654 | ValAcc=32.37% | LR=9.52e-04 | 0.1 min  *best*
+  mlp_notime seed 1 | Ep  9/50 | TrainLoss=2.3039 | ValLoss=2.9670 | ValAUC=0.8695 | ValAcc=37.60% | LR=9.38e-04 | 0.1 min  *best*
+  mlp_notime seed 1 | Ep 10/50 | TrainLoss=2.1291 | ValLoss=2.9041 | ValAUC=0.8662 | ValAcc=38.60% | LR=9.22e-04 | 0.1 min  *best*
+  mlp_notime seed 1 | Ep 11/50 | TrainLoss=1.9645 | ValLoss=2.8082 | ValAUC=0.8677 | ValAcc=39.27% | LR=9.05e-04 | 0.1 min  *best*
+  mlp_notime seed 1 | Ep 12/50 | TrainLoss=1.8206 | ValLoss=2.7389 | ValAUC=0.8688 | ValAcc=40.82% | LR=8.85e-04 | 0.2 min  *best*
+  mlp_notime seed 1 | Ep 13/50 | TrainLoss=1.6966 | ValLoss=2.8388 | ValAUC=0.8676 | ValAcc=40.04% | LR=8.65e-04 | 0.2 min
+  mlp_notime seed 1 | Ep 14/50 | TrainLoss=1.5915 | ValLoss=2.7255 | ValAUC=0.8682 | ValAcc=42.83% | LR=8.42e-04 | 0.2 min  *best*
+  mlp_notime seed 1 | Ep 15/50 | TrainLoss=1.4627 | ValLoss=2.6137 | ValAUC=0.8667 | ValAcc=44.61% | LR=8.19e-04 | 0.2 min  *best*
+  mlp_notime seed 1 | Ep 16/50 | TrainLoss=1.3769 | ValLoss=2.6015 | ValAUC=0.8668 | ValAcc=45.05% | LR=7.94e-04 | 0.2 min  *best*
+  mlp_notime seed 1 | Ep 17/50 | TrainLoss=1.3021 | ValLoss=2.5590 | ValAUC=0.8672 | ValAcc=45.38% | LR=7.68e-04 | 0.2 min  *best*
+  mlp_notime seed 1 | Ep 18/50 | TrainLoss=1.2297 | ValLoss=2.5519 | ValAUC=0.8658 | ValAcc=46.83% | LR=7.41e-04 | 0.2 min  *best*
+  mlp_notime seed 1 | Ep 19/50 | TrainLoss=1.1594 | ValLoss=2.5031 | ValAUC=0.8660 | ValAcc=46.27% | LR=7.13e-04 | 0.3 min
+  mlp_notime seed 1 | Ep 20/50 | TrainLoss=1.0994 | ValLoss=2.4800 | ValAUC=0.8668 | ValAcc=45.83% | LR=6.84e-04 | 0.3 min
+  mlp_notime seed 1 | Ep 21/50 | TrainLoss=1.0554 | ValLoss=2.4880 | ValAUC=0.8649 | ValAcc=45.27% | LR=6.55e-04 | 0.3 min
+  mlp_notime seed 1 | Ep 22/50 | TrainLoss=0.9952 | ValLoss=2.4748 | ValAUC=0.8638 | ValAcc=47.39% | LR=6.25e-04 | 0.3 min  *best*
+  mlp_notime seed 1 | Ep 23/50 | TrainLoss=0.9512 | ValLoss=2.5160 | ValAUC=0.8633 | ValAcc=45.49% | LR=5.94e-04 | 0.3 min
+  mlp_notime seed 1 | Ep 24/50 | TrainLoss=0.9181 | ValLoss=2.4817 | ValAUC=0.8640 | ValAcc=46.27% | LR=5.63e-04 | 0.3 min
+  mlp_notime seed 1 | Ep 25/50 | TrainLoss=0.8747 | ValLoss=2.4630 | ValAUC=0.8644 | ValAcc=46.50% | LR=5.32e-04 | 0.3 min
+  mlp_notime seed 1 | Ep 26/50 | TrainLoss=0.8364 | ValLoss=2.4831 | ValAUC=0.8665 | ValAcc=46.61% | LR=5.01e-04 | 0.4 min
+  mlp_notime seed 1 | Ep 27/50 | TrainLoss=0.8102 | ValLoss=2.4628 | ValAUC=0.8628 | ValAcc=46.83% | LR=4.69e-04 | 0.4 min
+  mlp_notime seed 1 | Ep 28/50 | TrainLoss=0.7776 | ValLoss=2.5392 | ValAUC=0.8622 | ValAcc=44.72% | LR=4.38e-04 | 0.4 min
+  mlp_notime seed 1 | Ep 29/50 | TrainLoss=0.7568 | ValLoss=2.4758 | ValAUC=0.8617 | ValAcc=45.38% | LR=4.07e-04 | 0.4 min
+  mlp_notime seed 1 | Ep 30/50 | TrainLoss=0.7289 | ValLoss=2.4951 | ValAUC=0.8622 | ValAcc=46.61% | LR=3.76e-04 | 0.4 min
+  mlp_notime seed 1 | Ep 31/50 | TrainLoss=0.7116 | ValLoss=2.4565 | ValAUC=0.8624 | ValAcc=46.50% | LR=3.46e-04 | 0.4 min
+  mlp_notime seed 1 | Ep 32/50 | TrainLoss=0.6914 | ValLoss=2.5219 | ValAUC=0.8627 | ValAcc=44.38% | LR=3.17e-04 | 0.4 min
+  mlp_notime seed 1 | Ep 33/50 | TrainLoss=0.6669 | ValLoss=2.4836 | ValAUC=0.8620 | ValAcc=44.72% | LR=2.88e-04 | 0.4 min
+  mlp_notime seed 1 | Ep 34/50 | TrainLoss=0.6580 | ValLoss=2.4751 | ValAUC=0.8620 | ValAcc=46.94% | LR=2.60e-04 | 0.5 min
+  mlp_notime seed 1 | Ep 35/50 | TrainLoss=0.6370 | ValLoss=2.5060 | ValAUC=0.8617 | ValAcc=45.72% | LR=2.33e-04 | 0.5 min
+  mlp_notime seed 1 | Ep 36/50 | TrainLoss=0.6212 | ValLoss=2.4811 | ValAUC=0.8622 | ValAcc=45.94% | LR=2.07e-04 | 0.5 min
+  mlp_notime seed 1 | Ep 37/50 | TrainLoss=0.6130 | ValLoss=2.4845 | ValAUC=0.8625 | ValAcc=46.50% | LR=1.82e-04 | 0.5 min
+  mlp_notime seed 1 | Ep 38/50 | TrainLoss=0.6035 | ValLoss=2.4949 | ValAUC=0.8626 | ValAcc=45.83% | LR=1.59e-04 | 0.5 min
+  mlp_notime seed 1 | Ep 39/50 | TrainLoss=0.5933 | ValLoss=2.4833 | ValAUC=0.8620 | ValAcc=45.72% | LR=1.36e-04 | 0.5 min
+  mlp_notime seed 1 | Ep 40/50 | TrainLoss=0.5868 | ValLoss=2.4939 | ValAUC=0.8623 | ValAcc=44.94% | LR=1.16e-04 | 0.5 min
+  mlp_notime seed 1 | Ep 41/50 | TrainLoss=0.5755 | ValLoss=2.4942 | ValAUC=0.8619 | ValAcc=45.38% | LR=9.64e-05 | 0.6 min
+  mlp_notime seed 1 | Ep 42/50 | TrainLoss=0.5741 | ValLoss=2.5012 | ValAUC=0.8619 | ValAcc=45.61% | LR=7.88e-05 | 0.6 min
+  mlp_notime seed 1 | Ep 43/50 | TrainLoss=0.5673 | ValLoss=2.5118 | ValAUC=0.8619 | ValAcc=44.83% | LR=6.28e-05 | 0.6 min
+  mlp_notime seed 1 | Ep 44/50 | TrainLoss=0.5603 | ValLoss=2.4944 | ValAUC=0.8618 | ValAcc=45.72% | LR=4.85e-05 | 0.6 min
+  mlp_notime seed 1 | Ep 45/50 | TrainLoss=0.5577 | ValLoss=2.4953 | ValAUC=0.8616 | ValAcc=45.05% | LR=3.61e-05 | 0.6 min
+  mlp_notime seed 1 | Ep 46/50 | TrainLoss=0.5562 | ValLoss=2.4884 | ValAUC=0.8617 | ValAcc=45.72% | LR=2.54e-05 | 0.6 min
+  mlp_notime seed 1 | Ep 47/50 | TrainLoss=0.5529 | ValLoss=2.4994 | ValAUC=0.8618 | ValAcc=45.38% | LR=1.67e-05 | 0.6 min
+  mlp_notime seed 1 | Ep 48/50 | TrainLoss=0.5468 | ValLoss=2.4941 | ValAUC=0.8618 | ValAcc=45.61% | LR=9.85e-06 | 0.6 min
+  mlp_notime seed 1 | Ep 49/50 | TrainLoss=0.5498 | ValLoss=2.4937 | ValAUC=0.8618 | ValAcc=45.61% | LR=4.94e-06 | 0.7 min
+  mlp_notime seed 1 | Ep 50/50 | TrainLoss=0.5513 | ValLoss=2.4931 | ValAUC=0.8618 | ValAcc=45.61% | LR=1.99e-06 | 0.7 min
+  [Done] mlp_notime seed 1: epoch 22 (held-out 47.39%) -> test acc 48.05%  AUC 0.8668  ECE 0.1367
+  total elapsed this invocation: 4.0 min
+
+[7/12] spike_rate seed 1 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\spike_rate_seed1
+  spike_rate seed 1 | Ep  1/50 | TrainLoss=5.7315 | ValLoss=5.7164 | ValAUC=0.6574 | ValAcc=1.00% | LR=1.00e-03 | 0.0 min  *best*
+  spike_rate seed 1 | Ep  2/50 | TrainLoss=5.4989 | ValLoss=5.6411 | ValAUC=0.7417 | ValAcc=1.33% | LR=9.99e-04 | 0.0 min  *best*
+  spike_rate seed 1 | Ep  3/50 | TrainLoss=5.2552 | ValLoss=5.4717 | ValAUC=0.7838 | ValAcc=2.56% | LR=9.96e-04 | 0.0 min  *best*
+  spike_rate seed 1 | Ep  4/50 | TrainLoss=4.9439 | ValLoss=5.2195 | ValAUC=0.8080 | ValAcc=3.67% | LR=9.91e-04 | 0.0 min  *best*
+  spike_rate seed 1 | Ep  5/50 | TrainLoss=4.6099 | ValLoss=4.9645 | ValAUC=0.8222 | ValAcc=4.67% | LR=9.84e-04 | 0.0 min  *best*
+  spike_rate seed 1 | Ep  6/50 | TrainLoss=4.2988 | ValLoss=4.7263 | ValAUC=0.8316 | ValAcc=7.56% | LR=9.76e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep  7/50 | TrainLoss=4.0214 | ValLoss=4.5269 | ValAUC=0.8379 | ValAcc=10.46% | LR=9.65e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep  8/50 | TrainLoss=3.7743 | ValLoss=4.3391 | ValAUC=0.8427 | ValAcc=14.46% | LR=9.52e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep  9/50 | TrainLoss=3.5493 | ValLoss=4.1806 | ValAUC=0.8464 | ValAcc=17.46% | LR=9.38e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep 10/50 | TrainLoss=3.3487 | ValLoss=4.0338 | ValAUC=0.8491 | ValAcc=20.80% | LR=9.22e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep 11/50 | TrainLoss=3.1656 | ValLoss=3.9095 | ValAUC=0.8513 | ValAcc=21.69% | LR=9.05e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep 12/50 | TrainLoss=2.9979 | ValLoss=3.7954 | ValAUC=0.8529 | ValAcc=23.80% | LR=8.85e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep 13/50 | TrainLoss=2.8450 | ValLoss=3.6865 | ValAUC=0.8543 | ValAcc=26.70% | LR=8.65e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep 14/50 | TrainLoss=2.7022 | ValLoss=3.5911 | ValAUC=0.8555 | ValAcc=27.81% | LR=8.42e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep 15/50 | TrainLoss=2.5683 | ValLoss=3.5034 | ValAUC=0.8565 | ValAcc=29.25% | LR=8.19e-04 | 0.1 min  *best*
+  spike_rate seed 1 | Ep 16/50 | TrainLoss=2.4613 | ValLoss=3.4356 | ValAUC=0.8574 | ValAcc=29.48% | LR=7.94e-04 | 0.2 min  *best*
+  spike_rate seed 1 | Ep 17/50 | TrainLoss=2.3642 | ValLoss=3.3613 | ValAUC=0.8581 | ValAcc=30.92% | LR=7.68e-04 | 0.2 min  *best*
+  spike_rate seed 1 | Ep 18/50 | TrainLoss=2.2640 | ValLoss=3.3032 | ValAUC=0.8587 | ValAcc=33.26% | LR=7.41e-04 | 0.2 min  *best*
+  spike_rate seed 1 | Ep 19/50 | TrainLoss=2.1790 | ValLoss=3.2397 | ValAUC=0.8592 | ValAcc=32.15% | LR=7.13e-04 | 0.2 min
+  spike_rate seed 1 | Ep 20/50 | TrainLoss=2.1077 | ValLoss=3.1963 | ValAUC=0.8597 | ValAcc=34.82% | LR=6.84e-04 | 0.2 min  *best*
+  spike_rate seed 1 | Ep 21/50 | TrainLoss=2.0461 | ValLoss=3.1483 | ValAUC=0.8602 | ValAcc=34.37% | LR=6.55e-04 | 0.2 min
+  spike_rate seed 1 | Ep 22/50 | TrainLoss=1.9856 | ValLoss=3.1091 | ValAUC=0.8606 | ValAcc=34.71% | LR=6.25e-04 | 0.2 min
+  spike_rate seed 1 | Ep 23/50 | TrainLoss=1.9290 | ValLoss=3.0689 | ValAUC=0.8608 | ValAcc=36.15% | LR=5.94e-04 | 0.2 min  *best*
+  spike_rate seed 1 | Ep 24/50 | TrainLoss=1.8779 | ValLoss=3.0325 | ValAUC=0.8611 | ValAcc=37.26% | LR=5.63e-04 | 0.2 min  *best*
+  spike_rate seed 1 | Ep 25/50 | TrainLoss=1.8342 | ValLoss=3.0073 | ValAUC=0.8614 | ValAcc=36.71% | LR=5.32e-04 | 0.2 min
+  spike_rate seed 1 | Ep 26/50 | TrainLoss=1.7898 | ValLoss=2.9778 | ValAUC=0.8616 | ValAcc=37.49% | LR=5.01e-04 | 0.2 min  *best*
+  spike_rate seed 1 | Ep 27/50 | TrainLoss=1.7502 | ValLoss=2.9528 | ValAUC=0.8618 | ValAcc=37.49% | LR=4.69e-04 | 0.3 min
+  spike_rate seed 1 | Ep 28/50 | TrainLoss=1.7136 | ValLoss=2.9323 | ValAUC=0.8619 | ValAcc=37.37% | LR=4.38e-04 | 0.3 min
+  spike_rate seed 1 | Ep 29/50 | TrainLoss=1.6816 | ValLoss=2.9100 | ValAUC=0.8621 | ValAcc=38.38% | LR=4.07e-04 | 0.3 min  *best*
+  spike_rate seed 1 | Ep 30/50 | TrainLoss=1.6515 | ValLoss=2.8914 | ValAUC=0.8622 | ValAcc=38.82% | LR=3.76e-04 | 0.3 min  *best*
+  spike_rate seed 1 | Ep 31/50 | TrainLoss=1.6308 | ValLoss=2.8757 | ValAUC=0.8624 | ValAcc=39.04% | LR=3.46e-04 | 0.3 min  *best*
+  spike_rate seed 1 | Ep 32/50 | TrainLoss=1.6101 | ValLoss=2.8613 | ValAUC=0.8625 | ValAcc=39.49% | LR=3.17e-04 | 0.3 min  *best*
+  spike_rate seed 1 | Ep 33/50 | TrainLoss=1.5886 | ValLoss=2.8485 | ValAUC=0.8626 | ValAcc=39.38% | LR=2.88e-04 | 0.3 min
+  spike_rate seed 1 | Ep 34/50 | TrainLoss=1.5795 | ValLoss=2.8355 | ValAUC=0.8627 | ValAcc=39.60% | LR=2.60e-04 | 0.3 min  *best*
+  spike_rate seed 1 | Ep 35/50 | TrainLoss=1.5627 | ValLoss=2.8248 | ValAUC=0.8627 | ValAcc=39.71% | LR=2.33e-04 | 0.3 min  *best*
+  spike_rate seed 1 | Ep 36/50 | TrainLoss=1.5366 | ValLoss=2.8159 | ValAUC=0.8628 | ValAcc=40.38% | LR=2.07e-04 | 0.3 min  *best*
+  spike_rate seed 1 | Ep 37/50 | TrainLoss=1.5291 | ValLoss=2.8082 | ValAUC=0.8629 | ValAcc=40.60% | LR=1.82e-04 | 0.4 min  *best*
+  spike_rate seed 1 | Ep 38/50 | TrainLoss=1.5248 | ValLoss=2.8026 | ValAUC=0.8629 | ValAcc=40.27% | LR=1.59e-04 | 0.4 min
+  spike_rate seed 1 | Ep 39/50 | TrainLoss=1.5200 | ValLoss=2.7957 | ValAUC=0.8630 | ValAcc=40.38% | LR=1.36e-04 | 0.4 min
+  spike_rate seed 1 | Ep 40/50 | TrainLoss=1.5138 | ValLoss=2.7908 | ValAUC=0.8630 | ValAcc=40.38% | LR=1.16e-04 | 0.4 min
+  spike_rate seed 1 | Ep 41/50 | TrainLoss=1.4938 | ValLoss=2.7870 | ValAUC=0.8631 | ValAcc=40.82% | LR=9.64e-05 | 0.4 min  *best*
+  spike_rate seed 1 | Ep 42/50 | TrainLoss=1.4970 | ValLoss=2.7838 | ValAUC=0.8631 | ValAcc=40.93% | LR=7.88e-05 | 0.4 min  *best*
+  spike_rate seed 1 | Ep 43/50 | TrainLoss=1.4914 | ValLoss=2.7813 | ValAUC=0.8631 | ValAcc=40.60% | LR=6.28e-05 | 0.4 min
+  spike_rate seed 1 | Ep 44/50 | TrainLoss=1.4819 | ValLoss=2.7794 | ValAUC=0.8631 | ValAcc=40.60% | LR=4.85e-05 | 0.4 min
+  spike_rate seed 1 | Ep 45/50 | TrainLoss=1.4818 | ValLoss=2.7780 | ValAUC=0.8631 | ValAcc=40.93% | LR=3.61e-05 | 0.4 min
+  spike_rate seed 1 | Ep 46/50 | TrainLoss=1.4799 | ValLoss=2.7768 | ValAUC=0.8631 | ValAcc=40.93% | LR=2.54e-05 | 0.5 min
+  spike_rate seed 1 | Ep 47/50 | TrainLoss=1.4794 | ValLoss=2.7760 | ValAUC=0.8631 | ValAcc=40.93% | LR=1.67e-05 | 0.5 min
+  spike_rate seed 1 | Ep 48/50 | TrainLoss=1.4677 | ValLoss=2.7756 | ValAUC=0.8631 | ValAcc=40.93% | LR=9.85e-06 | 0.5 min
+  spike_rate seed 1 | Ep 49/50 | TrainLoss=1.4732 | ValLoss=2.7754 | ValAUC=0.8631 | ValAcc=40.82% | LR=4.94e-06 | 0.5 min
+  spike_rate seed 1 | Ep 50/50 | TrainLoss=1.4721 | ValLoss=2.7753 | ValAUC=0.8631 | ValAcc=40.82% | LR=1.99e-06 | 0.5 min
+  [Done] spike_rate seed 1: epoch 42 (held-out 40.93%) -> test acc 44.46%  AUC 0.8651  ECE 0.1222
+  total elapsed this invocation: 4.5 min
+
+[8/12] ann_fair seed 1 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\ann_fair_seed1
+  ann_fair seed 1 | Ep  1/50 | TrainLoss=5.4930 | ValLoss=5.1571 | ValAUC=0.8348 | ValAcc=5.12% | LR=1.00e-03 | 0.0 min  *best*
+  ann_fair seed 1 | Ep  2/50 | TrainLoss=4.6806 | ValLoss=4.4741 | ValAUC=0.8575 | ValAcc=15.91% | LR=9.99e-04 | 0.0 min  *best*
+  ann_fair seed 1 | Ep  3/50 | TrainLoss=4.0182 | ValLoss=3.9609 | ValAUC=0.8599 | ValAcc=26.81% | LR=9.96e-04 | 0.0 min  *best*
+  ann_fair seed 1 | Ep  4/50 | TrainLoss=3.4944 | ValLoss=3.5864 | ValAUC=0.8595 | ValAcc=32.37% | LR=9.91e-04 | 0.0 min  *best*
+  ann_fair seed 1 | Ep  5/50 | TrainLoss=3.0827 | ValLoss=3.3232 | ValAUC=0.8579 | ValAcc=35.93% | LR=9.84e-04 | 0.0 min  *best*
+  ann_fair seed 1 | Ep  6/50 | TrainLoss=2.7487 | ValLoss=3.0942 | ValAUC=0.8560 | ValAcc=42.38% | LR=9.76e-04 | 0.1 min  *best*
+  ann_fair seed 1 | Ep  7/50 | TrainLoss=2.4872 | ValLoss=2.9504 | ValAUC=0.8543 | ValAcc=45.05% | LR=9.65e-04 | 0.1 min  *best*
+  ann_fair seed 1 | Ep  8/50 | TrainLoss=2.2811 | ValLoss=2.8064 | ValAUC=0.8540 | ValAcc=46.50% | LR=9.52e-04 | 0.1 min  *best*
+  ann_fair seed 1 | Ep  9/50 | TrainLoss=2.0959 | ValLoss=2.7115 | ValAUC=0.8528 | ValAcc=47.50% | LR=9.38e-04 | 0.1 min  *best*
+  ann_fair seed 1 | Ep 10/50 | TrainLoss=1.9555 | ValLoss=2.6257 | ValAUC=0.8518 | ValAcc=48.61% | LR=9.22e-04 | 0.1 min  *best*
+  ann_fair seed 1 | Ep 11/50 | TrainLoss=1.8211 | ValLoss=2.5742 | ValAUC=0.8514 | ValAcc=49.39% | LR=9.05e-04 | 0.1 min  *best*
+  ann_fair seed 1 | Ep 12/50 | TrainLoss=1.7133 | ValLoss=2.5160 | ValAUC=0.8500 | ValAcc=49.83% | LR=8.85e-04 | 0.1 min  *best*
+  ann_fair seed 1 | Ep 13/50 | TrainLoss=1.6175 | ValLoss=2.4652 | ValAUC=0.8494 | ValAcc=51.95% | LR=8.65e-04 | 0.1 min  *best*
+  ann_fair seed 1 | Ep 14/50 | TrainLoss=1.5226 | ValLoss=2.4323 | ValAUC=0.8484 | ValAcc=51.28% | LR=8.42e-04 | 0.1 min
+  ann_fair seed 1 | Ep 15/50 | TrainLoss=1.4464 | ValLoss=2.4180 | ValAUC=0.8489 | ValAcc=51.72% | LR=8.19e-04 | 0.1 min
+  ann_fair seed 1 | Ep 16/50 | TrainLoss=1.3784 | ValLoss=2.3688 | ValAUC=0.8478 | ValAcc=52.50% | LR=7.94e-04 | 0.2 min  *best*
+  ann_fair seed 1 | Ep 17/50 | TrainLoss=1.3255 | ValLoss=2.3550 | ValAUC=0.8475 | ValAcc=51.28% | LR=7.68e-04 | 0.2 min
+  ann_fair seed 1 | Ep 18/50 | TrainLoss=1.2652 | ValLoss=2.3336 | ValAUC=0.8469 | ValAcc=53.73% | LR=7.41e-04 | 0.2 min  *best*
+  ann_fair seed 1 | Ep 19/50 | TrainLoss=1.2180 | ValLoss=2.3183 | ValAUC=0.8462 | ValAcc=51.17% | LR=7.13e-04 | 0.2 min
+  ann_fair seed 1 | Ep 20/50 | TrainLoss=1.1734 | ValLoss=2.3048 | ValAUC=0.8458 | ValAcc=53.17% | LR=6.84e-04 | 0.2 min
+  ann_fair seed 1 | Ep 21/50 | TrainLoss=1.1385 | ValLoss=2.2890 | ValAUC=0.8457 | ValAcc=52.17% | LR=6.55e-04 | 0.2 min
+  ann_fair seed 1 | Ep 22/50 | TrainLoss=1.0974 | ValLoss=2.2599 | ValAUC=0.8456 | ValAcc=52.73% | LR=6.25e-04 | 0.2 min
+  ann_fair seed 1 | Ep 23/50 | TrainLoss=1.0676 | ValLoss=2.2651 | ValAUC=0.8453 | ValAcc=51.50% | LR=5.94e-04 | 0.2 min
+  ann_fair seed 1 | Ep 24/50 | TrainLoss=1.0385 | ValLoss=2.2564 | ValAUC=0.8454 | ValAcc=52.39% | LR=5.63e-04 | 0.2 min
+  ann_fair seed 1 | Ep 25/50 | TrainLoss=1.0089 | ValLoss=2.2314 | ValAUC=0.8455 | ValAcc=52.61% | LR=5.32e-04 | 0.2 min
+  ann_fair seed 1 | Ep 26/50 | TrainLoss=0.9848 | ValLoss=2.2450 | ValAUC=0.8456 | ValAcc=52.28% | LR=5.01e-04 | 0.2 min
+  ann_fair seed 1 | Ep 27/50 | TrainLoss=0.9621 | ValLoss=2.2247 | ValAUC=0.8451 | ValAcc=52.84% | LR=4.69e-04 | 0.3 min
+  ann_fair seed 1 | Ep 28/50 | TrainLoss=0.9423 | ValLoss=2.2201 | ValAUC=0.8454 | ValAcc=53.06% | LR=4.38e-04 | 0.3 min
+  ann_fair seed 1 | Ep 29/50 | TrainLoss=0.9213 | ValLoss=2.2229 | ValAUC=0.8452 | ValAcc=52.84% | LR=4.07e-04 | 0.3 min
+  ann_fair seed 1 | Ep 30/50 | TrainLoss=0.8990 | ValLoss=2.2045 | ValAUC=0.8451 | ValAcc=53.17% | LR=3.76e-04 | 0.3 min
+  ann_fair seed 1 | Ep 31/50 | TrainLoss=0.8918 | ValLoss=2.1926 | ValAUC=0.8450 | ValAcc=54.28% | LR=3.46e-04 | 0.3 min  *best*
+  ann_fair seed 1 | Ep 32/50 | TrainLoss=0.8762 | ValLoss=2.1955 | ValAUC=0.8451 | ValAcc=53.06% | LR=3.17e-04 | 0.3 min
+  ann_fair seed 1 | Ep 33/50 | TrainLoss=0.8590 | ValLoss=2.1948 | ValAUC=0.8450 | ValAcc=54.28% | LR=2.88e-04 | 0.3 min
+  ann_fair seed 1 | Ep 34/50 | TrainLoss=0.8517 | ValLoss=2.1935 | ValAUC=0.8451 | ValAcc=53.50% | LR=2.60e-04 | 0.3 min
+  ann_fair seed 1 | Ep 35/50 | TrainLoss=0.8457 | ValLoss=2.1885 | ValAUC=0.8451 | ValAcc=52.73% | LR=2.33e-04 | 0.3 min
+  ann_fair seed 1 | Ep 36/50 | TrainLoss=0.8287 | ValLoss=2.1874 | ValAUC=0.8449 | ValAcc=53.95% | LR=2.07e-04 | 0.3 min
+  ann_fair seed 1 | Ep 37/50 | TrainLoss=0.8226 | ValLoss=2.1802 | ValAUC=0.8449 | ValAcc=53.73% | LR=1.82e-04 | 0.4 min
+  ann_fair seed 1 | Ep 38/50 | TrainLoss=0.8174 | ValLoss=2.1809 | ValAUC=0.8448 | ValAcc=53.84% | LR=1.59e-04 | 0.4 min
+  ann_fair seed 1 | Ep 39/50 | TrainLoss=0.8127 | ValLoss=2.1758 | ValAUC=0.8447 | ValAcc=53.95% | LR=1.36e-04 | 0.4 min
+  ann_fair seed 1 | Ep 40/50 | TrainLoss=0.8084 | ValLoss=2.1805 | ValAUC=0.8447 | ValAcc=53.84% | LR=1.16e-04 | 0.4 min
+  ann_fair seed 1 | Ep 41/50 | TrainLoss=0.8020 | ValLoss=2.1781 | ValAUC=0.8448 | ValAcc=54.06% | LR=9.64e-05 | 0.4 min
+  ann_fair seed 1 | Ep 42/50 | TrainLoss=0.7970 | ValLoss=2.1783 | ValAUC=0.8448 | ValAcc=54.06% | LR=7.88e-05 | 0.4 min
+  ann_fair seed 1 | Ep 43/50 | TrainLoss=0.7898 | ValLoss=2.1755 | ValAUC=0.8448 | ValAcc=54.06% | LR=6.28e-05 | 0.4 min
+  ann_fair seed 1 | Ep 44/50 | TrainLoss=0.7887 | ValLoss=2.1748 | ValAUC=0.8448 | ValAcc=53.73% | LR=4.85e-05 | 0.4 min
+  ann_fair seed 1 | Ep 45/50 | TrainLoss=0.7847 | ValLoss=2.1720 | ValAUC=0.8448 | ValAcc=54.06% | LR=3.61e-05 | 0.4 min
+  ann_fair seed 1 | Ep 46/50 | TrainLoss=0.7850 | ValLoss=2.1705 | ValAUC=0.8448 | ValAcc=54.28% | LR=2.54e-05 | 0.4 min
+  ann_fair seed 1 | Ep 47/50 | TrainLoss=0.7853 | ValLoss=2.1715 | ValAUC=0.8448 | ValAcc=54.39% | LR=1.67e-05 | 0.4 min  *best*
+  ann_fair seed 1 | Ep 48/50 | TrainLoss=0.7810 | ValLoss=2.1713 | ValAUC=0.8448 | ValAcc=54.17% | LR=9.85e-06 | 0.5 min
+  ann_fair seed 1 | Ep 49/50 | TrainLoss=0.7802 | ValLoss=2.1710 | ValAUC=0.8448 | ValAcc=54.06% | LR=4.94e-06 | 0.5 min
+  ann_fair seed 1 | Ep 50/50 | TrainLoss=0.7799 | ValLoss=2.1709 | ValAUC=0.8448 | ValAcc=54.17% | LR=1.99e-06 | 0.5 min
+  [Done] ann_fair seed 1: epoch 47 (held-out 54.39%) -> test acc 56.32%  AUC 0.8473  ECE 0.1197
+  total elapsed this invocation: 5.0 min
+
+[9/12] learned_decoder seed 2 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\learned_decoder_seed2
+  learned_decoder seed 2 | Ep  1/50 | TrainLoss=5.4928 | ValLoss=5.1583 | ValAUC=0.8312 | ValAcc=1.78% | LR=1.00e-03 | 0.0 min  *best*
+  learned_decoder seed 2 | Ep  2/50 | TrainLoss=4.7026 | ValLoss=4.5106 | ValAUC=0.8638 | ValAcc=9.23% | LR=9.99e-04 | 0.0 min  *best*
+  learned_decoder seed 2 | Ep  3/50 | TrainLoss=4.0761 | ValLoss=4.1076 | ValAUC=0.8712 | ValAcc=14.02% | LR=9.96e-04 | 0.1 min  *best*
+  learned_decoder seed 2 | Ep  4/50 | TrainLoss=3.5910 | ValLoss=3.7824 | ValAUC=0.8781 | ValAcc=22.47% | LR=9.91e-04 | 0.1 min  *best*
+  learned_decoder seed 2 | Ep  5/50 | TrainLoss=3.1776 | ValLoss=3.4903 | ValAUC=0.8782 | ValAcc=27.47% | LR=9.84e-04 | 0.1 min  *best*
+  learned_decoder seed 2 | Ep  6/50 | TrainLoss=2.8198 | ValLoss=3.2601 | ValAUC=0.8789 | ValAcc=29.81% | LR=9.76e-04 | 0.1 min  *best*
+  learned_decoder seed 2 | Ep  7/50 | TrainLoss=2.5198 | ValLoss=3.0456 | ValAUC=0.8801 | ValAcc=34.26% | LR=9.65e-04 | 0.1 min  *best*
+  learned_decoder seed 2 | Ep  8/50 | TrainLoss=2.2388 | ValLoss=2.9075 | ValAUC=0.8830 | ValAcc=38.38% | LR=9.52e-04 | 0.1 min  *best*
+  learned_decoder seed 2 | Ep  9/50 | TrainLoss=2.0115 | ValLoss=2.7856 | ValAUC=0.8821 | ValAcc=41.94% | LR=9.38e-04 | 0.1 min  *best*
+  learned_decoder seed 2 | Ep 10/50 | TrainLoss=1.7814 | ValLoss=2.6691 | ValAUC=0.8836 | ValAcc=44.05% | LR=9.22e-04 | 0.2 min  *best*
+  learned_decoder seed 2 | Ep 11/50 | TrainLoss=1.5827 | ValLoss=2.5708 | ValAUC=0.8859 | ValAcc=45.61% | LR=9.05e-04 | 0.2 min  *best*
+  learned_decoder seed 2 | Ep 12/50 | TrainLoss=1.4094 | ValLoss=2.5284 | ValAUC=0.8855 | ValAcc=46.61% | LR=8.85e-04 | 0.2 min  *best*
+  learned_decoder seed 2 | Ep 13/50 | TrainLoss=1.2569 | ValLoss=2.4983 | ValAUC=0.8860 | ValAcc=44.94% | LR=8.65e-04 | 0.2 min
+  learned_decoder seed 2 | Ep 14/50 | TrainLoss=1.1261 | ValLoss=2.4752 | ValAUC=0.8838 | ValAcc=46.94% | LR=8.42e-04 | 0.2 min  *best*
+  learned_decoder seed 2 | Ep 15/50 | TrainLoss=0.9988 | ValLoss=2.4802 | ValAUC=0.8880 | ValAcc=47.05% | LR=8.19e-04 | 0.2 min  *best*
+  learned_decoder seed 2 | Ep 16/50 | TrainLoss=0.9038 | ValLoss=2.4362 | ValAUC=0.8837 | ValAcc=46.83% | LR=7.94e-04 | 0.3 min
+  learned_decoder seed 2 | Ep 17/50 | TrainLoss=0.8006 | ValLoss=2.4192 | ValAUC=0.8854 | ValAcc=46.94% | LR=7.68e-04 | 0.3 min
+  learned_decoder seed 2 | Ep 18/50 | TrainLoss=0.7155 | ValLoss=2.4618 | ValAUC=0.8874 | ValAcc=47.27% | LR=7.41e-04 | 0.3 min  *best*
+  learned_decoder seed 2 | Ep 19/50 | TrainLoss=0.6444 | ValLoss=2.4501 | ValAUC=0.8865 | ValAcc=46.61% | LR=7.13e-04 | 0.3 min
+  learned_decoder seed 2 | Ep 20/50 | TrainLoss=0.5830 | ValLoss=2.4187 | ValAUC=0.8877 | ValAcc=47.94% | LR=6.84e-04 | 0.3 min  *best*
+  learned_decoder seed 2 | Ep 21/50 | TrainLoss=0.5251 | ValLoss=2.4307 | ValAUC=0.8875 | ValAcc=46.72% | LR=6.55e-04 | 0.3 min
+  learned_decoder seed 2 | Ep 22/50 | TrainLoss=0.4766 | ValLoss=2.4362 | ValAUC=0.8884 | ValAcc=47.16% | LR=6.25e-04 | 0.4 min
+  learned_decoder seed 2 | Ep 23/50 | TrainLoss=0.4334 | ValLoss=2.4550 | ValAUC=0.8915 | ValAcc=48.05% | LR=5.94e-04 | 0.4 min  *best*
+  learned_decoder seed 2 | Ep 24/50 | TrainLoss=0.3994 | ValLoss=2.4420 | ValAUC=0.8930 | ValAcc=47.83% | LR=5.63e-04 | 0.4 min
+  learned_decoder seed 2 | Ep 25/50 | TrainLoss=0.3675 | ValLoss=2.4766 | ValAUC=0.8926 | ValAcc=47.83% | LR=5.32e-04 | 0.4 min
+  learned_decoder seed 2 | Ep 26/50 | TrainLoss=0.3403 | ValLoss=2.4712 | ValAUC=0.8926 | ValAcc=48.61% | LR=5.01e-04 | 0.4 min  *best*
+  learned_decoder seed 2 | Ep 27/50 | TrainLoss=0.3175 | ValLoss=2.4848 | ValAUC=0.8941 | ValAcc=47.94% | LR=4.69e-04 | 0.4 min
+  learned_decoder seed 2 | Ep 28/50 | TrainLoss=0.2984 | ValLoss=2.4967 | ValAUC=0.8926 | ValAcc=48.72% | LR=4.38e-04 | 0.5 min  *best*
+  learned_decoder seed 2 | Ep 29/50 | TrainLoss=0.2778 | ValLoss=2.5186 | ValAUC=0.8941 | ValAcc=47.27% | LR=4.07e-04 | 0.5 min
+  learned_decoder seed 2 | Ep 30/50 | TrainLoss=0.2605 | ValLoss=2.4909 | ValAUC=0.8927 | ValAcc=47.05% | LR=3.76e-04 | 0.5 min
+  learned_decoder seed 2 | Ep 31/50 | TrainLoss=0.2468 | ValLoss=2.5449 | ValAUC=0.8942 | ValAcc=46.72% | LR=3.46e-04 | 0.5 min
+  learned_decoder seed 2 | Ep 32/50 | TrainLoss=0.2335 | ValLoss=2.5509 | ValAUC=0.8970 | ValAcc=46.05% | LR=3.17e-04 | 0.5 min
+  learned_decoder seed 2 | Ep 33/50 | TrainLoss=0.2234 | ValLoss=2.5516 | ValAUC=0.8981 | ValAcc=46.16% | LR=2.88e-04 | 0.5 min
+  learned_decoder seed 2 | Ep 34/50 | TrainLoss=0.2140 | ValLoss=2.5639 | ValAUC=0.8959 | ValAcc=46.27% | LR=2.60e-04 | 0.5 min
+  learned_decoder seed 2 | Ep 35/50 | TrainLoss=0.2045 | ValLoss=2.5713 | ValAUC=0.8967 | ValAcc=46.27% | LR=2.33e-04 | 0.6 min
+  learned_decoder seed 2 | Ep 36/50 | TrainLoss=0.1979 | ValLoss=2.5912 | ValAUC=0.8969 | ValAcc=45.83% | LR=2.07e-04 | 0.6 min
+  learned_decoder seed 2 | Ep 37/50 | TrainLoss=0.1890 | ValLoss=2.5809 | ValAUC=0.8982 | ValAcc=47.05% | LR=1.82e-04 | 0.6 min
+  learned_decoder seed 2 | Ep 38/50 | TrainLoss=0.1828 | ValLoss=2.5974 | ValAUC=0.8977 | ValAcc=46.38% | LR=1.59e-04 | 0.6 min
+  learned_decoder seed 2 | Ep 39/50 | TrainLoss=0.1778 | ValLoss=2.5989 | ValAUC=0.8977 | ValAcc=46.61% | LR=1.36e-04 | 0.6 min
+  learned_decoder seed 2 | Ep 40/50 | TrainLoss=0.1724 | ValLoss=2.6189 | ValAUC=0.8980 | ValAcc=45.94% | LR=1.16e-04 | 0.6 min
+  learned_decoder seed 2 | Ep 41/50 | TrainLoss=0.1691 | ValLoss=2.6127 | ValAUC=0.8987 | ValAcc=45.61% | LR=9.64e-05 | 0.7 min
+  learned_decoder seed 2 | Ep 42/50 | TrainLoss=0.1644 | ValLoss=2.6273 | ValAUC=0.8987 | ValAcc=45.83% | LR=7.88e-05 | 0.7 min
+  learned_decoder seed 2 | Ep 43/50 | TrainLoss=0.1624 | ValLoss=2.6289 | ValAUC=0.8983 | ValAcc=45.72% | LR=6.28e-05 | 0.7 min
+  learned_decoder seed 2 | Ep 44/50 | TrainLoss=0.1598 | ValLoss=2.6277 | ValAUC=0.8981 | ValAcc=46.05% | LR=4.85e-05 | 0.7 min
+  learned_decoder seed 2 | Ep 45/50 | TrainLoss=0.1580 | ValLoss=2.6303 | ValAUC=0.8983 | ValAcc=46.27% | LR=3.61e-05 | 0.7 min
+  learned_decoder seed 2 | Ep 46/50 | TrainLoss=0.1563 | ValLoss=2.6339 | ValAUC=0.8982 | ValAcc=45.72% | LR=2.54e-05 | 0.7 min
+  learned_decoder seed 2 | Ep 47/50 | TrainLoss=0.1556 | ValLoss=2.6346 | ValAUC=0.8987 | ValAcc=45.72% | LR=1.67e-05 | 0.8 min
+  learned_decoder seed 2 | Ep 48/50 | TrainLoss=0.1544 | ValLoss=2.6384 | ValAUC=0.8986 | ValAcc=45.83% | LR=9.85e-06 | 0.8 min
+  learned_decoder seed 2 | Ep 49/50 | TrainLoss=0.1540 | ValLoss=2.6388 | ValAUC=0.8986 | ValAcc=45.72% | LR=4.94e-06 | 0.8 min
+  learned_decoder seed 2 | Ep 50/50 | TrainLoss=0.1538 | ValLoss=2.6392 | ValAUC=0.8986 | ValAcc=45.83% | LR=1.99e-06 | 0.8 min
+  [Done] learned_decoder seed 2: epoch 28 (held-out 48.72%) -> test acc 48.60%  AUC 0.8989  ECE 0.0911
+  total elapsed this invocation: 5.8 min
+
+[10/12] mlp_notime seed 2 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\mlp_notime_seed2
+  mlp_notime seed 2 | Ep  1/50 | TrainLoss=5.5534 | ValLoss=5.2572 | ValAUC=0.8137 | ValAcc=1.56% | LR=1.00e-03 | 0.0 min  *best*
+  mlp_notime seed 2 | Ep  2/50 | TrainLoss=4.8202 | ValLoss=4.6454 | ValAUC=0.8501 | ValAcc=7.45% | LR=9.99e-04 | 0.0 min  *best*
+  mlp_notime seed 2 | Ep  3/50 | TrainLoss=4.2167 | ValLoss=4.1957 | ValAUC=0.8616 | ValAcc=13.13% | LR=9.96e-04 | 0.0 min  *best*
+  mlp_notime seed 2 | Ep  4/50 | TrainLoss=3.7509 | ValLoss=3.9542 | ValAUC=0.8660 | ValAcc=16.57% | LR=9.91e-04 | 0.1 min  *best*
+  mlp_notime seed 2 | Ep  5/50 | TrainLoss=3.3681 | ValLoss=3.5994 | ValAUC=0.8679 | ValAcc=26.59% | LR=9.84e-04 | 0.1 min  *best*
+  mlp_notime seed 2 | Ep  6/50 | TrainLoss=3.0366 | ValLoss=3.4487 | ValAUC=0.8685 | ValAcc=28.14% | LR=9.76e-04 | 0.1 min  *best*
+  mlp_notime seed 2 | Ep  7/50 | TrainLoss=2.7651 | ValLoss=3.2271 | ValAUC=0.8687 | ValAcc=33.04% | LR=9.65e-04 | 0.1 min  *best*
+  mlp_notime seed 2 | Ep  8/50 | TrainLoss=2.5061 | ValLoss=3.1023 | ValAUC=0.8703 | ValAcc=37.15% | LR=9.52e-04 | 0.1 min  *best*
+  mlp_notime seed 2 | Ep  9/50 | TrainLoss=2.3176 | ValLoss=2.9662 | ValAUC=0.8688 | ValAcc=40.82% | LR=9.38e-04 | 0.1 min  *best*
+  mlp_notime seed 2 | Ep 10/50 | TrainLoss=2.1166 | ValLoss=2.9287 | ValAUC=0.8691 | ValAcc=38.71% | LR=9.22e-04 | 0.1 min
+  mlp_notime seed 2 | Ep 11/50 | TrainLoss=1.9483 | ValLoss=2.7862 | ValAUC=0.8688 | ValAcc=40.16% | LR=9.05e-04 | 0.1 min
+  mlp_notime seed 2 | Ep 12/50 | TrainLoss=1.8081 | ValLoss=2.7290 | ValAUC=0.8675 | ValAcc=42.38% | LR=8.85e-04 | 0.2 min  *best*
+  mlp_notime seed 2 | Ep 13/50 | TrainLoss=1.6810 | ValLoss=2.7246 | ValAUC=0.8702 | ValAcc=42.16% | LR=8.65e-04 | 0.2 min
+  mlp_notime seed 2 | Ep 14/50 | TrainLoss=1.5701 | ValLoss=2.6531 | ValAUC=0.8673 | ValAcc=40.60% | LR=8.42e-04 | 0.2 min
+  mlp_notime seed 2 | Ep 15/50 | TrainLoss=1.4708 | ValLoss=2.6002 | ValAUC=0.8682 | ValAcc=44.94% | LR=8.19e-04 | 0.2 min  *best*
+  mlp_notime seed 2 | Ep 16/50 | TrainLoss=1.3777 | ValLoss=2.5687 | ValAUC=0.8672 | ValAcc=46.27% | LR=7.94e-04 | 0.2 min  *best*
+  mlp_notime seed 2 | Ep 17/50 | TrainLoss=1.2905 | ValLoss=2.5417 | ValAUC=0.8657 | ValAcc=45.16% | LR=7.68e-04 | 0.2 min
+  mlp_notime seed 2 | Ep 18/50 | TrainLoss=1.2294 | ValLoss=2.5789 | ValAUC=0.8652 | ValAcc=45.38% | LR=7.41e-04 | 0.2 min
+  mlp_notime seed 2 | Ep 19/50 | TrainLoss=1.1575 | ValLoss=2.5364 | ValAUC=0.8651 | ValAcc=46.16% | LR=7.13e-04 | 0.3 min
+  mlp_notime seed 2 | Ep 20/50 | TrainLoss=1.1020 | ValLoss=2.5778 | ValAUC=0.8654 | ValAcc=44.49% | LR=6.84e-04 | 0.3 min
+  mlp_notime seed 2 | Ep 21/50 | TrainLoss=1.0482 | ValLoss=2.5226 | ValAUC=0.8629 | ValAcc=47.16% | LR=6.55e-04 | 0.3 min  *best*
+  mlp_notime seed 2 | Ep 22/50 | TrainLoss=0.9963 | ValLoss=2.4502 | ValAUC=0.8641 | ValAcc=45.83% | LR=6.25e-04 | 0.3 min
+  mlp_notime seed 2 | Ep 23/50 | TrainLoss=0.9412 | ValLoss=2.4939 | ValAUC=0.8654 | ValAcc=44.94% | LR=5.94e-04 | 0.3 min
+  mlp_notime seed 2 | Ep 24/50 | TrainLoss=0.9052 | ValLoss=2.5317 | ValAUC=0.8633 | ValAcc=44.94% | LR=5.63e-04 | 0.3 min
+  mlp_notime seed 2 | Ep 25/50 | TrainLoss=0.8641 | ValLoss=2.5361 | ValAUC=0.8635 | ValAcc=43.94% | LR=5.32e-04 | 0.3 min
+  mlp_notime seed 2 | Ep 26/50 | TrainLoss=0.8337 | ValLoss=2.4754 | ValAUC=0.8631 | ValAcc=45.72% | LR=5.01e-04 | 0.4 min
+  mlp_notime seed 2 | Ep 27/50 | TrainLoss=0.7989 | ValLoss=2.4709 | ValAUC=0.8634 | ValAcc=46.94% | LR=4.69e-04 | 0.4 min
+  mlp_notime seed 2 | Ep 28/50 | TrainLoss=0.7698 | ValLoss=2.4820 | ValAUC=0.8635 | ValAcc=45.38% | LR=4.38e-04 | 0.4 min
+  mlp_notime seed 2 | Ep 29/50 | TrainLoss=0.7394 | ValLoss=2.4784 | ValAUC=0.8611 | ValAcc=46.72% | LR=4.07e-04 | 0.4 min
+  mlp_notime seed 2 | Ep 30/50 | TrainLoss=0.7189 | ValLoss=2.4915 | ValAUC=0.8615 | ValAcc=46.27% | LR=3.76e-04 | 0.4 min
+  mlp_notime seed 2 | Ep 31/50 | TrainLoss=0.7022 | ValLoss=2.5468 | ValAUC=0.8610 | ValAcc=44.38% | LR=3.46e-04 | 0.4 min
+  mlp_notime seed 2 | Ep 32/50 | TrainLoss=0.6809 | ValLoss=2.5053 | ValAUC=0.8621 | ValAcc=45.83% | LR=3.17e-04 | 0.4 min
+  mlp_notime seed 2 | Ep 33/50 | TrainLoss=0.6604 | ValLoss=2.4986 | ValAUC=0.8617 | ValAcc=45.72% | LR=2.88e-04 | 0.4 min
+  mlp_notime seed 2 | Ep 34/50 | TrainLoss=0.6437 | ValLoss=2.5034 | ValAUC=0.8614 | ValAcc=46.83% | LR=2.60e-04 | 0.5 min
+  mlp_notime seed 2 | Ep 35/50 | TrainLoss=0.6307 | ValLoss=2.5244 | ValAUC=0.8611 | ValAcc=45.27% | LR=2.33e-04 | 0.5 min
+  mlp_notime seed 2 | Ep 36/50 | TrainLoss=0.6183 | ValLoss=2.5311 | ValAUC=0.8607 | ValAcc=45.83% | LR=2.07e-04 | 0.5 min
+  mlp_notime seed 2 | Ep 37/50 | TrainLoss=0.6044 | ValLoss=2.5080 | ValAUC=0.8608 | ValAcc=46.05% | LR=1.82e-04 | 0.5 min
+  mlp_notime seed 2 | Ep 38/50 | TrainLoss=0.5942 | ValLoss=2.5052 | ValAUC=0.8614 | ValAcc=45.61% | LR=1.59e-04 | 0.5 min
+  mlp_notime seed 2 | Ep 39/50 | TrainLoss=0.5868 | ValLoss=2.5214 | ValAUC=0.8609 | ValAcc=45.94% | LR=1.36e-04 | 0.5 min
+  mlp_notime seed 2 | Ep 40/50 | TrainLoss=0.5780 | ValLoss=2.5073 | ValAUC=0.8615 | ValAcc=46.50% | LR=1.16e-04 | 0.5 min
+  mlp_notime seed 2 | Ep 41/50 | TrainLoss=0.5695 | ValLoss=2.5067 | ValAUC=0.8623 | ValAcc=45.61% | LR=9.64e-05 | 0.6 min
+  mlp_notime seed 2 | Ep 42/50 | TrainLoss=0.5597 | ValLoss=2.5021 | ValAUC=0.8616 | ValAcc=46.16% | LR=7.88e-05 | 0.6 min
+  mlp_notime seed 2 | Ep 43/50 | TrainLoss=0.5574 | ValLoss=2.5214 | ValAUC=0.8611 | ValAcc=45.16% | LR=6.28e-05 | 0.6 min
+  mlp_notime seed 2 | Ep 44/50 | TrainLoss=0.5519 | ValLoss=2.5096 | ValAUC=0.8610 | ValAcc=46.05% | LR=4.85e-05 | 0.6 min
+  mlp_notime seed 2 | Ep 45/50 | TrainLoss=0.5491 | ValLoss=2.5209 | ValAUC=0.8614 | ValAcc=45.83% | LR=3.61e-05 | 0.6 min
+  mlp_notime seed 2 | Ep 46/50 | TrainLoss=0.5452 | ValLoss=2.5246 | ValAUC=0.8612 | ValAcc=45.38% | LR=2.54e-05 | 0.6 min
+  mlp_notime seed 2 | Ep 47/50 | TrainLoss=0.5450 | ValLoss=2.5154 | ValAUC=0.8613 | ValAcc=45.61% | LR=1.67e-05 | 0.6 min
+  mlp_notime seed 2 | Ep 48/50 | TrainLoss=0.5412 | ValLoss=2.5153 | ValAUC=0.8613 | ValAcc=45.61% | LR=9.85e-06 | 0.6 min
+  mlp_notime seed 2 | Ep 49/50 | TrainLoss=0.5418 | ValLoss=2.5132 | ValAUC=0.8612 | ValAcc=45.83% | LR=4.94e-06 | 0.7 min
+  mlp_notime seed 2 | Ep 50/50 | TrainLoss=0.5381 | ValLoss=2.5140 | ValAUC=0.8612 | ValAcc=45.83% | LR=1.99e-06 | 0.7 min
+  [Done] mlp_notime seed 2: epoch 21 (held-out 47.16%) -> test acc 47.64%  AUC 0.8660  ECE 0.1309
+  total elapsed this invocation: 6.5 min
+
+[11/12] spike_rate seed 2 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\spike_rate_seed2
+  spike_rate seed 2 | Ep  1/50 | TrainLoss=5.7308 | ValLoss=5.7206 | ValAUC=0.6569 | ValAcc=0.44% | LR=1.00e-03 | 0.0 min  *best*
+  spike_rate seed 2 | Ep  2/50 | TrainLoss=5.4953 | ValLoss=5.6399 | ValAUC=0.7407 | ValAcc=1.45% | LR=9.99e-04 | 0.0 min  *best*
+  spike_rate seed 2 | Ep  3/50 | TrainLoss=5.2487 | ValLoss=5.4716 | ValAUC=0.7825 | ValAcc=1.33% | LR=9.96e-04 | 0.0 min
+  spike_rate seed 2 | Ep  4/50 | TrainLoss=4.9360 | ValLoss=5.2202 | ValAUC=0.8076 | ValAcc=3.56% | LR=9.91e-04 | 0.0 min  *best*
+  spike_rate seed 2 | Ep  5/50 | TrainLoss=4.6072 | ValLoss=4.9580 | ValAUC=0.8222 | ValAcc=4.89% | LR=9.84e-04 | 0.0 min  *best*
+  spike_rate seed 2 | Ep  6/50 | TrainLoss=4.2959 | ValLoss=4.7284 | ValAUC=0.8313 | ValAcc=7.34% | LR=9.76e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep  7/50 | TrainLoss=4.0112 | ValLoss=4.5168 | ValAUC=0.8374 | ValAcc=9.68% | LR=9.65e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep  8/50 | TrainLoss=3.7579 | ValLoss=4.3356 | ValAUC=0.8421 | ValAcc=13.57% | LR=9.52e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep  9/50 | TrainLoss=3.5412 | ValLoss=4.1750 | ValAUC=0.8454 | ValAcc=18.46% | LR=9.38e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep 10/50 | TrainLoss=3.3364 | ValLoss=4.0373 | ValAUC=0.8480 | ValAcc=20.91% | LR=9.22e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep 11/50 | TrainLoss=3.1514 | ValLoss=3.9045 | ValAUC=0.8504 | ValAcc=21.69% | LR=9.05e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep 12/50 | TrainLoss=2.9847 | ValLoss=3.7986 | ValAUC=0.8523 | ValAcc=25.25% | LR=8.85e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep 13/50 | TrainLoss=2.8305 | ValLoss=3.6929 | ValAUC=0.8538 | ValAcc=25.14% | LR=8.65e-04 | 0.1 min
+  spike_rate seed 2 | Ep 14/50 | TrainLoss=2.6921 | ValLoss=3.5925 | ValAUC=0.8550 | ValAcc=27.59% | LR=8.42e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep 15/50 | TrainLoss=2.5646 | ValLoss=3.5127 | ValAUC=0.8561 | ValAcc=28.70% | LR=8.19e-04 | 0.1 min  *best*
+  spike_rate seed 2 | Ep 16/50 | TrainLoss=2.4563 | ValLoss=3.4349 | ValAUC=0.8569 | ValAcc=30.70% | LR=7.94e-04 | 0.2 min  *best*
+  spike_rate seed 2 | Ep 17/50 | TrainLoss=2.3607 | ValLoss=3.3674 | ValAUC=0.8577 | ValAcc=31.37% | LR=7.68e-04 | 0.2 min  *best*
+  spike_rate seed 2 | Ep 18/50 | TrainLoss=2.2625 | ValLoss=3.3043 | ValAUC=0.8585 | ValAcc=33.04% | LR=7.41e-04 | 0.2 min  *best*
+  spike_rate seed 2 | Ep 19/50 | TrainLoss=2.1798 | ValLoss=3.2493 | ValAUC=0.8590 | ValAcc=34.82% | LR=7.13e-04 | 0.2 min  *best*
+  spike_rate seed 2 | Ep 20/50 | TrainLoss=2.1107 | ValLoss=3.1930 | ValAUC=0.8595 | ValAcc=35.48% | LR=6.84e-04 | 0.2 min  *best*
+  spike_rate seed 2 | Ep 21/50 | TrainLoss=2.0388 | ValLoss=3.1532 | ValAUC=0.8599 | ValAcc=34.37% | LR=6.55e-04 | 0.2 min
+  spike_rate seed 2 | Ep 22/50 | TrainLoss=1.9861 | ValLoss=3.1108 | ValAUC=0.8603 | ValAcc=34.71% | LR=6.25e-04 | 0.2 min
+  spike_rate seed 2 | Ep 23/50 | TrainLoss=1.9211 | ValLoss=3.0741 | ValAUC=0.8607 | ValAcc=36.60% | LR=5.94e-04 | 0.2 min  *best*
+  spike_rate seed 2 | Ep 24/50 | TrainLoss=1.8673 | ValLoss=3.0400 | ValAUC=0.8610 | ValAcc=36.15% | LR=5.63e-04 | 0.2 min
+  spike_rate seed 2 | Ep 25/50 | TrainLoss=1.8202 | ValLoss=3.0137 | ValAUC=0.8613 | ValAcc=35.48% | LR=5.32e-04 | 0.2 min
+  spike_rate seed 2 | Ep 26/50 | TrainLoss=1.7933 | ValLoss=2.9839 | ValAUC=0.8615 | ValAcc=37.15% | LR=5.01e-04 | 0.3 min  *best*
+  spike_rate seed 2 | Ep 27/50 | TrainLoss=1.7551 | ValLoss=2.9575 | ValAUC=0.8618 | ValAcc=37.82% | LR=4.69e-04 | 0.3 min  *best*
+  spike_rate seed 2 | Ep 28/50 | TrainLoss=1.7175 | ValLoss=2.9371 | ValAUC=0.8619 | ValAcc=38.04% | LR=4.38e-04 | 0.3 min  *best*
+  spike_rate seed 2 | Ep 29/50 | TrainLoss=1.6844 | ValLoss=2.9151 | ValAUC=0.8620 | ValAcc=37.60% | LR=4.07e-04 | 0.3 min
+  spike_rate seed 2 | Ep 30/50 | TrainLoss=1.6555 | ValLoss=2.8972 | ValAUC=0.8622 | ValAcc=38.60% | LR=3.76e-04 | 0.3 min  *best*
+  spike_rate seed 2 | Ep 31/50 | TrainLoss=1.6308 | ValLoss=2.8816 | ValAUC=0.8624 | ValAcc=37.26% | LR=3.46e-04 | 0.3 min
+  spike_rate seed 2 | Ep 32/50 | TrainLoss=1.6152 | ValLoss=2.8682 | ValAUC=0.8625 | ValAcc=37.60% | LR=3.17e-04 | 0.3 min
+  spike_rate seed 2 | Ep 33/50 | TrainLoss=1.5952 | ValLoss=2.8526 | ValAUC=0.8626 | ValAcc=38.49% | LR=2.88e-04 | 0.3 min
+  spike_rate seed 2 | Ep 34/50 | TrainLoss=1.5751 | ValLoss=2.8412 | ValAUC=0.8627 | ValAcc=38.71% | LR=2.60e-04 | 0.3 min  *best*
+  spike_rate seed 2 | Ep 35/50 | TrainLoss=1.5655 | ValLoss=2.8278 | ValAUC=0.8628 | ValAcc=39.15% | LR=2.33e-04 | 0.3 min  *best*
+  spike_rate seed 2 | Ep 36/50 | TrainLoss=1.5518 | ValLoss=2.8212 | ValAUC=0.8629 | ValAcc=39.38% | LR=2.07e-04 | 0.4 min  *best*
+  spike_rate seed 2 | Ep 37/50 | TrainLoss=1.5287 | ValLoss=2.8128 | ValAUC=0.8630 | ValAcc=39.38% | LR=1.82e-04 | 0.4 min
+  spike_rate seed 2 | Ep 38/50 | TrainLoss=1.5244 | ValLoss=2.8066 | ValAUC=0.8630 | ValAcc=39.27% | LR=1.59e-04 | 0.4 min
+  spike_rate seed 2 | Ep 39/50 | TrainLoss=1.5083 | ValLoss=2.8009 | ValAUC=0.8631 | ValAcc=38.93% | LR=1.36e-04 | 0.4 min
+  spike_rate seed 2 | Ep 40/50 | TrainLoss=1.4981 | ValLoss=2.7965 | ValAUC=0.8631 | ValAcc=39.71% | LR=1.16e-04 | 0.4 min  *best*
+  spike_rate seed 2 | Ep 41/50 | TrainLoss=1.5009 | ValLoss=2.7919 | ValAUC=0.8631 | ValAcc=39.71% | LR=9.64e-05 | 0.4 min
+  spike_rate seed 2 | Ep 42/50 | TrainLoss=1.4810 | ValLoss=2.7893 | ValAUC=0.8632 | ValAcc=39.93% | LR=7.88e-05 | 0.4 min  *best*
+  spike_rate seed 2 | Ep 43/50 | TrainLoss=1.4848 | ValLoss=2.7868 | ValAUC=0.8632 | ValAcc=39.71% | LR=6.28e-05 | 0.4 min
+  spike_rate seed 2 | Ep 44/50 | TrainLoss=1.4808 | ValLoss=2.7842 | ValAUC=0.8632 | ValAcc=40.16% | LR=4.85e-05 | 0.4 min  *best*
+  spike_rate seed 2 | Ep 45/50 | TrainLoss=1.4781 | ValLoss=2.7828 | ValAUC=0.8632 | ValAcc=40.16% | LR=3.61e-05 | 0.4 min
+  spike_rate seed 2 | Ep 46/50 | TrainLoss=1.4713 | ValLoss=2.7817 | ValAUC=0.8632 | ValAcc=40.04% | LR=2.54e-05 | 0.5 min
+  spike_rate seed 2 | Ep 47/50 | TrainLoss=1.4705 | ValLoss=2.7809 | ValAUC=0.8632 | ValAcc=40.27% | LR=1.67e-05 | 0.5 min  *best*
+  spike_rate seed 2 | Ep 48/50 | TrainLoss=1.4685 | ValLoss=2.7804 | ValAUC=0.8632 | ValAcc=40.27% | LR=9.85e-06 | 0.5 min
+  spike_rate seed 2 | Ep 49/50 | TrainLoss=1.4693 | ValLoss=2.7802 | ValAUC=0.8632 | ValAcc=40.27% | LR=4.94e-06 | 0.5 min
+  spike_rate seed 2 | Ep 50/50 | TrainLoss=1.4714 | ValLoss=2.7802 | ValAUC=0.8632 | ValAcc=40.27% | LR=1.99e-06 | 0.5 min
+  [Done] spike_rate seed 2: epoch 47 (held-out 40.27%) -> test acc 45.05%  AUC 0.8654  ECE 0.1214
+  total elapsed this invocation: 7.0 min
+
+[12/12] ann_fair seed 2 -> C:\Users\palag\New folder\SpikingResformer-cbm\seeds\runs\ann_fair_seed2
+  ann_fair seed 2 | Ep  1/50 | TrainLoss=5.4870 | ValLoss=5.1684 | ValAUC=0.8359 | ValAcc=5.78% | LR=1.00e-03 | 0.0 min  *best*
+  ann_fair seed 2 | Ep  2/50 | TrainLoss=4.6711 | ValLoss=4.4532 | ValAUC=0.8585 | ValAcc=18.46% | LR=9.99e-04 | 0.0 min  *best*
+  ann_fair seed 2 | Ep  3/50 | TrainLoss=3.9933 | ValLoss=3.9420 | ValAUC=0.8613 | ValAcc=26.25% | LR=9.96e-04 | 0.0 min  *best*
+  ann_fair seed 2 | Ep  4/50 | TrainLoss=3.4737 | ValLoss=3.5727 | ValAUC=0.8601 | ValAcc=34.26% | LR=9.91e-04 | 0.0 min  *best*
+  ann_fair seed 2 | Ep  5/50 | TrainLoss=3.0654 | ValLoss=3.2839 | ValAUC=0.8585 | ValAcc=40.60% | LR=9.84e-04 | 0.0 min  *best*
+  ann_fair seed 2 | Ep  6/50 | TrainLoss=2.7398 | ValLoss=3.0836 | ValAUC=0.8563 | ValAcc=42.05% | LR=9.76e-04 | 0.1 min  *best*
+  ann_fair seed 2 | Ep  7/50 | TrainLoss=2.4790 | ValLoss=2.9098 | ValAUC=0.8549 | ValAcc=46.05% | LR=9.65e-04 | 0.1 min  *best*
+  ann_fair seed 2 | Ep  8/50 | TrainLoss=2.2630 | ValLoss=2.7984 | ValAUC=0.8542 | ValAcc=46.83% | LR=9.52e-04 | 0.1 min  *best*
+  ann_fair seed 2 | Ep  9/50 | TrainLoss=2.0914 | ValLoss=2.6892 | ValAUC=0.8526 | ValAcc=49.05% | LR=9.38e-04 | 0.1 min  *best*
+  ann_fair seed 2 | Ep 10/50 | TrainLoss=1.9357 | ValLoss=2.6193 | ValAUC=0.8513 | ValAcc=49.94% | LR=9.22e-04 | 0.1 min  *best*
+  ann_fair seed 2 | Ep 11/50 | TrainLoss=1.8111 | ValLoss=2.5539 | ValAUC=0.8499 | ValAcc=50.39% | LR=9.05e-04 | 0.1 min  *best*
+  ann_fair seed 2 | Ep 12/50 | TrainLoss=1.6974 | ValLoss=2.5133 | ValAUC=0.8498 | ValAcc=50.39% | LR=8.85e-04 | 0.1 min
+  ann_fair seed 2 | Ep 13/50 | TrainLoss=1.6019 | ValLoss=2.4558 | ValAUC=0.8494 | ValAcc=50.39% | LR=8.65e-04 | 0.1 min
+  ann_fair seed 2 | Ep 14/50 | TrainLoss=1.5192 | ValLoss=2.4232 | ValAUC=0.8488 | ValAcc=52.39% | LR=8.42e-04 | 0.1 min  *best*
+  ann_fair seed 2 | Ep 15/50 | TrainLoss=1.4383 | ValLoss=2.3895 | ValAUC=0.8487 | ValAcc=51.61% | LR=8.19e-04 | 0.1 min
+  ann_fair seed 2 | Ep 16/50 | TrainLoss=1.3786 | ValLoss=2.3660 | ValAUC=0.8482 | ValAcc=52.06% | LR=7.94e-04 | 0.2 min
+  ann_fair seed 2 | Ep 17/50 | TrainLoss=1.3214 | ValLoss=2.3379 | ValAUC=0.8476 | ValAcc=52.17% | LR=7.68e-04 | 0.2 min
+  ann_fair seed 2 | Ep 18/50 | TrainLoss=1.2638 | ValLoss=2.3242 | ValAUC=0.8473 | ValAcc=53.73% | LR=7.41e-04 | 0.2 min  *best*
+  ann_fair seed 2 | Ep 19/50 | TrainLoss=1.2170 | ValLoss=2.2949 | ValAUC=0.8473 | ValAcc=53.95% | LR=7.13e-04 | 0.2 min  *best*
+  ann_fair seed 2 | Ep 20/50 | TrainLoss=1.1764 | ValLoss=2.2704 | ValAUC=0.8473 | ValAcc=53.28% | LR=6.84e-04 | 0.2 min
+  ann_fair seed 2 | Ep 21/50 | TrainLoss=1.1301 | ValLoss=2.2686 | ValAUC=0.8466 | ValAcc=53.28% | LR=6.55e-04 | 0.2 min
+  ann_fair seed 2 | Ep 22/50 | TrainLoss=1.1022 | ValLoss=2.2599 | ValAUC=0.8467 | ValAcc=52.50% | LR=6.25e-04 | 0.2 min
+  ann_fair seed 2 | Ep 23/50 | TrainLoss=1.0618 | ValLoss=2.2448 | ValAUC=0.8463 | ValAcc=52.06% | LR=5.94e-04 | 0.2 min
+  ann_fair seed 2 | Ep 24/50 | TrainLoss=1.0333 | ValLoss=2.2309 | ValAUC=0.8462 | ValAcc=53.50% | LR=5.63e-04 | 0.2 min
+  ann_fair seed 2 | Ep 25/50 | TrainLoss=1.0097 | ValLoss=2.2346 | ValAUC=0.8462 | ValAcc=52.61% | LR=5.32e-04 | 0.2 min
+  ann_fair seed 2 | Ep 26/50 | TrainLoss=0.9828 | ValLoss=2.2229 | ValAUC=0.8457 | ValAcc=52.73% | LR=5.01e-04 | 0.3 min
+  ann_fair seed 2 | Ep 27/50 | TrainLoss=0.9574 | ValLoss=2.2099 | ValAUC=0.8459 | ValAcc=54.28% | LR=4.69e-04 | 0.3 min  *best*
+  ann_fair seed 2 | Ep 28/50 | TrainLoss=0.9388 | ValLoss=2.2058 | ValAUC=0.8460 | ValAcc=54.06% | LR=4.38e-04 | 0.3 min
+  ann_fair seed 2 | Ep 29/50 | TrainLoss=0.9157 | ValLoss=2.1949 | ValAUC=0.8454 | ValAcc=54.62% | LR=4.07e-04 | 0.3 min  *best*
+  ann_fair seed 2 | Ep 30/50 | TrainLoss=0.9054 | ValLoss=2.2008 | ValAUC=0.8453 | ValAcc=53.28% | LR=3.76e-04 | 0.3 min
+  ann_fair seed 2 | Ep 31/50 | TrainLoss=0.8907 | ValLoss=2.1888 | ValAUC=0.8453 | ValAcc=53.50% | LR=3.46e-04 | 0.3 min
+  ann_fair seed 2 | Ep 32/50 | TrainLoss=0.8756 | ValLoss=2.1896 | ValAUC=0.8455 | ValAcc=54.17% | LR=3.17e-04 | 0.3 min
+  ann_fair seed 2 | Ep 33/50 | TrainLoss=0.8620 | ValLoss=2.1797 | ValAUC=0.8455 | ValAcc=53.17% | LR=2.88e-04 | 0.3 min
+  ann_fair seed 2 | Ep 34/50 | TrainLoss=0.8542 | ValLoss=2.1802 | ValAUC=0.8455 | ValAcc=53.95% | LR=2.60e-04 | 0.3 min
+  ann_fair seed 2 | Ep 35/50 | TrainLoss=0.8388 | ValLoss=2.1745 | ValAUC=0.8455 | ValAcc=53.17% | LR=2.33e-04 | 0.3 min
+  ann_fair seed 2 | Ep 36/50 | TrainLoss=0.8308 | ValLoss=2.1792 | ValAUC=0.8454 | ValAcc=53.39% | LR=2.07e-04 | 0.4 min
+  ann_fair seed 2 | Ep 37/50 | TrainLoss=0.8207 | ValLoss=2.1735 | ValAUC=0.8455 | ValAcc=53.39% | LR=1.82e-04 | 0.4 min
+  ann_fair seed 2 | Ep 38/50 | TrainLoss=0.8120 | ValLoss=2.1698 | ValAUC=0.8454 | ValAcc=53.73% | LR=1.59e-04 | 0.4 min
+  ann_fair seed 2 | Ep 39/50 | TrainLoss=0.8047 | ValLoss=2.1662 | ValAUC=0.8454 | ValAcc=53.28% | LR=1.36e-04 | 0.4 min
+  ann_fair seed 2 | Ep 40/50 | TrainLoss=0.8047 | ValLoss=2.1658 | ValAUC=0.8454 | ValAcc=53.95% | LR=1.16e-04 | 0.4 min
+  ann_fair seed 2 | Ep 41/50 | TrainLoss=0.7975 | ValLoss=2.1659 | ValAUC=0.8454 | ValAcc=54.06% | LR=9.64e-05 | 0.4 min
+  ann_fair seed 2 | Ep 42/50 | TrainLoss=0.7833 | ValLoss=2.1646 | ValAUC=0.8454 | ValAcc=54.06% | LR=7.88e-05 | 0.4 min
+  ann_fair seed 2 | Ep 43/50 | TrainLoss=0.7871 | ValLoss=2.1709 | ValAUC=0.8454 | ValAcc=53.95% | LR=6.28e-05 | 0.4 min
+  ann_fair seed 2 | Ep 44/50 | TrainLoss=0.7851 | ValLoss=2.1627 | ValAUC=0.8454 | ValAcc=54.51% | LR=4.85e-05 | 0.4 min
+  ann_fair seed 2 | Ep 45/50 | TrainLoss=0.7819 | ValLoss=2.1644 | ValAUC=0.8454 | ValAcc=54.17% | LR=3.61e-05 | 0.4 min
+  ann_fair seed 2 | Ep 46/50 | TrainLoss=0.7808 | ValLoss=2.1636 | ValAUC=0.8454 | ValAcc=53.73% | LR=2.54e-05 | 0.5 min
+  ann_fair seed 2 | Ep 47/50 | TrainLoss=0.7751 | ValLoss=2.1627 | ValAUC=0.8454 | ValAcc=54.17% | LR=1.67e-05 | 0.5 min
+  ann_fair seed 2 | Ep 48/50 | TrainLoss=0.7780 | ValLoss=2.1616 | ValAUC=0.8454 | ValAcc=54.06% | LR=9.85e-06 | 0.5 min
+  ann_fair seed 2 | Ep 49/50 | TrainLoss=0.7781 | ValLoss=2.1616 | ValAUC=0.8454 | ValAcc=53.95% | LR=4.94e-06 | 0.5 min
+  ann_fair seed 2 | Ep 50/50 | TrainLoss=0.7765 | ValLoss=2.1616 | ValAUC=0.8454 | ValAcc=53.95% | LR=1.99e-06 | 0.5 min
+  [Done] ann_fair seed 2: epoch 29 (held-out 54.62%) -> test acc 55.49%  AUC 0.8478  ECE 0.1251
+  total elapsed this invocation: 7.5 min
+
+[Report] Bootstrapping 12 runs x 10,000 paired resamples (acc, AUC, ECE)...
+[Report] Bootstrap + report took 2.9 min
+  GRU vs fair ANN              acc: pooled -8.15 [-9.35, -6.96] -> does not hold (the reverse is significant on the pooled estimate)
+  GRU vs fair ANN              auc: pooled +0.0505 [+0.0483, +0.0527] -> holds on all 3 seeds
+  GRU vs fair ANN              ece: pooled -0.0252 [-0.0263, -0.0238] -> holds on all 3 seeds
+  GRU vs MLP-no-time           acc: pooled +0.05 [-0.83, +0.94] -> does not hold
+  GRU vs MLP-no-time           auc: pooled +0.0317 [+0.0302, +0.0331] -> holds on all 3 seeds
+  GRU vs MLP-no-time           ece: pooled -0.0338 [-0.0347, -0.0327] -> holds on all 3 seeds
+  MLP-no-time vs spike_rate    acc: pooled +3.13 [+1.95, +4.29] -> holds on all 3 seeds
+  MLP-no-time vs spike_rate    auc: pooled +0.0011 [-0.0008, +0.0030] -> does not hold
+  MLP-no-time vs spike_rate    ece: pooled +0.0082 [+0.0068, +0.0096] -> does not hold (the reverse is significant on the pooled estimate)
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\seeds\results\seeds_report.md
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\seeds\results\seeds_report.json
+
+[Guard] PROTECTED FILES UNCHANGED: all 170 pre-existing files verified.
+========================================================================
