@@ -6,6 +6,29 @@ This file is the **current source of truth** for the project's claims. It replac
 
 ---
 
+## Update after review round 2–3 (capacity-matched controls, 28 Sep 2026)
+
+**This update overrides the "vs fair ANN" rows in Section 1.** The fair ANN in Sections 1 and 4 had **no decoder** (80k trainable parameters vs 1.97M for the GRU model). With a decoder of the **same size** (fast cached recipe, no augmentation, seeds 0–2):
+
+| Model (all ≈1.97M trainable params) | Test acc | Concept AUC | Concept ECE |
+|:---|:---:|:---:|:---:|
+| SNN + GRU | 48.03 | 0.898 | 0.096 |
+| SNN + GRU trained on **shuffled** timesteps | 49.9 | 0.902 | 0.094 |
+| SNN + MLP on concatenated timesteps | 44.18 | 0.883 | 0.136 |
+| ResNet-18 + MLP | 52.57 | 0.909 | 0.100 |
+| ResNet-34 + MLP | 55.25 | 0.917 | 0.093 |
+| ResNet-50 + MLP (2048→418→2048, narrow bottleneck) | ≈49.5 | ≈0.895 | ≈0.101 |
+
+(Shuffled-GRU and ResNet-50 values are derived from the pooled gaps in `seeds_round3/results/seeds_round3_report.md`; see that report for exact per-seed numbers.)
+
+What changes:
+- **"SNN concepts beat the ANN" does not hold** against capacity-matched ANNs: ResNet-18 + MLP and ResNet-34 + MLP have higher concept AUC on all 3 seeds. The earlier advantage came from decoder capacity. ResNet-50 + MLP is roughly equal to the GRU, but its decoder is a narrow bottleneck, so it is not a clean comparison.
+- **Temporal order does not help:** a GRU trained on randomly shuffled timesteps is slightly *better* than the normal GRU (acc +1.89, AUC +0.004, ECE −0.002; all 3 seeds). The 3a drop under reordering reflects train/test mismatch, not information in the order.
+- **What still holds:** keeping per-timestep spike responses beats averaging them (GRU and shuffled GRU vs MLP-no-time); the GRU beats the concatenated-timestep MLP on all three metrics; calibration is accuracy-neutral and improves intervention; the SNN uses less energy.
+- **Honest framing:** a calibrated ante-hoc CBM on a frozen spiking backbone reaches concept quality comparable to ANN backbones with equal-size decoders, at lower estimated energy. Augmented-recipe versions of these comparisons are still pending.
+
+---
+
 ## 1. What the evidence supports
 
 | Claim | Status | Evidence |

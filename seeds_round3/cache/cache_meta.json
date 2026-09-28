@@ -1,0 +1,32 @@
+{
+  "ann50_backbone": "torchvision resnet50 IMAGENET1K_V1",
+  "weights_url": "https://download.pytorch.org/models/resnet50-0676ba61.pth",
+  "imagenet_top1": 76.13,
+  "transform": "EVAL_TF = Resize((224,224)) + ToTensor + ImageNet Normalize (train_mlp_notime.EVAL_TF)",
+  "ann50_feature": "resnet50 pooled (fc=Identity) -> [N, 2048] float32",
+  "image_order": "identical to seeds/cache (run_seeds._split_rows)",
+  "splits": {
+    "train_fit": {
+      "n": 5095,
+      "ann50_shape": [
+        5095,
+        2048
+      ]
+    },
+    "held_out": {
+      "n": 899,
+      "ann50_shape": [
+        899,
+        2048
+      ]
+    },
+    "test": {
+      "n": 5794,
+      "ann50_shape": [
+        5794,
+        2048
+      ]
+    }
+  },
+  "build_minutes_this_invocation": 1.452236036459605
+}
