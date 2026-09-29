@@ -1,0 +1,108 @@
+========================================================================
+  CALIBRATED ECE FOR ALL MODELS + CALIBRATION ABLATION (round 5, item 3)  [2026-09-29 15:44:15]  mode: full run
+  Standalone -- existing files are read, never written. No backbone training.
+========================================================================
+[Guard] Fingerprinted 551 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\calibration_all
+[Env] device=cuda  seeds=(0, 1, 2)  rules=('acc', 'auc')  models=9  ECE bins=15
+
+[Part A] calibrated concept ECE, all models x seeds x rules (resumable per unit)
+[A 1/54] learned_decoder_seed0_acc: sanity OK | acc 58.77 | ECE raw 0.0761 global 0.0409 per-concept 0.0172 | AUC 0.9192 (max change 1.9e-08) | 32s | elapsed 0.5 min
+[A 2/54] learned_decoder_seed0_auc: sanity OK | acc 58.89 | ECE raw 0.0752 global 0.0409 per-concept 0.0170 | AUC 0.9192 (max change 1.0e-08) | 31s | elapsed 1.1 min
+[A 3/54] learned_decoder_seed1_acc: sanity OK | acc 58.37 | ECE raw 0.0879 global 0.0456 per-concept 0.0181 | AUC 0.9150 (max change 4.4e-08) | 32s | elapsed 1.6 min
+[A 4/54] learned_decoder_seed1_auc: sanity OK | acc 58.94 | ECE raw 0.0755 global 0.0410 per-concept 0.0173 | AUC 0.9197 (max change 3.9e-08) | 31s | elapsed 2.1 min
+[A 5/54] learned_decoder_seed2_acc: sanity OK | acc 58.65 | ECE raw 0.0769 global 0.0411 per-concept 0.0178 | AUC 0.9180 (max change 1.7e-08) | 30s | elapsed 2.6 min
+[A 6/54] learned_decoder_seed2_auc: sanity OK | acc 58.92 | ECE raw 0.0779 global 0.0418 per-concept 0.0177 | AUC 0.9188 (max change 3.7e-09) | 31s | elapsed 3.1 min
+[A 7/54] gru_shuffled_seed0_acc: sanity OK | acc 57.51 | ECE raw 0.0788 global 0.0429 per-concept 0.0180 | AUC 0.9154 (max change 7.3e-09) | 30s | elapsed 3.6 min
+[A 8/54] gru_shuffled_seed0_auc: sanity OK | acc 57.51 | ECE raw 0.0788 global 0.0429 per-concept 0.0180 | AUC 0.9154 (max change 7.3e-09) | 30s | elapsed 4.1 min
+[A 9/54] gru_shuffled_seed1_acc: sanity OK | acc 57.20 | ECE raw 0.0898 global 0.0472 per-concept 0.0189 | AUC 0.9113 (max change 1.2e-07) | 31s | elapsed 4.6 min
+[A 10/54] gru_shuffled_seed1_auc: sanity OK | acc 57.32 | ECE raw 0.0829 global 0.0436 per-concept 0.0181 | AUC 0.9159 (max change 2.4e-07) | 30s | elapsed 5.1 min
+[A 11/54] gru_shuffled_seed2_acc: sanity OK | acc 57.66 | ECE raw 0.0806 global 0.0426 per-concept 0.0181 | AUC 0.9158 (max change 1.2e-08) | 30s | elapsed 5.6 min
+[A 12/54] gru_shuffled_seed2_auc: sanity OK | acc 57.80 | ECE raw 0.0804 global 0.0421 per-concept 0.0181 | AUC 0.9160 (max change 2.7e-08) | 30s | elapsed 6.1 min
+[A 13/54] mlp_notime_seed0_acc: sanity OK | acc 56.32 | ECE raw 0.1038 global 0.0559 per-concept 0.0210 | AUC 0.8774 (max change 3.8e-09) | 32s | elapsed 6.7 min
+[A 14/54] mlp_notime_seed0_auc: sanity OK | acc 51.02 | ECE raw 0.1315 global 0.0607 per-concept 0.0226 | AUC 0.8770 (max change 1.1e-08) | 30s | elapsed 7.2 min
+[A 15/54] mlp_notime_seed1_acc: sanity OK | acc 56.45 | ECE raw 0.1046 global 0.0545 per-concept 0.0213 | AUC 0.8778 (max change 8.2e-09) | 30s | elapsed 7.7 min
+[A 16/54] mlp_notime_seed1_auc: sanity OK | acc 53.94 | ECE raw 0.1126 global 0.0649 per-concept 0.0214 | AUC 0.8778 (max change 3.3e-08) | 31s | elapsed 8.2 min
+[A 17/54] mlp_notime_seed2_acc: sanity OK | acc 56.63 | ECE raw 0.1101 global 0.0548 per-concept 0.0214 | AUC 0.8774 (max change 1.8e-09) | 30s | elapsed 8.7 min
+[A 18/54] mlp_notime_seed2_auc: sanity OK | acc 53.57 | ECE raw 0.1135 global 0.0643 per-concept 0.0221 | AUC 0.8779 (max change 5.1e-09) | 30s | elapsed 9.2 min
+[A 19/54] spike_rate_seed0_acc: sanity OK | acc 45.98 | ECE raw 0.1189 global 0.0463 per-concept 0.0205 | AUC 0.8660 (max change 6.3e-09) | 30s | elapsed 9.7 min
+[A 20/54] spike_rate_seed0_auc: sanity OK | acc 45.96 | ECE raw 0.1189 global 0.0463 per-concept 0.0205 | AUC 0.8661 (max change 2.7e-09) | 30s | elapsed 10.2 min
+[A 21/54] spike_rate_seed1_acc: sanity OK | acc 45.51 | ECE raw 0.1196 global 0.0471 per-concept 0.0209 | AUC 0.8655 (max change 1.7e-09) | 30s | elapsed 10.7 min
+[A 22/54] spike_rate_seed1_auc: sanity OK | acc 45.62 | ECE raw 0.1195 global 0.0471 per-concept 0.0208 | AUC 0.8655 (max change 3.2e-09) | 30s | elapsed 11.2 min
+[A 23/54] spike_rate_seed2_acc: sanity OK | acc 45.46 | ECE raw 0.1192 global 0.0461 per-concept 0.0205 | AUC 0.8657 (max change 4.0e-09) | 30s | elapsed 11.7 min
+[A 24/54] spike_rate_seed2_auc: sanity OK | acc 45.56 | ECE raw 0.1187 global 0.0460 per-concept 0.0205 | AUC 0.8658 (max change 1.5e-10) | 30s | elapsed 12.2 min
+[A 25/54] ann_fair_seed0_acc: sanity OK | acc 57.35 | ECE raw 0.1182 global 0.0622 per-concept 0.0203 | AUC 0.8507 (max change 1.2e-09) | 31s | elapsed 12.7 min
+[A 26/54] ann_fair_seed0_auc: sanity OK | acc 30.12 | ECE raw 0.1286 global 0.0695 per-concept 0.0222 | AUC 0.8604 (max change 4.2e-10) | 30s | elapsed 13.2 min
+[A 27/54] ann_fair_seed1_acc: sanity OK | acc 57.06 | ECE raw 0.1209 global 0.0599 per-concept 0.0208 | AUC 0.8503 (max change 2.1e-09) | 34s | elapsed 13.7 min
+[A 28/54] ann_fair_seed1_auc: sanity OK | acc 31.43 | ECE raw 0.1444 global 0.0719 per-concept 0.0231 | AUC 0.8603 (max change 1.4e-09) | 32s | elapsed 14.3 min
+[A 29/54] ann_fair_seed2_acc: sanity OK | acc 56.35 | ECE raw 0.1183 global 0.0620 per-concept 0.0209 | AUC 0.8505 (max change 2.8e-09) | 29s | elapsed 14.8 min
+[A 30/54] ann_fair_seed2_auc: sanity OK | acc 31.57 | ECE raw 0.1312 global 0.0691 per-concept 0.0228 | AUC 0.8607 (max change 1.8e-09) | 33s | elapsed 15.3 min
+[A 31/54] ann18_mlp_seed0_acc: sanity OK | acc 56.20 | ECE raw 0.0742 global 0.0412 per-concept 0.0165 | AUC 0.9230 (max change 2.0e-07) | 30s | elapsed 15.8 min
+[A 32/54] ann18_mlp_seed0_auc: sanity OK | acc 56.63 | ECE raw 0.0644 global 0.0377 per-concept 0.0158 | AUC 0.9270 (max change 1.5e-07) | 32s | elapsed 16.3 min
+[A 33/54] ann18_mlp_seed1_acc: sanity OK | acc 56.40 | ECE raw 0.0753 global 0.0390 per-concept 0.0177 | AUC 0.9217 (max change 1.4e-06) | 27s | elapsed 16.8 min
+[A 34/54] ann18_mlp_seed1_auc: sanity OK | acc 56.80 | ECE raw 0.0642 global 0.0377 per-concept 0.0170 | AUC 0.9258 (max change 2.0e-06) | 32s | elapsed 17.3 min
+[A 35/54] ann18_mlp_seed2_acc: sanity OK | acc 56.11 | ECE raw 0.0779 global 0.0411 per-concept 0.0177 | AUC 0.9221 (max change 2.2e-06) | 30s | elapsed 17.8 min
+[A 36/54] ann18_mlp_seed2_auc: sanity OK | acc 56.59 | ECE raw 0.0645 global 0.0371 per-concept 0.0167 | AUC 0.9263 (max change 2.3e-06) | 30s | elapsed 18.3 min
+[A 37/54] ann34_linear_seed0_acc: sanity OK | acc 58.28 | ECE raw 0.1290 global 0.0646 per-concept 0.0214 | AUC 0.8569 (max change 4.3e-09) | 32s | elapsed 18.9 min
+[A 38/54] ann34_linear_seed0_auc: sanity OK | acc 32.97 | ECE raw 0.1288 global 0.0702 per-concept 0.0227 | AUC 0.8634 (max change 1.1e-09) | 30s | elapsed 19.4 min
+[A 39/54] ann34_linear_seed1_acc: sanity OK | acc 59.41 | ECE raw 0.1175 global 0.0621 per-concept 0.0208 | AUC 0.8572 (max change 9.2e-09) | 30s | elapsed 19.9 min
+[A 40/54] ann34_linear_seed1_auc: sanity OK | acc 34.35 | ECE raw 0.1441 global 0.0727 per-concept 0.0231 | AUC 0.8630 (max change 3.3e-10) | 31s | elapsed 20.4 min
+[A 41/54] ann34_linear_seed2_acc: sanity OK | acc 59.51 | ECE raw 0.1168 global 0.0615 per-concept 0.0206 | AUC 0.8568 (max change 2.6e-09) | 31s | elapsed 20.9 min
+[A 42/54] ann34_linear_seed2_auc: sanity OK | acc 33.12 | ECE raw 0.1330 global 0.0690 per-concept 0.0226 | AUC 0.8637 (max change 3.2e-09) | 32s | elapsed 21.4 min
+[A 43/54] ann34_mlp_seed0_acc: sanity OK | acc 58.39 | ECE raw 0.0617 global 0.0366 per-concept 0.0171 | AUC 0.9326 (max change 2.7e-08) | 31s | elapsed 21.9 min
+[A 44/54] ann34_mlp_seed0_auc: sanity OK | acc 58.54 | ECE raw 0.0594 global 0.0356 per-concept 0.0171 | AUC 0.9329 (max change 1.5e-08) | 30s | elapsed 22.4 min
+[A 45/54] ann34_mlp_seed1_acc: sanity OK | acc 58.11 | ECE raw 0.0612 global 0.0370 per-concept 0.0163 | AUC 0.9305 (max change 2.9e-07) | 17s | elapsed 22.7 min
+[A 46/54] ann34_mlp_seed1_auc: sanity OK | acc 58.25 | ECE raw 0.0608 global 0.0369 per-concept 0.0163 | AUC 0.9308 (max change 8.3e-07) | 14s | elapsed 22.9 min
+[A 47/54] ann34_mlp_seed2_acc: sanity OK | acc 59.58 | ECE raw 0.0595 global 0.0352 per-concept 0.0170 | AUC 0.9339 (max change 2.9e-08) | 14s | elapsed 23.2 min
+[A 48/54] ann34_mlp_seed2_auc: sanity OK | acc 59.68 | ECE raw 0.0604 global 0.0355 per-concept 0.0168 | AUC 0.9339 (max change 7.1e-08) | 14s | elapsed 23.4 min
+[A 49/54] ann50_linear_seed0_acc: sanity OK | acc 62.70 | ECE raw 0.1045 global 0.0551 per-concept 0.0205 | AUC 0.8736 (max change 5.9e-09) | 14s | elapsed 23.7 min
+[A 50/54] ann50_linear_seed0_auc: sanity OK | acc 26.56 | ECE raw 0.1277 global 0.0687 per-concept 0.0220 | AUC 0.8785 (max change 3.2e-09) | 14s | elapsed 23.9 min
+[A 51/54] ann50_linear_seed1_acc: sanity OK | acc 62.67 | ECE raw 0.1047 global 0.0545 per-concept 0.0205 | AUC 0.8728 (max change 2.9e-09) | 14s | elapsed 24.1 min
+[A 52/54] ann50_linear_seed1_auc: sanity OK | acc 26.22 | ECE raw 0.1104 global 0.0661 per-concept 0.0217 | AUC 0.8778 (max change 3.8e-09) | 14s | elapsed 24.4 min
+[A 53/54] ann50_linear_seed2_acc: sanity OK | acc 62.12 | ECE raw 0.1081 global 0.0571 per-concept 0.0207 | AUC 0.8733 (max change 7.8e-11) | 14s | elapsed 24.6 min
+[A 54/54] ann50_linear_seed2_auc: sanity OK | acc 29.08 | ECE raw 0.1197 global 0.0663 per-concept 0.0218 | AUC 0.8792 (max change 3.1e-09) | 14s | elapsed 24.8 min
+
+[Part B] calibration ablation: SNN + GRU and ResNet-34 + MLP (resumable per arm)
+
+[B] SNN + GRU seed 0 (CBM best_acc.pth, Platt from held-out)
+  [B] learned_decoder seed 0 raw                test 58.82% | held-out 57.51% | ICRC@25% 75.02% | input ECE 0.0761 | 6s
+  [B] learned_decoder seed 0 global_platt       test 58.72% | held-out 56.95% | ICRC@25% 81.18% | input ECE 0.0409 | 5s
+  [B] learned_decoder seed 0 per_concept_platt  test 58.84% | held-out 56.51% | ICRC@25% 81.43% | input ECE 0.0172 | 6s
+
+[B] SNN + GRU seed 1 (CBM best_acc.pth, Platt from held-out)
+  [B] learned_decoder seed 1 raw                test 59.27% | held-out 57.95% | ICRC@25% 75.77% | input ECE 0.0879 | 5s
+  [B] learned_decoder seed 1 global_platt       test 59.22% | held-out 58.06% | ICRC@25% 81.95% | input ECE 0.0456 | 5s
+  [B] learned_decoder seed 1 per_concept_platt  test 59.23% | held-out 57.84% | ICRC@25% 82.20% | input ECE 0.0181 | 5s
+
+[B] SNN + GRU seed 2 (CBM best_acc.pth, Platt from held-out)
+  [B] learned_decoder seed 2 raw                test 59.03% | held-out 56.62% | ICRC@25% 75.32% | input ECE 0.0769 | 5s
+  [B] learned_decoder seed 2 global_platt       test 58.77% | held-out 56.95% | ICRC@25% 81.29% | input ECE 0.0411 | 5s
+  [B] learned_decoder seed 2 per_concept_platt  test 58.68% | held-out 57.51% | ICRC@25% 81.43% | input ECE 0.0178 | 6s
+
+[B] ResNet-34 + MLP seed 0 (CBM best_acc.pth, Platt from held-out)
+  [B] ann34_mlp seed 0 raw                test 58.72% | held-out 55.84% | ICRC@25% 72.61% | input ECE 0.0617 | 5s
+  [B] ann34_mlp seed 0 global_platt       test 58.53% | held-out 54.39% | ICRC@25% 78.27% | input ECE 0.0366 | 5s
+  [B] ann34_mlp seed 0 per_concept_platt  test 58.35% | held-out 54.62% | ICRC@25% 78.65% | input ECE 0.0171 | 5s
+
+[B] ResNet-34 + MLP seed 1 (CBM best_acc.pth, Platt from held-out)
+  [B] ann34_mlp seed 1 raw                test 58.25% | held-out 55.39% | ICRC@25% 72.51% | input ECE 0.0612 | 5s
+  [B] ann34_mlp seed 1 global_platt       test 57.96% | held-out 54.62% | ICRC@25% 78.05% | input ECE 0.0370 | 5s
+  [B] ann34_mlp seed 1 per_concept_platt  test 58.28% | held-out 54.39% | ICRC@25% 78.55% | input ECE 0.0163 | 5s
+
+[B] ResNet-34 + MLP seed 2 (CBM best_acc.pth, Platt from held-out)
+  [B] ann34_mlp seed 2 raw                test 59.08% | held-out 55.51% | ICRC@25% 73.09% | input ECE 0.0595 | 5s
+  [B] ann34_mlp seed 2 global_platt       test 58.92% | held-out 55.39% | ICRC@25% 78.07% | input ECE 0.0352 | 5s
+  [B] ann34_mlp seed 2 per_concept_platt  test 58.94% | held-out 55.39% | ICRC@25% 78.39% | input ECE 0.0170 | 5s
+
+[Stats A] Bootstrapping 54 (model, variant, rule, seed) outputs x 10,000 paired resamples (RNG seed 20260826)...
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\calibration_all\calibration_all_report.md
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\calibration_all\calibration_all_report.json
+
+[Verdict A] SNN + GRU vs ResNet-34 + MLP: Before calibration the GRU's concept ECE is significantly WORSE (higher); after per-concept Platt calibration (fitted on the 899 held-out images) the gap CLOSES: equivalent within +-0.01 under both selection rules (90% CI). Supported: "after Platt calibration, the SNN + GRU's concept ECE is equivalent to ResNet-34 + MLP within +-0.01".
+
+[Verdict A] SNN + GRU vs ResNet-18 + MLP: Before calibration the GRU's concept ECE is significantly WORSE (higher); after per-concept Platt calibration (fitted on the 899 held-out images) the gap CLOSES: equivalent within +-0.01 under both selection rules (90% CI). Supported: "after Platt calibration, the SNN + GRU's concept ECE is equivalent to ResNet-18 + MLP within +-0.01".
+
+[Verdict B] NOT specific to the SNN: ResNet-34 + MLP gets the same benefit (accuracy-neutral, better intervention); the size differs (SNN - ResNet effect 95% CI [+0.21, +0.83] pt)
+[RAM end] this process: peak working set 1.63 GiB (now 0.81, peak private 4.45) | machine: 2.9 of 15.3 GiB free | GPU peak allocated 1.34 GiB
+
+[Guard] PROTECTED FILES UNCHANGED: all 551 pre-existing files verified.
+========================================================================

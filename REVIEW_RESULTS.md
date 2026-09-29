@@ -13,16 +13,17 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 1. **Class accuracy is statistically indistinguishable from a capacity-matched ResNet-34, and clearly above ResNet-18.** Direct paired test (`accuracy_equivalence.py`, Section 3a): SNN + GRU 58.60% vs ResNet-34 + equal-size MLP 58.69%, pooled gap −0.10 pt, 95% CI [−1.20, +1.01] (AUC-selected: +0.09 pt [−1.04, +1.22]), no significant difference. Equivalence (TOST) holds within **±1.1 pt** (test-image bootstrap) but is **not** shown within ±1 pt (p = 0.054 / 0.058), and with only 3 seeds the seed-to-seed interval needs ±1.4 pt. So the claim is “no significant difference; equivalent within about ±1.1 pt”, not “matches within 1 point”. The GRU is **higher than ResNet-18 + MLP by 2.2–2.4 pt** (significant under both selection rules, all 3 seeds). The shipped live-augmented GRU reaches 59.48% (seed 0).
 2. **Lower compute energy; total energy depends on where data is stored.** Compute only: 5.66× less than capacity-matched ResNet-34 and 6.05× less than the same network as a dense ANN. Including first-order memory traffic (8-bit, `energy_memory_audit.py`): about **2.7× less** with on-chip memory (1 MB SRAM level; 2.65× vs ResNet-34 + MLP), but **2.2–3.6× more** energy with off-chip DRAM, because the SNN reads and writes every neuron's membrane state at every time step (≈169 MB of its ≈282 MB traffic per image). Break-even ≈ 55–61 pJ/byte. This agrees with hardware-aware analyses showing that SNN energy advantages depend strongly on memory access and state storage (Dampfhoffer et al., IEEE TETCI 2023).
 3. **Spike timing information helps, including its order.** GRU vs the same GRU trained on shuffled time steps: +1.14 acc, +0.003 AUC, lower ECE (all 3 seeds). GRU vs time-averaged MLP of equal size: +2.13 acc, +0.040 AUC, −0.026 ECE (all 3 seeds).
-4. **Calibration is accuracy-neutral and improves human intervention:** −0.07 pts accuracy [−0.55, +0.39]; 81.6% vs 76.6% accuracy when 25% of concepts are corrected (3 seeds).
+4. **Calibration is accuracy-neutral and improves human intervention, but it is not specific to the SNN.** Per-concept Platt calibration (fitted on the 899 held-out images) lowers concept ECE for every model (SNN + GRU 0.080 → 0.018; ResNet-34 + MLP 0.061 → 0.017) and, in the same-protocol ablation (Section 5b), raises accuracy at 25% concepts corrected by +6.3 pt (SNN + GRU) and +5.8 pt (ResNet-34 + MLP) with no accuracy loss for either. The SNN gains only 0.5 pt more [+0.21, +0.83].
 5. **Concepts are clearly better than ANN backbones without a decoder** (AUC 0.917 vs 0.851–0.873).
 
 **What does not hold**
 
-- **Better concepts than a capacity-matched ANN:** ResNet-34 + MLP has higher raw concept AUC (0.932 vs 0.917) and lower raw concept ECE (0.061 vs 0.080), all seeds. ResNet-18 + MLP is also slightly higher in AUC (0.922).
+- **Better concepts than a capacity-matched ANN:** ResNet-34 + MLP has higher raw concept AUC (0.932 vs 0.917) and lower raw concept ECE (0.061 vs 0.080), all seeds. ResNet-18 + MLP is also slightly higher in AUC (0.922). After per-concept Platt calibration the ECE gap closes (0.0177 vs 0.0168, equivalent within ±0.01), but the AUC gap is not affected by calibration.
+- **Calibration as an SNN-specific contribution:** ResNet-34 + MLP gets the same accuracy-neutral calibration and intervention benefit (Section 5b). Calibration is a general post-hoc step that works on any concept bottleneck.
 - **Higher accuracy than every ANN:** ResNet-50 (linear, 76.1% ImageNet backbone) reaches 62.50%, at about 6.3× the SNN's estimated compute energy.
 - Claims from the no-augmentation recipe that augmentation reversed: "the time-shuffled GRU is better" and "ANNs are 5–10 pts more accurate" (Section 3b).
 
-**Headline claim:** a calibrated ante-hoc concept bottleneck on a frozen spiking backbone has class accuracy statistically indistinguishable from a capacity-matched ResNet-34 (58.6% vs 58.7%; no significant difference, equivalent within ±1.1 pt, not shown within ±1 pt) and 2.2–2.4 pt above ResNet-18 + MLP, at about 5.7× lower estimated compute energy (about 2.7× with on-chip memory; 2.2–3.6× more energy with off-chip DRAM), with slightly lower raw concept quality (AUC 0.917 vs 0.932); decoding the spike train step by step and in order clearly improves accuracy and concepts, and per-concept calibration improves calibration and intervention without costing accuracy.
+**Headline claim:** a calibrated ante-hoc concept bottleneck on a frozen spiking backbone has class accuracy statistically indistinguishable from a capacity-matched ResNet-34 (58.6% vs 58.7%; no significant difference, equivalent within ±1.1 pt, not shown within ±1 pt) and 2.2–2.4 pt above ResNet-18 + MLP, at about 5.7× lower estimated compute energy (about 2.7× with on-chip memory; 2.2–3.6× more energy with off-chip DRAM), with slightly lower raw concept AUC (0.917 vs 0.932; calibrated concept ECE equivalent, 0.0177 vs 0.0168); decoding the spike train step by step and in order clearly improves accuracy and concepts, and per-concept calibration improves calibration and intervention without costing accuracy (for ResNet-34 + MLP too, so it is not an SNN-specific effect).
 
 ---
 
@@ -34,6 +35,8 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 | ANN baseline 58.82%, GRU "beats baseline" | Linear ResNet-18 56.92% (aug, 3 seeds); capacity-matched ResNet-34 + MLP 58.69% ≈ GRU 58.60% | Old ANN used the full train split and selected on test; no capacity match |
 | pre_reset_vmem "1.15× more efficient" | 6.10× / 3.93× (same backbone) | Same accounting fix |
 | GRU accuracy “matches” ResNet-34 (from comparing 3-seed means) | Direct paired test: gap −0.10 pt, no significant difference; equivalence within ±1.1 pt (TOST), **not** within ±1 pt | The earlier statement was not a direct test; now tested on the saved predictions (Section 3a) |
+| Raw concept ECE: “the ANN is better calibrated” (implied by the raw table) | After per-concept Platt calibration the GRU's ECE is equivalent to ResNet-34 + MLP within ±0.01 (0.0177 vs 0.0168; gap +0.0009 [+0.0005, +0.0017]) | Calibrated ECE compared across all 9 models (Section 5b) |
+| Calibration benefit shown only for the SNN | ResNet-34 + MLP gets the same benefit (accuracy −0.16 pt, intervention @25% +5.8 pt); SNN effect is +0.5 pt larger on intervention | Same ablation run on ResNet-34 + MLP (Section 5b) |
 | "SNN concepts beat the ANN" | Only vs ANNs without a decoder | Decoder capacity, not spiking, explained that gap |
 | "Time order does not matter" (no-aug round 3) | With augmentation, order helps (+1.14 acc, all seeds) | Shuffling acted as a regulariser in the no-aug recipe |
 | ICRC "collapses at 75% / 100%" | Retrained heads (3 seeds): 0 monotonicity violations, 98.3–98.5% at 100% | Shipped-head collapse not re-run in this review |
@@ -151,6 +154,36 @@ Values < 1 mean the SNN uses **more** energy. 16-bit gives the same picture (Res
 
 Feeding calibrated concepts into the shipped head **without** retraining costs −1.73 / −4.42 pts, which is why the shipped model keeps calibration display-only.
 
+### 5b. Same-protocol comparison across models (`calibration_all_models.py`, round 5)
+
+Per-concept Platt scaling fitted on the 899 held-out images, evaluated on the 5,794 test images, 3 seeds, both selection rules; bootstrap 10,000 paired resamples. This uses a different protocol from the table above (retrained CBMs from `aug_views`, Platt on 899 instead of 449 images, 10,000 vs 2,000 resamples), so the two tables are not mixed.
+
+**Calibrated concept ECE (test, mean over 3 seeds, class-accuracy selection)**
+
+| Model | Raw ECE | Global-Platt ECE | Per-concept-Platt ECE |
+|:---|:---:|:---:|:---:|
+| SNN + GRU | 0.0803 | 0.0426 | 0.0177 |
+| GRU time-shuffled | 0.0831 | 0.0442 | 0.0183 |
+| SNN + MLP, time-averaged | 0.1062 | 0.0551 | 0.0212 |
+| SNN spike rate | 0.1192 | 0.0465 | 0.0206 |
+| ResNet-18 linear | 0.1191 | 0.0614 | 0.0206 |
+| ResNet-18 + MLP | 0.0758 | 0.0404 | 0.0173 |
+| ResNet-34 linear | 0.1211 | 0.0627 | 0.0209 |
+| ResNet-34 + MLP | 0.0608 | 0.0363 | 0.0168 |
+| ResNet-50 linear | 0.1058 | 0.0556 | 0.0206 |
+
+Concept AUC is unchanged by calibration (max change 2e-6). Direct paired test, GRU minus ResNet-34 + MLP: raw ECE gap +0.0195 [+0.0183, +0.0205] → per-concept-Platt gap +0.0009 [+0.0005, +0.0017], equivalent within ±0.01 (TOST, both selection rules; seed-t interval also equivalent). Against ResNet-18 + MLP the gap after calibration is +0.0004 [−0.0001, +0.0011], also equivalent. Reading: after per-concept calibration all models end near 0.017–0.021, so calibrated ECE does not separate the models; the raw-ECE deficit of the SNN is removed by calibration, and calibration is what makes them equal, not something the SNN has and the ANN lacks.
+
+**Calibration ablation, SNN + GRU vs ResNet-34 + MLP (head retrained per arm, per-concept Platt vs raw input)**
+
+| Model | Accuracy change | Intervention accuracy @25% corrected (raw → per-concept) | Monotonicity violations |
+|:---|:---:|:---:|:---:|
+| SNN + GRU | −0.12 pt [−0.45, +0.21] | 75.37 → 81.69 (+6.32 [+6.04, +6.59]) | 0 (raw) / 0 |
+| ResNet-34 + MLP | −0.16 pt [−0.45, +0.14] | 72.74 → 78.53 (+5.80 [+5.55, +6.05]) | 0 / 0 |
+| Difference (SNN − ResNet) | +0.03 pt [−0.41, +0.46] | +0.52 pt [+0.21, +0.83] | — |
+
+Conclusion: the calibration benefit is **not specific to the SNN**. ResNet-34 + MLP gains almost the same amount; the SNN's extra 0.5 pt is significant but small. The SNN + GRU also has higher intervention accuracy than ResNet-34 + MLP in every arm (about +2.6 to +3.2 pt at 25% corrected); this was not tested for significance here. Full tables: `calibration_all/calibration_all_report.md`.
+
 ---
 
 ## 6. Earlier single-seed analyses (augmented recipe, seed 0)
@@ -181,6 +214,7 @@ Timing shuffle at test time only (3a): reversed order −15.36 pts. With augment
 | Time-shuffled GRU, ResNet-50 | `run_seeds_round3.py` | `seeds_round3/results/` |
 | **Augmented 8-view comparison, dual selection** | `run_aug_views.py` | `aug_views/results/` |
 | **Direct accuracy test + equivalence (TOST)** | `accuracy_equivalence.py` | `equivalence/` |
+| **Calibrated ECE, all models; calibration ablation on ResNet-34 + MLP** | `calibration_all_models.py` | `calibration_all/` |
 
 ---
 
