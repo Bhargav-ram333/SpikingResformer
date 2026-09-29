@@ -1,0 +1,34 @@
+{
+  "model": "learned_decoder",
+  "seed": 2,
+  "config": {
+    "model": "learned_decoder",
+    "seed": 2,
+    "epochs": 50,
+    "batch": 32,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "grad_clip": 5.0,
+    "concept_dropout": 0.25,
+    "time_shuffle_train": false,
+    "augmentation": "LIVE TRAIN_TF view per image per epoch, params seed 30000019 + 1000*seed + epoch, shared by both models of the seed; SNN features float16",
+    "selection": "dual: best held-out ClassAcc (best_acc) and best held-out concept AUC (best_auc)"
+  },
+  "train_minutes": 135.57556035121283,
+  "acc": {
+    "selected_epoch": 46,
+    "held_out_class_acc": 59.62180200222469,
+    "held_out_concept_auc": 0.9151722542926078,
+    "test_acc": 60.23472557818433,
+    "test_concept_auc": 0.9200718509365073,
+    "test_concept_ece": 0.07931853566962713
+  },
+  "auc": {
+    "selected_epoch": 41,
+    "held_out_class_acc": 58.509454949944384,
+    "held_out_concept_auc": 0.915383541370763,
+    "test_acc": 60.59716948567484,
+    "test_concept_auc": 0.9200216397213964,
+    "test_concept_ece": 0.08150337163334852
+  }
+}

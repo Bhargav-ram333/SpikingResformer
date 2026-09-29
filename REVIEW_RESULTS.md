@@ -12,7 +12,7 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 
 1. **Class accuracy is statistically indistinguishable from a capacity-matched ResNet-34, and clearly above ResNet-18.** Direct paired test (`accuracy_equivalence.py`, Section 3a): SNN + GRU 58.60% vs ResNet-34 + equal-size MLP 58.69%, pooled gap −0.10 pt, 95% CI [−1.20, +1.01] (AUC-selected: +0.09 pt [−1.04, +1.22]), no significant difference. Equivalence (TOST) holds within **±1.1 pt** (test-image bootstrap) but is **not** shown within ±1 pt (p = 0.054 / 0.058), and with only 3 seeds the seed-to-seed interval needs ±1.4 pt. So the claim is “no significant difference; equivalent within about ±1.1 pt”, not “matches within 1 point”. The GRU is **higher than ResNet-18 + MLP by 2.2–2.4 pt** (significant under both selection rules, all 3 seeds). The shipped live-augmented GRU reaches 59.48% (seed 0).
 2. **Lower compute energy; total energy depends on where data is stored.** Compute only: 5.66× less than capacity-matched ResNet-34 and 6.05× less than the same network as a dense ANN. Including first-order memory traffic (8-bit, `energy_memory_audit.py`): about **2.7× less** with on-chip memory (1 MB SRAM level; 2.65× vs ResNet-34 + MLP), but **2.2–3.6× more** energy with off-chip DRAM, because the SNN reads and writes every neuron's membrane state at every time step (≈169 MB of its ≈282 MB traffic per image). Break-even ≈ 55–61 pJ/byte. Reducing membrane traffic (8/4-bit state, on-chip buffers up to 8 MiB) narrows this gap but does not remove it at T = 4 (Section 4c). This agrees with hardware-aware analyses showing that SNN energy advantages depend strongly on memory access and state storage (Dampfhoffer et al., IEEE TETCI 2023).
-3. **Spike timing information helps, including its order.** GRU vs the same GRU trained on shuffled time steps: +1.14 acc, +0.003 AUC, lower ECE (all 3 seeds). GRU vs time-averaged MLP of equal size: +2.13 acc, +0.040 AUC, −0.026 ECE (all 3 seeds).
+3. **Spike timing information helps, including its order.** GRU vs the same GRU trained on shuffled time steps: +1.14 acc, +0.003 AUC, lower ECE (all 3 seeds, 8 cached views). **Confirmed with live augmentation** (fresh random view every epoch, 3 seeds, paired): +0.99 pt accuracy [+0.49, +1.50], +0.0031 AUC, −0.0038 raw ECE, significant on every seed (Section 3d). GRU vs time-averaged MLP of equal size: +2.13 acc, +0.040 AUC, −0.026 ECE (all 3 seeds).
 4. **Calibration is accuracy-neutral and improves human intervention, but it is not specific to the SNN.** Per-concept Platt calibration (fitted on the 899 held-out images) lowers concept ECE for every model (SNN + GRU 0.080 → 0.018; ResNet-34 + MLP 0.061 → 0.017) and, in the same-protocol ablation (Section 5b), raises accuracy at 25% concepts corrected by +6.3 pt (SNN + GRU) and +5.8 pt (ResNet-34 + MLP) with no accuracy loss for either. The SNN gains only 0.5 pt more [+0.21, +0.83].
 5. **Concepts are clearly better than ANN backbones without a decoder** (AUC 0.917 vs 0.851–0.873).
 
@@ -81,6 +81,19 @@ Paired bootstrap over the 5,794 test images (10,000 resamples, same resamples fo
 | ResNet-50, linear | class acc | **−3.90** | [−5.11, −2.73] | No (ResNet-50 higher) | — |
 
 Reading: with ResNet-34 + MLP the two models are not significantly different, and the data supports equivalence within about ±1.1 pt, not ±1 pt; that bootstrap interval covers only test-set sampling, and with 3 seeds the seed-to-seed uncertainty is larger (about ±1.4 pt). Concept quality is a separate, negative result: the GRU's concept AUC is 0.013–0.015 **lower** than ResNet-34 + MLP (significant) and its raw ECE is 0.016–0.020 **higher**; against ResNet-18 + MLP the AUC gap (−0.005 to −0.007) is inside ±0.01. Full tables: `equivalence/equivalence_report.md`.
+
+### 3d. Order result confirmed with live augmentation (`live_aug_order_test.py`, round 5)
+
+Same recipe as the 8-view runs, but every epoch each of the 5,095 training images gets a fresh random view through the frozen backbone (50 views per image instead of 8). The in-order GRU and the time-shuffled GRU of each seed train on identical views, batch order and initial weights (paired). Seeds 0–2, test n = 5,794, paired bootstrap 10,000 resamples.
+
+| Model | Test acc (class-acc selection) | Concept AUC | Raw ECE | Per-concept-Platt ECE |
+|:---|:---:|:---:|:---:|:---:|
+| SNN + GRU, in order | 60.06 ± 0.18 | 0.9198 ± 0.0003 | 0.0780 ± 0.0018 | 0.0177 ± 0.0001 |
+| SNN + GRU, time-shuffled | 59.07 ± 0.15 | 0.9167 ± 0.0008 | 0.0818 ± 0.0020 | 0.0183 ± 0.0005 |
+
+In order minus shuffled: accuracy **+0.99 pt** (95% CI [+0.49, +1.50]; per seed +0.90 / +0.97 / +1.10, McNemar p 0.026 / 0.026 / 0.008), concept AUC +0.0031 [+0.0027, +0.0035], raw ECE −0.0038 [−0.0041, −0.0034], significant on every seed; with AUC-based epoch selection +1.37 pt [+0.85, +1.89]. This matches the 8-view result (+1.14 pt, +0.0032, −0.0028). After per-concept calibration the ECE gap is small (−0.0005 [−0.0009, −0.0002]).
+
+Two cautions. (1) Live augmentation raised the SNN's own accuracy (60.06% vs 58.60% with 8 views), but the ANN baselines were **not** rerun with live augmentation, so the 60.06% must not be compared with the ResNet numbers in Section 3 (which use the 8-view protocol); the SNN-vs-ANN accuracy statement above stays on the 8-view protocol. (2) The report's caveat line about the seed-based interval still mentions t(0.95, 1) (two seeds); the interval columns were computed for 3 seeds (df = 2). Full report: `live_aug_order/report.md`.
 
 **Epoch selection on held-out concept AUC** (review request) gives the same conclusions for all decoder models (accuracy changes ≤ 0.44 pts, except MLP-no-time −3.6). For linear ANNs, concept AUC peaks in the first epochs, so AUC selection picks nearly untrained heads (accuracy drops 25–35 pts); those rows are not a meaningful comparison. Full tables: `aug_views/results/aug_views_report.md`.
 
@@ -237,6 +250,7 @@ Timing shuffle at test time only (3a): reversed order −15.36 pts. With augment
 | **Direct accuracy test + equivalence (TOST)** | `accuracy_equivalence.py` | `equivalence/` |
 | **Calibrated ECE, all models; calibration ablation on ResNet-34 + MLP** | `calibration_all_models.py` | `calibration_all/` |
 | **Membrane-traffic reduction (bit-width, on-chip buffer, fewer timesteps)** | `energy_memory_reduction.py` | `energy_memory_reduction/` |
+| **Time order under live augmentation (3 seeds, paired)** | `live_aug_order_test.py` | `live_aug_order/` |
 
 ---
 

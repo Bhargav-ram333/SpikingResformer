@@ -1,0 +1,34 @@
+{
+  "model": "gru_shuffled",
+  "seed": 0,
+  "config": {
+    "model": "gru_shuffled",
+    "seed": 0,
+    "epochs": 50,
+    "batch": 32,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "grad_clip": 5.0,
+    "concept_dropout": 0.25,
+    "time_shuffle_train": true,
+    "augmentation": "LIVE TRAIN_TF view per image per epoch, params seed 30000019 + 1000*seed + epoch, shared by both models of the seed; SNN features float16",
+    "selection": "dual: best held-out ClassAcc (best_acc) and best held-out concept AUC (best_auc)"
+  },
+  "train_minutes": 126.63962084849676,
+  "acc": {
+    "selected_epoch": 39,
+    "held_out_class_acc": 58.39822024471635,
+    "held_out_concept_auc": 0.9097543997562638,
+    "test_acc": 59.18191232309285,
+    "test_concept_auc": 0.9157762543816148,
+    "test_concept_ece": 0.08399257533749223
+  },
+  "auc": {
+    "selected_epoch": 49,
+    "held_out_class_acc": 58.28698553948832,
+    "held_out_concept_auc": 0.9106186251625281,
+    "test_acc": 59.423541594753196,
+    "test_concept_auc": 0.9164613360714446,
+    "test_concept_ece": 0.07954081674168749
+  }
+}
