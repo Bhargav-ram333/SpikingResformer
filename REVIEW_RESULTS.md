@@ -10,8 +10,8 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 
 **What the evidence supports**
 
-1. **Class accuracy matches a capacity-matched ANN.** SNN + GRU 58.60 ± 0.20% vs ResNet-34 + equal-size MLP 58.69 ± 0.78% (difference not meaningful), and above ResNet-18 + MLP (56.24%). The shipped live-augmented GRU reaches 59.48% (seed 0).
-2. **Lower compute energy; total energy depends on where data is stored.** Compute only: 5.66× less than ResNet-34 and 6.05× less than the same network as a dense ANN. Including first-order memory traffic (8-bit): 2.6–5.1× less if data stays in on-chip SRAM, but **2.2–3.6× more** with off-chip DRAM, because the SNN reads and writes every neuron's membrane state at every time step (≈169 MB of its ≈282 MB traffic per image). Break-even ≈ 55–61 pJ/byte.
+1. **Class accuracy is close to a capacity-matched ANN** (direct paired and ±1-pt equivalence test pending; the current figure compares 3-seed means, not a direct test). SNN + GRU 58.60 ± 0.20% vs ResNet-34 + equal-size MLP 58.69 ± 0.78%, and above ResNet-18 + MLP (56.24%). The shipped live-augmented GRU reaches 59.48% (seed 0).
+2. **Lower compute energy; total energy depends on where data is stored.** Compute only: 5.66× less than capacity-matched ResNet-34 and 6.05× less than the same network as a dense ANN. Including first-order memory traffic (8-bit, `energy_memory_audit.py`): about **2.7× less** with on-chip memory (1 MB SRAM level; 2.65× vs ResNet-34 + MLP), but **2.2–3.6× more** energy with off-chip DRAM, because the SNN reads and writes every neuron's membrane state at every time step (≈169 MB of its ≈282 MB traffic per image). Break-even ≈ 55–61 pJ/byte. This agrees with hardware-aware analyses showing that SNN energy advantages depend strongly on memory access and state storage (Dampfhoffer et al., IEEE TETCI 2023).
 3. **Spike timing information helps, including its order.** GRU vs the same GRU trained on shuffled time steps: +1.14 acc, +0.003 AUC, lower ECE (all 3 seeds). GRU vs time-averaged MLP of equal size: +2.13 acc, +0.040 AUC, −0.026 ECE (all 3 seeds).
 4. **Calibration is accuracy-neutral and improves human intervention:** −0.07 pts accuracy [−0.55, +0.39]; 81.6% vs 76.6% accuracy when 25% of concepts are corrected (3 seeds).
 5. **Concepts are clearly better than ANN backbones without a decoder** (AUC 0.917 vs 0.851–0.873).
@@ -22,7 +22,7 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 - **Higher accuracy than every ANN:** ResNet-50 (linear, 76.1% ImageNet backbone) reaches 62.50%, at about 6.3× the SNN's estimated compute energy.
 - Claims from the no-augmentation recipe that augmentation reversed: "the time-shuffled GRU is better" and "ANNs are 5–10 pts more accurate" (Section 3b).
 
-**Headline claim:** a calibrated ante-hoc concept bottleneck on a frozen spiking backbone matches the class accuracy of a capacity-matched ResNet-34 at about 5.7× lower estimated compute energy (2.6–5.1× including on-chip memory traffic; no saving with off-chip DRAM), with slightly lower raw concept quality (AUC 0.917 vs 0.932); decoding the spike train step by step and in order clearly improves accuracy and concepts, and per-concept calibration improves calibration and intervention without costing accuracy.
+**Headline claim:** a calibrated ante-hoc concept bottleneck on a frozen spiking backbone has class accuracy close to a capacity-matched ResNet-34 (58.6% vs 58.7%; equivalence test pending) at about 5.7× lower estimated compute energy (about 2.7× with on-chip memory; 2.2–3.6× more energy with off-chip DRAM), with slightly lower raw concept quality (AUC 0.917 vs 0.932); decoding the spike train step by step and in order clearly improves accuracy and concepts, and per-concept calibration improves calibration and intervention without costing accuracy.
 
 ---
 
@@ -122,7 +122,7 @@ First-order model: bytes read/written for weights, activations, spikes and LIF m
 | **ResNet-34 + MLP** | **5.66×** | 5.07× | **2.65×** | **0.45×** | 0.28× |
 | ResNet-50 + MLP | 6.32× | 5.66× | 2.98× | 0.54× | 0.36× |
 
-Values < 1 mean the SNN uses **more** energy. 16-bit gives the same picture (ResNet-34 + MLP: 4.90× / 2.26× / 0.41× / 0.29×). Sparse event (address) encoding of spikes is worse than dense bitmaps at the measured ~18% spike density. If a neuron's 4 time steps run back to back with its membrane held in a register (neuromorphic-style), the DRAM ratio vs the same architecture rises to about 1.1×; this is reported as a best case only. **Limitation:** first-order model, no cache-hierarchy simulation, no hardware measurement. **What the paper should say:** quote the compute-only ratio together with the 1 MB SRAM–DRAM range and the break-even point; the energy benefit requires on-chip (neuromorphic-style) state storage.
+Values < 1 mean the SNN uses **more** energy. 16-bit gives the same picture (ResNet-34 + MLP: 4.90× / 2.26× / 0.41× / 0.29×). Sparse event (address) encoding of spikes is worse than dense bitmaps at the measured ~18% spike density. If a neuron's 4 time steps run back to back with its membrane held in a register (neuromorphic-style), the DRAM ratio vs the same architecture rises to about 1.1×; this is reported as a best case only. **Limitation:** first-order model, no cache-hierarchy simulation, no hardware measurement. The 8 KB SRAM column is shown for completeness only: neither model's weights (10 MB / 21 MB at 8-bit) fit in 8 KB, so it must not be quoted. **What the paper should say:** 5.7× compute; about 2.7× with on-chip memory; 2.2–3.6× more energy with DRAM; break-even ≈ 55–61 pJ/byte. The energy benefit requires neuromorphic-style on-chip state storage (cf. Dampfhoffer et al., 2023).
 
 ---
 
@@ -164,3 +164,10 @@ Timing shuffle at test time only (3a): reversed order −15.36 pts. With augment
 | Capacity-matched ANNs, concat MLP | `run_seeds_extra.py` | `seeds_extra/results/` |
 | Time-shuffled GRU, ResNet-50 | `run_seeds_round3.py` | `seeds_round3/results/` |
 | **Augmented 8-view comparison, dual selection** | `run_aug_views.py` | `aug_views/results/` |
+
+---
+
+## 8. References
+
+- M. Horowitz, "Computing's energy problem (and what we can do about it)," ISSCC 2014.
+- M. Dampfhoffer, T. Mesquida, A. Valentian, L. Anghel, "Are SNNs Really More Energy-Efficient Than ANNs? An In-Depth Hardware-Aware Study," IEEE Transactions on Emerging Topics in Computational Intelligence, 7(3):731–741, 2023.
