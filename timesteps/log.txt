@@ -1,0 +1,141 @@
+========================================================================
+  FEWER TIMESTEPS, MEASURED (round 5, item 4)  T = (2, 3) vs 4  [2026-09-29 17:53:25]  mode: all stages
+  Standalone -- existing files are read, never written. Backbone frozen (T = 4 weights).
+========================================================================
+[Guard] Fingerprinted 669 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\timesteps
+[Sanity] T = 4 path of this script vs seeds/cache test features + aug_views GRU test outputs (all 5794 test images)...
+========================================================================
+  FEWER TIMESTEPS, MEASURED (round 5, item 4)  T = (2, 3) vs 4  [2026-09-30 01:20:37]  mode: all stages
+  Standalone -- existing files are read, never written. Backbone frozen (T = 4 weights).
+========================================================================
+[Guard] Fingerprinted 722 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\timesteps
+[Sanity] T = 4 path of this script vs seeds/cache test features + aug_views GRU test outputs (all 5794 test images)...
+[Sanity] features max |diff| 0.0e+00; GRU outputs: seed0_acc 0.0e+00/0, seed0_auc 0.0e+00/0, seed1_acc 0.0e+00/0, seed1_auc 0.0e+00/0, seed2_acc 0.0e+00/0, seed2_auc 0.0e+00/0 -> PASS (2.8 min)
+[Cache T=2] train views 239 MiB (float16) + eval 78 MiB (float32); free 38.5 GiB
+[Cache T=2] held_out: (899, 2, 1536) in 0.3 min
+[Cache T=2] test: (5794, 2, 1536) in 1.5 min
+  [T=2 view 0] 40/160 batches | 0.4 min
+  [T=2 view 0] 80/160 batches | 0.8 min
+  [T=2 view 0] 120/160 batches | 1.1 min
+  [T=2 view 0] 160/160 batches | 1.5 min
+[Cache T=2] view 0 done in 1.5 min (3.3 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.29, peak private 8.51) | machine: 2.5 of 15.3 GiB free
+  [T=2 view 1] 40/160 batches | 0.4 min
+  [T=2 view 1] 80/160 batches | 0.7 min
+  [T=2 view 1] 120/160 batches | 1.1 min
+  [T=2 view 1] 160/160 batches | 1.5 min
+[Cache T=2] view 1 done in 1.5 min (4.8 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.29, peak private 8.51) | machine: 2.4 of 15.3 GiB free
+  [T=2 view 2] 40/160 batches | 0.4 min
+  [T=2 view 2] 80/160 batches | 0.7 min
+  [T=2 view 2] 120/160 batches | 1.1 min
+  [T=2 view 2] 160/160 batches | 1.5 min
+[Cache T=2] view 2 done in 1.5 min (6.2 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.21, peak private 8.51) | machine: 2.8 of 15.3 GiB free
+  [T=2 view 3] 40/160 batches | 0.4 min
+  [T=2 view 3] 80/160 batches | 0.7 min
+  [T=2 view 3] 120/160 batches | 1.1 min
+  [T=2 view 3] 160/160 batches | 1.5 min
+[Cache T=2] view 3 done in 1.5 min (7.7 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.21, peak private 8.51) | machine: 2.7 of 15.3 GiB free
+  [T=2 view 4] 40/160 batches | 0.4 min
+  [T=2 view 4] 80/160 batches | 0.7 min
+  [T=2 view 4] 120/160 batches | 1.1 min
+  [T=2 view 4] 160/160 batches | 1.5 min
+[Cache T=2] view 4 done in 1.5 min (9.1 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.21, peak private 8.51) | machine: 2.7 of 15.3 GiB free
+  [T=2 view 5] 40/160 batches | 0.4 min
+  [T=2 view 5] 80/160 batches | 0.7 min
+  [T=2 view 5] 120/160 batches | 1.1 min
+  [T=2 view 5] 160/160 batches | 1.5 min
+[Cache T=2] view 5 done in 1.5 min (10.6 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.21, peak private 8.51) | machine: 2.7 of 15.3 GiB free
+  [T=2 view 6] 40/160 batches | 0.4 min
+  [T=2 view 6] 80/160 batches | 0.7 min
+  [T=2 view 6] 120/160 batches | 1.1 min
+  [T=2 view 6] 160/160 batches | 1.5 min
+[Cache T=2] view 6 done in 1.5 min (12.1 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.21, peak private 8.51) | machine: 2.7 of 15.3 GiB free
+  [T=2 view 7] 40/160 batches | 0.4 min
+  [T=2 view 7] 80/160 batches | 0.7 min
+  [T=2 view 7] 120/160 batches | 1.1 min
+  [T=2 view 7] 160/160 batches | 1.5 min
+[Cache T=2] view 7 done in 1.5 min (13.5 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.21, peak private 8.51) | machine: 2.7 of 15.3 GiB free
+[Cache T=2] complete: 320 MiB on disk in 13.5 min
+[Cache T=3] train views 358 MiB (float16) + eval 118 MiB (float32); free 38.0 GiB
+[Cache T=3] held_out: (899, 3, 1536) in 0.3 min
+[Cache T=3] test: (5794, 3, 1536) in 2.1 min
+  [T=3 view 0] 40/160 batches | 0.5 min
+  [T=3 view 0] 80/160 batches | 1.0 min
+  [T=3 view 0] 120/160 batches | 1.5 min
+  [T=3 view 0] 160/160 batches | 2.0 min
+[Cache T=3] view 0 done in 2.0 min (4.4 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.25, peak private 8.51) | machine: 2.5 of 15.3 GiB free
+  [T=3 view 1] 40/160 batches | 0.5 min
+  [T=3 view 1] 80/160 batches | 1.0 min
+  [T=3 view 1] 120/160 batches | 1.5 min
+  [T=3 view 1] 160/160 batches | 2.0 min
+[Cache T=3] view 1 done in 2.0 min (6.4 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.25, peak private 8.51) | machine: 2.6 of 15.3 GiB free
+  [T=3 view 2] 40/160 batches | 0.5 min
+  [T=3 view 2] 80/160 batches | 1.0 min
+  [T=3 view 2] 120/160 batches | 1.5 min
+  [T=3 view 2] 160/160 batches | 2.0 min
+[Cache T=3] view 2 done in 2.0 min (8.3 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.25, peak private 8.51) | machine: 2.6 of 15.3 GiB free
+  [T=3 view 3] 40/160 batches | 0.5 min
+  [T=3 view 3] 80/160 batches | 1.0 min
+  [T=3 view 3] 120/160 batches | 1.5 min
+  [T=3 view 3] 160/160 batches | 2.0 min
+[Cache T=3] view 3 done in 2.0 min (10.3 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.25, peak private 8.51) | machine: 2.6 of 15.3 GiB free
+  [T=3 view 4] 40/160 batches | 0.5 min
+  [T=3 view 4] 80/160 batches | 1.0 min
+  [T=3 view 4] 120/160 batches | 1.5 min
+  [T=3 view 4] 160/160 batches | 1.9 min
+[Cache T=3] view 4 done in 1.9 min (12.2 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.25, peak private 8.51) | machine: 2.5 of 15.3 GiB free
+  [T=3 view 5] 40/160 batches | 0.5 min
+  [T=3 view 5] 80/160 batches | 1.0 min
+  [T=3 view 5] 120/160 batches | 1.5 min
+  [T=3 view 5] 160/160 batches | 1.9 min
+[Cache T=3] view 5 done in 1.9 min (14.2 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.25, peak private 8.51) | machine: 2.5 of 15.3 GiB free
+  [T=3 view 6] 40/160 batches | 0.5 min
+  [T=3 view 6] 80/160 batches | 1.0 min
+  [T=3 view 6] 120/160 batches | 1.5 min
+  [T=3 view 6] 160/160 batches | 1.9 min
+[Cache T=3] view 6 done in 2.0 min (16.1 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.25, peak private 8.51) | machine: 2.6 of 15.3 GiB free
+  [T=3 view 7] 40/160 batches | 0.5 min
+  [T=3 view 7] 80/160 batches | 1.0 min
+  [T=3 view 7] 120/160 batches | 1.5 min
+  [T=3 view 7] 160/160 batches | 2.0 min
+[Cache T=3] view 7 done in 2.0 min (18.1 min total) | [RAM] this process: peak working set 1.85 GiB (now 1.25, peak private 8.51) | machine: 2.6 of 15.3 GiB free
+[Cache T=3] complete: 479 MiB on disk in 18.1 min
+[Train T=2] seed 0: 50 epochs (run_aug_views.train_one, write=False) ...
+  [Done T=2] seed 0 [ClassAcc-selected]: epoch 39 -> test acc 50.85% AUC 0.8773 ECE 0.1043
+  [Done T=2] seed 0 [AUC-selected]: epoch 36 -> test acc 50.52% AUC 0.8779 ECE 0.1095
+  [RAM] this process: peak working set 1.85 GiB (now 1.67, peak private 8.51) | machine: 2.2 of 15.3 GiB free
+[Train T=2] seed 1: 50 epochs (run_aug_views.train_one, write=False) ...
+  [Done T=2] seed 1 [ClassAcc-selected]: epoch 43 -> test acc 51.26% AUC 0.8769 ECE 0.1056
+  [Done T=2] seed 1 [AUC-selected]: epoch 42 -> test acc 51.35% AUC 0.8771 ECE 0.0994
+  [RAM] this process: peak working set 1.85 GiB (now 1.69, peak private 8.51) | machine: 2.1 of 15.3 GiB free
+[Train T=2] seed 2: 50 epochs (run_aug_views.train_one, write=False) ...
+  [Done T=2] seed 2 [ClassAcc-selected]: epoch 40 -> test acc 50.86% AUC 0.8757 ECE 0.1065
+  [Done T=2] seed 2 [AUC-selected]: epoch 41 -> test acc 50.86% AUC 0.8766 ECE 0.1040
+  [RAM] this process: peak working set 1.85 GiB (now 1.71, peak private 8.51) | machine: 2.2 of 15.3 GiB free
+[Train T=3] seed 0: 50 epochs (run_aug_views.train_one, write=False) ...
+  [Done T=3] seed 0 [ClassAcc-selected]: epoch 43 -> test acc 56.75% AUC 0.9043 ECE 0.0847
+  [Done T=3] seed 0 [AUC-selected]: epoch 47 -> test acc 56.97% AUC 0.9046 ECE 0.0849
+  [RAM] this process: peak working set 1.86 GiB (now 1.82, peak private 8.51) | machine: 1.9 of 15.3 GiB free
+[Train T=3] seed 1: 50 epochs (run_aug_views.train_one, write=False) ...
+  [Done T=3] seed 1 [ClassAcc-selected]: epoch 37 -> test acc 55.75% AUC 0.9043 ECE 0.0902
+  [Done T=3] seed 1 [AUC-selected]: epoch 43 -> test acc 56.25% AUC 0.9048 ECE 0.0869
+  [RAM] this process: peak working set 1.90 GiB (now 1.84, peak private 8.51) | machine: 2.0 of 15.3 GiB free
+[Train T=3] seed 2: 50 epochs (run_aug_views.train_one, write=False) ...
+  [Done T=3] seed 2 [ClassAcc-selected]: epoch 39 -> test acc 56.28% AUC 0.9029 ECE 0.0897
+  [Done T=3] seed 2 [AUC-selected]: epoch 41 -> test acc 56.39% AUC 0.9040 ECE 0.0913
+  [RAM] this process: peak working set 1.91 GiB (now 1.84, peak private 8.51) | machine: 2.0 of 15.3 GiB free
+[Stats] Bootstrapping 48 outputs x 10,000 paired resamples (RNG seed 20260826)...
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\timesteps\report.md
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\timesteps\report.json
+  - **Does accuracy hold at T = 2?** At T = 2 accuracy DROPS significantly and is NOT within +-1 pt (ClassAcc-selected: -7.61 pt [95% CI -8.53, -6.67], AUC-selected: -8.01 pt [95% CI -8.95, -7.06]; smallest equivalence margin 8.78 pt).
+    - T = 2 GRU vs ResNet-34 + MLP: accuracy DROPS significantly and is NOT within +-1 pt (ClassAcc-selected: -7.70 pt [95% CI -8.89, -6.51], AUC-selected: -7.92 pt [95% CI -9.10, -6.76]; smallest equivalence margin 8.91 pt).
+    - T = 2 GRU vs ResNet-18 + MLP: accuracy DROPS significantly and is NOT within +-1 pt (ClassAcc-selected: -5.25 pt [95% CI -6.47, -4.06], AUC-selected: -5.76 pt [95% CI -6.97, -4.59]; smallest equivalence margin 6.76 pt).
+    - Concept AUC T = 2 minus T = 4: acc: -0.0408 [95% CI -0.0422, -0.0394], NOT shown equivalent within +-0.01; auc: -0.0421 [95% CI -0.0435, -0.0407], NOT shown equivalent within +-0.01.
+  - **Energy consequence:** energy_memory_reduction/ scenario D (8-bit membrane + on-chip + T = 2) vs ResNet-34 + MLP: 1 MiB: break-even 213 pJ/B, ratio 1.19x / 0.77x; 4 MiB: break-even 256 pJ/B, ratio 1.33x / 0.87x; 8 MiB: break-even 355 pJ/B, ratio 1.57x / 1.05x; scenario C (T = 2, 16-bit): break-even 129 pJ/B. These T = 2 energy scenarios are NOT supported: the accuracy they assume is not preserved at T = 2. Keep them labelled paper-only / not achievable without retraining the backbone.
+  - **Does accuracy hold at T = 3?** At T = 3 accuracy DROPS significantly and is NOT within +-1 pt (ClassAcc-selected: -2.34 pt [95% CI -3.01, -1.66], AUC-selected: -2.38 pt [95% CI -3.04, -1.73]; smallest equivalence margin 2.94 pt).
+    - T = 3 GRU vs ResNet-34 + MLP: accuracy DROPS significantly and is NOT within +-1 pt (ClassAcc-selected: -2.43 pt [95% CI -3.54, -1.31], AUC-selected: -2.29 pt [95% CI -3.42, -1.16]; smallest equivalence margin 3.38 pt).
+    - T = 3 GRU vs ResNet-18 + MLP: accuracy is not significantly different but NOT shown equivalent within +-1 pt (ClassAcc-selected: +0.02 pt [95% CI -1.10, +1.15], AUC-selected: -0.14 pt [95% CI -1.27, +1.01]; smallest equivalence margin 1.09 pt).
+    - Concept AUC T = 3 minus T = 4: acc: -0.0136 [95% CI -0.0143, -0.0128], NOT shown equivalent within +-0.01; auc: -0.0148 [95% CI -0.0156, -0.0140], NOT shown equivalent within +-0.01.
+[RAM end] this process: peak working set 1.91 GiB (now 1.37, peak private 8.64) | machine: 2.6 of 15.3 GiB free
+
+[Guard] PROTECTED FILES UNCHANGED: all 722 pre-existing files verified.
+========================================================================

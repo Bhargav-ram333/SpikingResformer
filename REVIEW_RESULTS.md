@@ -21,6 +21,7 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 - **Better concepts than a capacity-matched ANN:** ResNet-34 + MLP has higher raw concept AUC (0.932 vs 0.917) and lower raw concept ECE (0.061 vs 0.080), all seeds. ResNet-18 + MLP is also slightly higher in AUC (0.922). After per-concept Platt calibration the ECE gap closes (0.0177 vs 0.0168, equivalent within ±0.01), but the AUC gap is not affected by calibration.
 - **Calibration as an SNN-specific contribution:** ResNet-34 + MLP gets the same accuracy-neutral calibration and intervention benefit (Section 5b). Calibration is a general post-hoc step that works on any concept bottleneck.
 - **Higher accuracy than every ANN:** ResNet-50 (linear, 76.1% ImageNet backbone) reaches 62.50%, at about 6.3× the SNN's estimated compute energy.
+- **Cutting energy further with fewer timesteps:** with this frozen T = 4 backbone, T = 3 costs 2.3 pt and T = 2 costs 7.6 pt of accuracy (Section 4d), so the T = 2 energy scenarios are not supported.
 - Claims from the no-augmentation recipe that augmentation reversed: "the time-shuffled GRU is better" and "ANNs are 5–10 pts more accurate" (Section 3b).
 
 **Headline claim:** a calibrated ante-hoc concept bottleneck on a frozen spiking backbone has class accuracy statistically indistinguishable from a capacity-matched ResNet-34 (58.6% vs 58.7%; no significant difference, equivalent within ±1.1 pt, not shown within ±1 pt) and 2.2–2.4 pt above ResNet-18 + MLP, at about 5.7× lower estimated compute energy (about 2.7× with on-chip memory; 2.2–3.6× more energy with off-chip DRAM), with slightly lower raw concept AUC (0.917 vs 0.932; calibrated concept ECE equivalent, 0.0177 vs 0.0168); decoding the spike train step by step and in order clearly improves accuracy and concepts, and per-concept calibration improves calibration and intervention without costing accuracy (for ResNet-34 + MLP too, so it is not an SNN-specific effect).
@@ -168,14 +169,28 @@ The 4b reference setting uses 8-bit weights, activations and spikes, but a **16-
 | 8-bit membrane, on chip where it fits, 8 MiB (28 of 38 LIF layers fit) | 130.4 | 1.15–1.72 | buffer and bit-width assumed |
 | 4-bit membrane, all on chip, 8 MiB (whole network needs 5.0 MiB) | 161.9 | 1.0–1.5 | buffer and bit-width assumed |
 | No membrane traffic at all (bound, not a realisable design) | 168.3 | 0.98–1.5 | upper bound |
-| T = 2, 16-bit membrane | 128.8 | 1.2–1.9 | **accuracy at T = 2 not measured** |
-| T = 2 + 8-bit membrane + on chip 8 MiB | 355.0 | 0.64–0.95 | **accuracy at T = 2 not measured** |
+| T = 2, 16-bit membrane | 128.8 | 1.2–1.9 | **not supported: accuracy at T = 2 falls 7.6 pt (Section 4d)** |
+| T = 2 + 8-bit membrane + on chip 8 MiB | 355.0 | 0.64–0.95 | **not supported: accuracy at T = 2 falls 7.6 pt (Section 4d)** |
 
 Against ResNet-18 + MLP the SNN stays worse at DRAM in every scenario at T = 4 (best break-even 56.5 pJ/B).
 
 Membrane size (whole network): 40.4 MiB at 32-bit, 20.2 MiB at 16-bit, 10.1 MiB at 8-bit, 5.0 MiB at 4-bit. It fits in an 8 MiB buffer only at 4-bit. The largest single layer is 1.53 MiB at 16-bit and does not fit a 1 MiB buffer at 32-bit.
 
-**What this supports:** at T = 4, lowering the membrane bit-width or adding on-chip buffers up to 8 MiB raises the DRAM break-even from 55 to at most 162 pJ/B, which is at or below the bottom of the DRAM range. With off-chip DRAM the spiking model stays more energy-hungry than ResNet-34 + MLP (only the 4-bit, 8 MiB case gets to parity at the cheapest DRAM cost, and it needs a 4-bit membrane, whose accuracy has not been tested). Only fewer timesteps move the SNN below the ANN across the whole DRAM range, and that rests on accuracy at T < 4, which has not been measured (the backbone was pretrained at T = 4). **Do not claim DRAM parity or a DRAM advantage until accuracy at T = 2 (and the 4-bit membrane) is measured.** Full tables: `energy_memory_reduction/report.md`.
+**What this supports:** at T = 4, lowering the membrane bit-width or adding on-chip buffers up to 8 MiB raises the DRAM break-even from 55 to at most 162 pJ/B, which is at or below the bottom of the DRAM range. With off-chip DRAM the spiking model stays more energy-hungry than ResNet-34 + MLP (only the 4-bit, 8 MiB case gets to parity at the cheapest DRAM cost, and it needs a 4-bit membrane, whose accuracy has not been tested). Only fewer timesteps would move the SNN below the ANN across the whole DRAM range, but accuracy at T < 4 was then measured (Section 4d) and falls too much, so that route is **not supported**. **Do not claim DRAM parity or a DRAM advantage.** The 4-bit membrane accuracy remains untested. Full tables: `energy_memory_reduction/report.md`.
+
+### 4d. Fewer timesteps, measured (`timesteps_test.py`, round 5)
+
+The frozen backbone (pretrained at T = 4) was run with T = 2 and T = 3 (features are exactly the first 2 or 3 timesteps of the T = 4 run) and the GRU decoder was retrained from scratch at each T with the unchanged 8-view recipe, 3 seeds, test n = 5,794, paired bootstrap 10,000 resamples. The T = 4 path reproduces the existing outputs exactly (sanity gate passed).
+
+| T | Test acc (class-acc selection) | Concept AUC | Raw ECE | Per-concept-Platt ECE |
+|:---:|:---:|:---:|:---:|:---:|
+| 4 | 58.60 ± 0.20 | 0.9174 | 0.0803 | 0.0177 |
+| 3 | 56.26 ± 0.50 | 0.9038 | 0.0882 | 0.0189 |
+| 2 | 50.99 ± 0.23 | 0.8766 | 0.1055 | 0.0201 |
+
+Paired gap vs T = 4: **T = 3: −2.34 pt** [−3.01, −1.66]; **T = 2: −7.61 pt** [−8.53, −6.67]; both significant on every seed and not equivalent within ±1 pt. Concept AUC also falls (−0.014 at T = 3, −0.041 at T = 2). Against the ANNs: T = 2 is 7.7 pt below ResNet-34 + MLP and 5.3 pt below ResNet-18 + MLP; T = 3 is 2.4 pt below ResNet-34 + MLP and statistically indistinguishable from ResNet-18 + MLP (+0.02 pt [−1.10, +1.15]; equivalence within ±1 pt not shown).
+
+**Consequence:** the T = 2 energy scenarios in Section 4c assumed accuracy would be preserved; it is not (−7.6 pt), so they are not supported. Fewer timesteps trades accuracy for energy with this frozen T = 4 backbone; a backbone trained at the smaller T would be a separate experiment. The paper should keep the energy claim to compute energy (about 5.7× lower at T = 4; about 2.7× with on-chip memory) and state that the DRAM-side disadvantage is not removed. Full report: `timesteps/report.md`.
 
 ---
 
@@ -251,6 +266,7 @@ Timing shuffle at test time only (3a): reversed order −15.36 pts. With augment
 | **Calibrated ECE, all models; calibration ablation on ResNet-34 + MLP** | `calibration_all_models.py` | `calibration_all/` |
 | **Membrane-traffic reduction (bit-width, on-chip buffer, fewer timesteps)** | `energy_memory_reduction.py` | `energy_memory_reduction/` |
 | **Time order under live augmentation (3 seeds, paired)** | `live_aug_order_test.py` | `live_aug_order/` |
+| **Fewer timesteps (T = 2, 3), measured** | `timesteps_test.py` | `timesteps/` |
 
 ---
 

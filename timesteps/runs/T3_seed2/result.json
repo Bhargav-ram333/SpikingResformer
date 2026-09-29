@@ -1,0 +1,38 @@
+{
+  "T": 3,
+  "model": "learned_decoder",
+  "seed": 2,
+  "train_minutes": 0.7371155540148417,
+  "config": {
+    "model": "learned_decoder",
+    "seed": 2,
+    "epochs": 50,
+    "batch": 32,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "grad_clip": 5.0,
+    "concept_dropout": 0.25,
+    "augmentation": "cached TRAIN_TF views: K=8, one drawn per image per epoch",
+    "view_param_seed": 20260929,
+    "view_draw_seed": 2000005,
+    "hidden": null,
+    "time_shuffle_train": false,
+    "selection": "dual: best held-out ClassAcc (best_acc.pth) and best held-out concept AUC (best_auc.pth)"
+  },
+  "acc": {
+    "selected_epoch": 39,
+    "held_out_class_acc": 55.172413793103445,
+    "held_out_concept_auc": 0.8955354953483347,
+    "test_acc": 56.28236106316879,
+    "test_concept_auc": 0.9029031345799552,
+    "test_concept_ece": 0.08971076270948232
+  },
+  "auc": {
+    "selected_epoch": 41,
+    "held_out_class_acc": 54.50500556173527,
+    "held_out_concept_auc": 0.8966947908390441,
+    "test_acc": 56.38591646530894,
+    "test_concept_auc": 0.9039522729997385,
+    "test_concept_ece": 0.09130075502793202
+  }
+}
