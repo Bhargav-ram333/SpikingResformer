@@ -1,0 +1,20 @@
+========================================================================
+  DIRECT ACCURACY + EQUIVALENCE (round 5)  [2026-09-29 14:52:53]  mode: full run
+  Standalone -- existing files are read, never written. No training.
+========================================================================
+[Guard] Fingerprinted 546 existing files; all writes confined to C:\Users\palag\New folder\SpikingResformer-cbm\equivalence
+[Env] device=cuda  seeds=(0, 1, 2)  rules=('acc', 'auc')  margins={'acc': 1.0, 'auc': 0.01, 'ece': 0.01}
+  engine (all weights 1) vs result.json over 36 outputs: max |diff| acc 0.00e+00 AUC 2.22e-16 ECE 2.14e-09
+  OK: engine reproduces every result.json metric; t quantile, TOST verdict, min margin and TOST p / CI duality behave as specified.
+
+[Stats] Bootstrapping 36 (model, rule, seed) outputs x 10,000 paired resamples (RNG seed 20260826)...
+[CrossCheck] vs aug_views\results\aug_views_report.json (same resamples): max |difference| = 0.00e+00 -> OK
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\equivalence\equivalence_report.md
+[Saved] C:\Users\palag\New folder\SpikingResformer-cbm\equivalence\equivalence_report.json
+
+[Verdict] GRU vs ResNet-34 + MLP: NO: equivalence within +-1 pt is not established under either rule (smallest margin with equivalence under both rules: 1.04 pt bootstrap, 1.37 pt seed-t). Supported wording: "no statistically significant difference from ResNet-34 + MLP (95% CIs [-1.20, +1.01]; [-1.04, +1.22]); equivalence within +-1.1 pt (TOST)" -- not "within +-1 pt".
+
+[Verdict] GRU vs ResNet-18 + MLP: NO: equivalence within +-1 pt is not established under either rule (smallest margin with equivalence under both rules: 3.29 pt bootstrap, 2.93 pt seed-t). The GRU is significantly HIGHER than ResNet-18 + MLP under both rules; supported: "the GRU exceeds ResNet-18 + MLP by 2.24-2.36 pt".
+
+[Guard] PROTECTED FILES UNCHANGED: all 546 pre-existing files verified.
+========================================================================

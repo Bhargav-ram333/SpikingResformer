@@ -10,7 +10,7 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 
 **What the evidence supports**
 
-1. **Class accuracy is close to a capacity-matched ANN** (direct paired and ±1-pt equivalence test pending; the current figure compares 3-seed means, not a direct test). SNN + GRU 58.60 ± 0.20% vs ResNet-34 + equal-size MLP 58.69 ± 0.78%, and above ResNet-18 + MLP (56.24%). The shipped live-augmented GRU reaches 59.48% (seed 0).
+1. **Class accuracy is statistically indistinguishable from a capacity-matched ResNet-34, and clearly above ResNet-18.** Direct paired test (`accuracy_equivalence.py`, Section 3a): SNN + GRU 58.60% vs ResNet-34 + equal-size MLP 58.69%, pooled gap −0.10 pt, 95% CI [−1.20, +1.01] (AUC-selected: +0.09 pt [−1.04, +1.22]), no significant difference. Equivalence (TOST) holds within **±1.1 pt** (test-image bootstrap) but is **not** shown within ±1 pt (p = 0.054 / 0.058), and with only 3 seeds the seed-to-seed interval needs ±1.4 pt. So the claim is “no significant difference; equivalent within about ±1.1 pt”, not “matches within 1 point”. The GRU is **higher than ResNet-18 + MLP by 2.2–2.4 pt** (significant under both selection rules, all 3 seeds). The shipped live-augmented GRU reaches 59.48% (seed 0).
 2. **Lower compute energy; total energy depends on where data is stored.** Compute only: 5.66× less than capacity-matched ResNet-34 and 6.05× less than the same network as a dense ANN. Including first-order memory traffic (8-bit, `energy_memory_audit.py`): about **2.7× less** with on-chip memory (1 MB SRAM level; 2.65× vs ResNet-34 + MLP), but **2.2–3.6× more** energy with off-chip DRAM, because the SNN reads and writes every neuron's membrane state at every time step (≈169 MB of its ≈282 MB traffic per image). Break-even ≈ 55–61 pJ/byte. This agrees with hardware-aware analyses showing that SNN energy advantages depend strongly on memory access and state storage (Dampfhoffer et al., IEEE TETCI 2023).
 3. **Spike timing information helps, including its order.** GRU vs the same GRU trained on shuffled time steps: +1.14 acc, +0.003 AUC, lower ECE (all 3 seeds). GRU vs time-averaged MLP of equal size: +2.13 acc, +0.040 AUC, −0.026 ECE (all 3 seeds).
 4. **Calibration is accuracy-neutral and improves human intervention:** −0.07 pts accuracy [−0.55, +0.39]; 81.6% vs 76.6% accuracy when 25% of concepts are corrected (3 seeds).
@@ -22,7 +22,7 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 - **Higher accuracy than every ANN:** ResNet-50 (linear, 76.1% ImageNet backbone) reaches 62.50%, at about 6.3× the SNN's estimated compute energy.
 - Claims from the no-augmentation recipe that augmentation reversed: "the time-shuffled GRU is better" and "ANNs are 5–10 pts more accurate" (Section 3b).
 
-**Headline claim:** a calibrated ante-hoc concept bottleneck on a frozen spiking backbone has class accuracy close to a capacity-matched ResNet-34 (58.6% vs 58.7%; equivalence test pending) at about 5.7× lower estimated compute energy (about 2.7× with on-chip memory; 2.2–3.6× more energy with off-chip DRAM), with slightly lower raw concept quality (AUC 0.917 vs 0.932); decoding the spike train step by step and in order clearly improves accuracy and concepts, and per-concept calibration improves calibration and intervention without costing accuracy.
+**Headline claim:** a calibrated ante-hoc concept bottleneck on a frozen spiking backbone has class accuracy statistically indistinguishable from a capacity-matched ResNet-34 (58.6% vs 58.7%; no significant difference, equivalent within ±1.1 pt, not shown within ±1 pt) and 2.2–2.4 pt above ResNet-18 + MLP, at about 5.7× lower estimated compute energy (about 2.7× with on-chip memory; 2.2–3.6× more energy with off-chip DRAM), with slightly lower raw concept quality (AUC 0.917 vs 0.932); decoding the spike train step by step and in order clearly improves accuracy and concepts, and per-concept calibration improves calibration and intervention without costing accuracy.
 
 ---
 
@@ -33,6 +33,7 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 | Energy **7.27×** | **6.05×** (same network, stem once) / **5.66×** (ResNet-34); 3.91× / 3.66× with the stem recomputed every step | Old counter under-counted conv MACs ~20× and used one network-wide spike rate (`energy_audit/`, `energy_audit_v2/`) |
 | ANN baseline 58.82%, GRU "beats baseline" | Linear ResNet-18 56.92% (aug, 3 seeds); capacity-matched ResNet-34 + MLP 58.69% ≈ GRU 58.60% | Old ANN used the full train split and selected on test; no capacity match |
 | pre_reset_vmem "1.15× more efficient" | 6.10× / 3.93× (same backbone) | Same accounting fix |
+| GRU accuracy “matches” ResNet-34 (from comparing 3-seed means) | Direct paired test: gap −0.10 pt, no significant difference; equivalence within ±1.1 pt (TOST), **not** within ±1 pt | The earlier statement was not a direct test; now tested on the saved predictions (Section 3a) |
 | "SNN concepts beat the ANN" | Only vs ANNs without a decoder | Decoder capacity, not spiking, explained that gap |
 | "Time order does not matter" (no-aug round 3) | With augmentation, order helps (+1.14 acc, all seeds) | Shuffling acted as a regulariser in the no-aug recipe |
 | ICRC "collapses at 75% / 100%" | Retrained heads (3 seeds): 0 monotonicity violations, 98.3–98.5% at 100% | Shipped-head collapse not re-run in this review |
@@ -58,10 +59,25 @@ Not re-checked: Cohen's d values in `gate_result.json` / PROJECT_SUMMARY Criteri
 ImageNet top-1 of the frozen backbones: SpikingResformer-Ti 74.4%, ResNet-18 69.8%, ResNet-34 73.3%, ResNet-50 76.1%. Sanity: the 8-view GRU (58.60%) is 0.9 pts below the shipped live-augmented GRU (59.48%, seed 0).
 
 Key paired tests (bootstrap 10k, pooled over seeds; class-accuracy selection):
-- Time-shuffled GRU vs ResNet-34 + MLP: acc −1.24, AUC −0.018, ECE +0.022 (ANN better). The normal GRU is +1.14 acc above the shuffled GRU, so GRU ≈ ResNet-34 + MLP in accuracy.
+- Time-shuffled GRU vs ResNet-34 + MLP: acc −1.24, AUC −0.018, ECE +0.022 (ANN better). The normal GRU is +1.14 acc above the shuffled GRU; the direct GRU vs ResNet-34 + MLP test is in Section 3a.
 - Time-shuffled GRU vs ResNet-18 + MLP: acc +1.22 (SNN better, on average), AUC −0.008.
 - GRU vs time-shuffled GRU: acc +1.14, AUC +0.0032, ECE −0.0028 (all 3 seeds).
 - GRU vs time-averaged MLP: acc +2.13, AUC +0.040, ECE −0.026 (all 3 seeds).
+
+### 3a. Direct accuracy test and equivalence (`accuracy_equivalence.py`, no training; saved test predictions)
+
+Paired bootstrap over the 5,794 test images (10,000 resamples, same resamples for every model), pooled over seeds 0–2. gap = SNN + GRU − baseline. Equivalence = TOST at α = 0.05 (90% CI inside the margin). Margin ±1 pt for accuracy, ±0.01 for AUC and ECE.
+
+| GRU vs | Selection | Pooled acc gap | 95% CI | Equivalent within ±1 pt? | Smallest margin shown (bootstrap / seed-t) |
+|:---|:---|---:|:---:|:---:|:---:|
+| ResNet-34 + MLP | class acc | −0.10 | [−1.20, +1.01] | No (p = 0.054) | 1.02 / 1.32 pt |
+| ResNet-34 + MLP | concept AUC | +0.09 | [−1.04, +1.22] | No (p = 0.058) | 1.04 / 1.37 pt |
+| ResNet-18 + MLP | class acc | **+2.36** | [+1.24, +3.46] | No (GRU higher) | — |
+| ResNet-18 + MLP | concept AUC | **+2.24** | [+1.12, +3.33] | No (GRU higher) | — |
+| ResNet-34, linear | class acc | −0.47 | [−1.64, +0.68] | No | 1.45 / 1.87 pt |
+| ResNet-50, linear | class acc | **−3.90** | [−5.11, −2.73] | No (ResNet-50 higher) | — |
+
+Reading: with ResNet-34 + MLP the two models are not significantly different, and the data supports equivalence within about ±1.1 pt, not ±1 pt; that bootstrap interval covers only test-set sampling, and with 3 seeds the seed-to-seed uncertainty is larger (about ±1.4 pt). Concept quality is a separate, negative result: the GRU's concept AUC is 0.013–0.015 **lower** than ResNet-34 + MLP (significant) and its raw ECE is 0.016–0.020 **higher**; against ResNet-18 + MLP the AUC gap (−0.005 to −0.007) is inside ±0.01. Full tables: `equivalence/equivalence_report.md`.
 
 **Epoch selection on held-out concept AUC** (review request) gives the same conclusions for all decoder models (accuracy changes ≤ 0.44 pts, except MLP-no-time −3.6). For linear ANNs, concept AUC peaks in the first epochs, so AUC selection picks nearly untrained heads (accuracy drops 25–35 pts); those rows are not a meaningful comparison. Full tables: `aug_views/results/aug_views_report.md`.
 
@@ -164,6 +180,7 @@ Timing shuffle at test time only (3a): reversed order −15.36 pts. With augment
 | Capacity-matched ANNs, concat MLP | `run_seeds_extra.py` | `seeds_extra/results/` |
 | Time-shuffled GRU, ResNet-50 | `run_seeds_round3.py` | `seeds_round3/results/` |
 | **Augmented 8-view comparison, dual selection** | `run_aug_views.py` | `aug_views/results/` |
+| **Direct accuracy test + equivalence (TOST)** | `accuracy_equivalence.py` | `equivalence/` |
 
 ---
 
