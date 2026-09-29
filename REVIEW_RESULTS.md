@@ -11,7 +11,7 @@ A concept bottleneck model (112 CUB concepts → 200 bird species) is trained on
 **What the evidence supports**
 
 1. **Class accuracy is statistically indistinguishable from a capacity-matched ResNet-34, and clearly above ResNet-18.** Direct paired test (`accuracy_equivalence.py`, Section 3a): SNN + GRU 58.60% vs ResNet-34 + equal-size MLP 58.69%, pooled gap −0.10 pt, 95% CI [−1.20, +1.01] (AUC-selected: +0.09 pt [−1.04, +1.22]), no significant difference. Equivalence (TOST) holds within **±1.1 pt** (test-image bootstrap) but is **not** shown within ±1 pt (p = 0.054 / 0.058), and with only 3 seeds the seed-to-seed interval needs ±1.4 pt. So the claim is “no significant difference; equivalent within about ±1.1 pt”, not “matches within 1 point”. The GRU is **higher than ResNet-18 + MLP by 2.2–2.4 pt** (significant under both selection rules, all 3 seeds). The shipped live-augmented GRU reaches 59.48% (seed 0).
-2. **Lower compute energy; total energy depends on where data is stored.** Compute only: 5.66× less than capacity-matched ResNet-34 and 6.05× less than the same network as a dense ANN. Including first-order memory traffic (8-bit, `energy_memory_audit.py`): about **2.7× less** with on-chip memory (1 MB SRAM level; 2.65× vs ResNet-34 + MLP), but **2.2–3.6× more** energy with off-chip DRAM, because the SNN reads and writes every neuron's membrane state at every time step (≈169 MB of its ≈282 MB traffic per image). Break-even ≈ 55–61 pJ/byte. This agrees with hardware-aware analyses showing that SNN energy advantages depend strongly on memory access and state storage (Dampfhoffer et al., IEEE TETCI 2023).
+2. **Lower compute energy; total energy depends on where data is stored.** Compute only: 5.66× less than capacity-matched ResNet-34 and 6.05× less than the same network as a dense ANN. Including first-order memory traffic (8-bit, `energy_memory_audit.py`): about **2.7× less** with on-chip memory (1 MB SRAM level; 2.65× vs ResNet-34 + MLP), but **2.2–3.6× more** energy with off-chip DRAM, because the SNN reads and writes every neuron's membrane state at every time step (≈169 MB of its ≈282 MB traffic per image). Break-even ≈ 55–61 pJ/byte. Reducing membrane traffic (8/4-bit state, on-chip buffers up to 8 MiB) narrows this gap but does not remove it at T = 4 (Section 4c). This agrees with hardware-aware analyses showing that SNN energy advantages depend strongly on memory access and state storage (Dampfhoffer et al., IEEE TETCI 2023).
 3. **Spike timing information helps, including its order.** GRU vs the same GRU trained on shuffled time steps: +1.14 acc, +0.003 AUC, lower ECE (all 3 seeds). GRU vs time-averaged MLP of equal size: +2.13 acc, +0.040 AUC, −0.026 ECE (all 3 seeds).
 4. **Calibration is accuracy-neutral and improves human intervention, but it is not specific to the SNN.** Per-concept Platt calibration (fitted on the 899 held-out images) lowers concept ECE for every model (SNN + GRU 0.080 → 0.018; ResNet-34 + MLP 0.061 → 0.017) and, in the same-protocol ablation (Section 5b), raises accuracy at 25% concepts corrected by +6.3 pt (SNN + GRU) and +5.8 pt (ResNet-34 + MLP) with no accuracy loss for either. The SNN gains only 0.5 pt more [+0.21, +0.83].
 5. **Concepts are clearly better than ANN backbones without a decoder** (AUC 0.917 vs 0.851–0.873).
@@ -143,6 +143,27 @@ First-order model: bytes read/written for weights, activations, spikes and LIF m
 
 Values < 1 mean the SNN uses **more** energy. 16-bit gives the same picture (ResNet-34 + MLP: 4.90× / 2.26× / 0.41× / 0.29×). Sparse event (address) encoding of spikes is worse than dense bitmaps at the measured ~18% spike density. If a neuron's 4 time steps run back to back with its membrane held in a register (neuromorphic-style), the DRAM ratio vs the same architecture rises to about 1.1×; this is reported as a best case only. **Limitation:** first-order model, no cache-hierarchy simulation, no hardware measurement. The 8 KB SRAM column is shown for completeness only: neither model's weights (10 MB / 21 MB at 8-bit) fit in 8 KB, so it must not be quoted. **What the paper should say:** 5.7× compute; about 2.7× with on-chip memory; 2.2–3.6× more energy with DRAM; break-even ≈ 55–61 pJ/byte. The energy benefit requires neuromorphic-style on-chip state storage (cf. Dampfhoffer et al., 2023).
 
+### 4c. Can reducing membrane traffic fix the DRAM case? (`energy_memory_reduction.py`, round 5; analysis on the saved per-layer counts, no training)
+
+The 4b reference setting uses 8-bit weights, activations and spikes, but a **16-bit membrane** (read and written for every neuron at every time step; 60% of the SNN's 282 MB per image). Table: break-even DRAM cost (pJ per byte) at which the SNN and ResNet-34 + MLP use equal total energy (the SNN is cheaper below it). The DRAM range used here is 162.5–325 pJ/B. The energy ratio at DRAM is written as SNN energy ÷ ResNet-34 + MLP energy (values above 1 mean the SNN is worse).
+
+| Scenario (vs ResNet-34 + MLP) | Break-even (pJ/B) | SNN energy at DRAM, × ANN | Status |
+|:---|:---:|:---:|:---|
+| Baseline: 16-bit membrane, T = 4 | 55.1 | 2.24–3.54 | measured counts |
+| 8-bit membrane | 83.1 | 1.6–2.5 | bit-width assumed |
+| 4-bit membrane | 111.2 | 1.3–2.0 | bit-width assumed |
+| 8-bit membrane, on chip where it fits, 8 MiB (28 of 38 LIF layers fit) | 130.4 | 1.15–1.72 | buffer and bit-width assumed |
+| 4-bit membrane, all on chip, 8 MiB (whole network needs 5.0 MiB) | 161.9 | 1.0–1.5 | buffer and bit-width assumed |
+| No membrane traffic at all (bound, not a realisable design) | 168.3 | 0.98–1.5 | upper bound |
+| T = 2, 16-bit membrane | 128.8 | 1.2–1.9 | **accuracy at T = 2 not measured** |
+| T = 2 + 8-bit membrane + on chip 8 MiB | 355.0 | 0.64–0.95 | **accuracy at T = 2 not measured** |
+
+Against ResNet-18 + MLP the SNN stays worse at DRAM in every scenario at T = 4 (best break-even 56.5 pJ/B).
+
+Membrane size (whole network): 40.4 MiB at 32-bit, 20.2 MiB at 16-bit, 10.1 MiB at 8-bit, 5.0 MiB at 4-bit. It fits in an 8 MiB buffer only at 4-bit. The largest single layer is 1.53 MiB at 16-bit and does not fit a 1 MiB buffer at 32-bit.
+
+**What this supports:** at T = 4, lowering the membrane bit-width or adding on-chip buffers up to 8 MiB raises the DRAM break-even from 55 to at most 162 pJ/B, which is at or below the bottom of the DRAM range. With off-chip DRAM the spiking model stays more energy-hungry than ResNet-34 + MLP (only the 4-bit, 8 MiB case gets to parity at the cheapest DRAM cost, and it needs a 4-bit membrane, whose accuracy has not been tested). Only fewer timesteps move the SNN below the ANN across the whole DRAM range, and that rests on accuracy at T < 4, which has not been measured (the backbone was pretrained at T = 4). **Do not claim DRAM parity or a DRAM advantage until accuracy at T = 2 (and the 4-bit membrane) is measured.** Full tables: `energy_memory_reduction/report.md`.
+
 ---
 
 ## 5. Calibration ablation (system with vs without the calibration novelty; head retrained, 3 seeds)
@@ -215,6 +236,7 @@ Timing shuffle at test time only (3a): reversed order −15.36 pts. With augment
 | **Augmented 8-view comparison, dual selection** | `run_aug_views.py` | `aug_views/results/` |
 | **Direct accuracy test + equivalence (TOST)** | `accuracy_equivalence.py` | `equivalence/` |
 | **Calibrated ECE, all models; calibration ablation on ResNet-34 + MLP** | `calibration_all_models.py` | `calibration_all/` |
+| **Membrane-traffic reduction (bit-width, on-chip buffer, fewer timesteps)** | `energy_memory_reduction.py` | `energy_memory_reduction/` |
 
 ---
 
