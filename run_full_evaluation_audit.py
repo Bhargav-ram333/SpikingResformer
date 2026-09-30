@@ -17,6 +17,7 @@ vmem_gate.py/regate_4arm.py, as the source of truth for the formal gate result,
 and run_full_evaluation.py's single fixed C=1.0 run as one point within it, not
 a separate or contradictory verdict.
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os, time, warnings
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -47,9 +48,9 @@ if torch.cuda.is_available():
     torch.cuda.manual_seed_all(SEED)
 
 # Paths & Settings
-CKPT_PATH = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR = paths.CUB_DIR
 CSV_PATH = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "evaluation_results")
@@ -389,7 +390,8 @@ def main():
         w_stat, w_p = stats.wilcoxon(a1, a2)
         t_stat, t_p = stats.ttest_rel(a1, a2)
         diff = a1 - a2
-        cohen_d = np.mean(diff) / (np.std(diff, ddof=1) + 1e-8)
+        _sd = np.std(diff, ddof=1)
+        cohen_d = np.mean(diff) / _sd if _sd >= 1e-6 else float("nan")   # undefined when ~no spread
         sig = "Yes (p < 0.05)" if t_p < 0.05 else "No (p >= 0.05)"
 
         stat_rows.append({

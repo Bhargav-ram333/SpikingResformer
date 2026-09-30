@@ -45,6 +45,7 @@ Usage:
     python regate_4arm.py --seeds 1         # quick smoke test, 1 seed
     python regate_4arm.py --decoder-epochs 15
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os, csv, json, time, argparse, warnings
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -66,9 +67,9 @@ from models.cbm import install_vmem_hook, _pool_temporal_mean
 from models.decoder_readout import TemporalDecoderReadout
 
 # ---- Paths (identical to train_cbm.py) ---------------------------------------
-CKPT_PATH  = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH  = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR    = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR    = paths.CUB_DIR
 CSV_PATH   = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 TARGET_LAYER = "layers.2.6.down.0"

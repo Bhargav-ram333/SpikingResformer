@@ -3,6 +3,7 @@ step3_full_cbm_experiment.py -- Run full feature extraction across all 11,788 CU
 and train 336 Logistic Regression concept probes (112 attributes x 3 feature sets).
 Reports mean test ROC-AUC for Spike-Rate vs Post-Reset V_mem vs Pre-Reset V_mem.
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os, time
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -22,9 +23,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.exceptions import ConvergenceWarning
 import warnings
 
-CKPT_PATH = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR = paths.CUB_DIR
 CSV_PATH = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'

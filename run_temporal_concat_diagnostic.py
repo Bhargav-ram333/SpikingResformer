@@ -2,6 +2,7 @@
 run_temporal_concat_diagnostic.py -- Diagnostic testing temporal concatenation of Pre-Reset V_mem across T=4 timesteps (6144-dim) vs T-averaged (1536-dim) and Spike-Rate (1536-dim).
 Evaluated on the exact same 1,179-image sample (stride 10) with exact same train/test split.
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os, warnings
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -20,9 +21,9 @@ from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.exceptions import ConvergenceWarning
 
-CKPT_PATH = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR = paths.CUB_DIR
 CSV_PATH = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'

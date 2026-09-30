@@ -2,6 +2,7 @@
 step2_subset_extraction.py -- Extract all 3 feature sets on a 500-image subset of CUB dataset.
 Uses approved pooling: GAP over (H,W), mean over T=4.
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os, time
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -16,9 +17,9 @@ from spikingjelly.activation_based import neuron, functional
 from timm.models import create_model
 import models.spikingresformer
 
-CKPT_PATH = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR = paths.CUB_DIR
 CSV_PATH = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'

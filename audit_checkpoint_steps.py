@@ -2,6 +2,7 @@
 audit_checkpoint_steps.py -- Execute Steps 1-4 on the ImageNet pretrained checkpoint.
 Checkpoint path: C:\\Users\\palag\\New folder\\SpikingResformer\\checkpoints\\SpikingResformer-checkpoints\\spikingresformer_ti.pth
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -12,7 +13,7 @@ from models.submodules import layers as _layers
 from timm.models import create_model
 import models.spikingresformer  # registers models with timm
 
-CKPT_PATH = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
 DEVICE = 'cpu'
 T_STEPS = 4

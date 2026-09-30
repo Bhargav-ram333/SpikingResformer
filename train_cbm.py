@@ -13,6 +13,7 @@ Defaults:
     Concepts : 112 CUB binary attribute annotations
 """
 
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os, json, time, warnings, argparse
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -29,9 +30,9 @@ import models.spikingresformer          # noqa: registers timm models
 from models.cbm import SpikingResformerCBM
 
 # ---- Paths -------------------------------------------------------------------
-CKPT_PATH  = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH  = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR    = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR    = paths.CUB_DIR
 CSV_PATH   = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 
@@ -479,13 +480,17 @@ def main(args):
         auc_gap = crit.get('auc_gap_vs_spike_rate', crit.get('auc_gap_vs_random', float('nan')))
         p_val   = crit.get('p_value', crit.get('wilcoxon_p', float('nan')))
         cohen_d = crit.get('cohen_d', float('nan'))
+        # gate_result.json from the 3-seed re-gate can hold d computed from arms with ~zero seed-to-seed spread
+        # (deterministic probes), e.g. -3.49e9; report such values as undefined rather than as an effect size.
+        cohen_d_txt = (f"{cohen_d:.4f}" if isinstance(cohen_d, (int, float)) and np.isfinite(cohen_d) and abs(cohen_d) < 1e3
+                       else "undefined (paired differences have ~zero spread)")
         report_md += f"""
 | Gate Status | {gate['status']} |
 |:---|:---|
 | Recommended readout | `{gate['readout_type']}` |
 | AUC gap vs baseline | {auc_gap:+.5f} |
 | p-value | {p_val:.4e} |
-| Cohen's d | {cohen_d:.4f} |
+| Cohen's d | {cohen_d_txt} |
 """
     else:
         report_md += "\n_Gate was not run (gate_result.json not found)._\n"

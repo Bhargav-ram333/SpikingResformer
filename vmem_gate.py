@@ -18,6 +18,7 @@ On PASS  -> recommended readout_type = "pre_reset_vmem"
 On FAIL  -> recommended readout_type = "spike_rate"  (fall back to Phase 0 baseline)
 """
 
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os, json, types, time, warnings
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -33,9 +34,9 @@ import models.spikingresformer  # noqa: registers models
 from models.cbm import install_vmem_hook  # single source of truth for the hook (see below)
 
 # ---- Configuration -----------------------------------------------------------
-CKPT_PATH  = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH  = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR    = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR    = paths.CUB_DIR
 CSV_PATH   = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 
@@ -257,7 +258,9 @@ def main():
     # Test if V_mem is significantly GREATER than Spike-Rate
     w_stat, w_p   = stats.wilcoxon(pre_aucs, spk_aucs, alternative="greater")
     _, t_p        = stats.ttest_rel(pre_aucs, spk_aucs)
-    cohen_d       = float(np.mean(gap_vs_spike) / (np.std(gap_vs_spike, ddof=1) + 1e-9))
+    _sd           = float(np.std(gap_vs_spike, ddof=1))
+    # undefined (NaN) when the paired differences have ~no spread; an epsilon here produced d = -3.5e9 once
+    cohen_d       = float(np.mean(gap_vs_spike) / _sd) if _sd >= 1e-6 else float("nan")
 
     crit1 = mean_gap_spk > 0.0          # V_mem must beat Spike-Rate
     crit2 = w_p          < MAX_P_VALUE  # Must be statistically significant

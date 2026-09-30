@@ -13,6 +13,7 @@ gate_result.json). Treat THIS file's C=1.0 numbers as one point in that sweep,
 not as the final go/no-go verdict -- run_full_evaluation_audit.py and
 vmem_gate.py/regate_4arm.py are the source of truth for the formal gate result.
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os, time, warnings
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -39,9 +40,9 @@ from sklearn.exceptions import ConvergenceWarning
 import scipy.stats as stats
 
 # Configuration & Paths
-CKPT_PATH = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR = paths.CUB_DIR
 CSV_PATH = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 CLASSES_TXT = os.path.join(CUB_DIR, "classes.txt")
@@ -425,7 +426,8 @@ Feature Set                      | Mean ROC-AUC | Median ROC-AUC | Std ROC-AUC |
         t_stat, t_p = stats.ttest_rel(a1, a2)
         # Cohen's d effect size
         diff = a1 - a2
-        cohen_d = np.mean(diff) / (np.std(diff, ddof=1) + 1e-8)
+        _sd = np.std(diff, ddof=1)
+        cohen_d = np.mean(diff) / _sd if _sd >= 1e-6 else float("nan")   # undefined when ~no spread
         sig = "Yes (p < 0.05)" if t_p < 0.05 else "No (p >= 0.05)"
 
         stat_rows.append({

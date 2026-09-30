@@ -1380,6 +1380,14 @@ def full_run(args):
     param_table(n_concepts)
     ev = EvalCache(rows_all)
     todo = [(k, s) for s in SEEDS for k in MODELS]          # seed-major; models grouped by backbone
+    # Optional: train only some models (review round 6: extra seeds for the equivalence test), e.g.
+    #   CBM_SEEDS=3,4 CBM_TRAIN_MODELS=learned_decoder,ann34_mlp python run_aug_views.py
+    only = [m for m in os.environ.get("CBM_TRAIN_MODELS", "").split(",") if m.strip()]
+    if only:
+        unknown = sorted(set(only) - set(MODELS))
+        if unknown:
+            raise SystemExit(f"CBM_TRAIN_MODELS has unknown models {unknown}; choose from {MODELS}")
+        todo = [(k, s) for (k, s) in todo if k in only]
     t0 = time.time()
     for i, (kind, s) in enumerate(todo, 1):
         if is_done(kind, s):
@@ -1392,7 +1400,10 @@ def full_run(args):
         finish_run(kind, s, model, best, hist, e["test"])
         print(f"  total elapsed this invocation: {(time.time()-t0)/60:.1f} min | " + _mem_line())
         del model
-    make_report()
+    if only:   # a partial model set must not overwrite the full 3-seed report; analyse with equivalence_5seed.py
+        print("[Report] CBM_TRAIN_MODELS set: aug_views report NOT rebuilt (it covers all models, seeds 0-2).")
+    else:
+        make_report()
     print(_mem_line(" end"))
 
 

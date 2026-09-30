@@ -3,6 +3,7 @@ run_check3_cuda.py -- GPU (CUDA) computation of dataset-scale distinctness and c
 between pooled post-reset V_mem, pre-reset V_mem, and spike-rate feature vectors.
 Uses PyTorch CUDA tensors and CUDA streams, batching feature processing to keep VRAM usage low.
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -16,9 +17,9 @@ from spikingjelly.activation_based import functional
 from timm.models import create_model
 import models.spikingresformer
 
-CKPT_PATH = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
-CUB_DIR = r"C:\Users\palag\New folder\SpikingResformer\datasets\CUB_200_2011"
+CUB_DIR = paths.CUB_DIR
 CSV_PATH = os.path.join(CUB_DIR, "processed_attributes.csv")
 IMAGES_DIR = os.path.join(CUB_DIR, "images")
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'

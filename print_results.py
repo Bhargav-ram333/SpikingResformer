@@ -1,7 +1,7 @@
 import csv
 import os
 
-RESULTS_DIR = r"c:\Users\palag\Research\SpikingResformer\evaluation_results"
+RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "evaluation_results")
 
 def load_csv(filename):
     filepath = os.path.join(RESULTS_DIR, filename)

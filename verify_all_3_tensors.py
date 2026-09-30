@@ -1,6 +1,7 @@
 """
 verify_all_3_tensors.py -- Verify extraction of all 3 feature tensors on a single image.
 """
+import paths  # backbone checkpoint + CUB dataset locations (env-overridable; see paths.py)
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -10,7 +11,7 @@ from spikingjelly.activation_based import neuron, functional
 from timm.models import create_model
 import models.spikingresformer
 
-CKPT_PATH = r"C:\Users\palag\New folder\SpikingResformer\checkpoints\SpikingResformer-checkpoints\spikingresformer_ti.pth"
+CKPT_PATH = paths.SRF_CKPT_PATH
 MODEL_NAME = "spikingresformer_ti"
 DEVICE = 'cpu'
 

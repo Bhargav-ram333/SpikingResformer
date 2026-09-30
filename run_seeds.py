@@ -153,7 +153,8 @@ REPRO_TOL = 0.1   # percentage points
 MODELS = ("learned_decoder", "mlp_notime", "spike_rate", "ann_fair")
 LABELS = {"learned_decoder": "learned_decoder (GRU)", "mlp_notime": "MLP-no-time",
           "spike_rate": "spike_rate (no decoder)", "ann_fair": "fair ANN (ResNet-18)"}
-SEEDS = (0, 1, 2)
+# Optional override for extra seeds, e.g. CBM_SEEDS=3,4 (review round 6); unset = the original (0, 1, 2).
+SEEDS = tuple(int(x) for x in os.environ.get("CBM_SEEDS", "0,1,2").split(",") if x.strip())
 COMPARISONS = (("GRU vs fair ANN", "learned_decoder", "ann_fair"),
                ("GRU vs MLP-no-time", "learned_decoder", "mlp_notime"),
                ("MLP-no-time vs spike_rate", "mlp_notime", "spike_rate"))
