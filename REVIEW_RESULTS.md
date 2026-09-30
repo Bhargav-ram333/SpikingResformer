@@ -233,6 +233,23 @@ Concept AUC is unchanged by calibration (max change 2e-6). Direct paired test, G
 
 Conclusion: the calibration benefit is **not specific to the SNN**. ResNet-34 + MLP gains almost the same amount; the SNN's extra 0.5 pt is significant but small. The SNN + GRU also has higher intervention accuracy than ResNet-34 + MLP in every arm (about +2.6 to +3.2 pt at 25% corrected); this was not tested for significance here. Full tables: `calibration_all/calibration_all_report.md`.
 
+### 5c. Base paper 2 protocol: VLG-CBM sparse final layer and NEC (`nec_sparse_head.py`, round 6)
+
+VLG-CBM (Srivastava, Yan and Weng, NeurIPS 2024) evaluates concept bottlenecks with a sparse final layer (elastic net) at a controlled Number of Effective Concepts per class (NEC). We applied that protocol to our trained concept layers (FISTA solver on the same objective; 3 seeds; test n = 5,794). ANEC-5 = test accuracy at NEC = 5; ANEC-avg = mean over NEC 5–30.
+
+| Model / concept layer | ANEC-5 | ANEC-avg | Dense head |
+|:---|:---:|:---:|:---:|
+| SNN + GRU | 42.52 ± 0.74 | 55.58 ± 0.06 | 58.60 |
+| SNN + GRU, random concept layer (512) | 44.25 ± 1.59 | 55.87 ± 0.65 | — |
+| ResNet-34 + MLP | 44.82 ± 0.95 | 54.50 ± 0.35 | 58.69 |
+| ResNet-34 + MLP, random concept layer (512) | 48.56 ± 1.43 | 55.73 ± 0.25 | — |
+| ResNet-18 + MLP | 41.43 ± 1.23 | 52.66 ± 0.51 | 56.24 |
+| VLG-CBM (reported; ResNet-18 fine-tuned on CUB, grounded concepts) | 75.79 | 75.82 | — |
+
+Paired: SNN + GRU vs ResNet-34 + MLP −2.30 pt at NEC = 5 [−3.34, −1.26], but +1.16 at NEC = 10 and +1.80 at NEC = 30 (both significant); SNN + GRU is above ResNet-18 + MLP at every NEC.
+
+**What this shows, including the unfavourable part:** under VLG-CBM's sparse protocol, our trained 112-concept layers do **not** beat VLG-CBM's random-concept baseline (512 random features): 42.5 vs 44.3 for the SNN, 44.8 vs 48.6 for ResNet-34 + MLP. In VLG-CBM's terms, the human CUB attributes as used here do not yet show an advantage over random features when each class may use only 5 of them (the random layer has more features to choose from: 512 vs 112). The absolute gap to VLG-CBM's 75.79% is mainly backbone training (fine-tuned on CUB vs frozen ImageNet) and concept set, not a like-for-like comparison. Full report: `nec_sparse/nec_sparse_report.md`.
+
 ---
 
 ## 6. Earlier single-seed analyses (augmented recipe, seed 0)
@@ -267,6 +284,7 @@ Timing shuffle at test time only (3a): reversed order −15.36 pts. With augment
 | **Membrane-traffic reduction (bit-width, on-chip buffer, fewer timesteps)** | `energy_memory_reduction.py` | `energy_memory_reduction/` |
 | **Time order under live augmentation (3 seeds, paired)** | `live_aug_order_test.py` | `live_aug_order/` |
 | **Fewer timesteps (T = 2, 3), measured** | `timesteps_test.py` | `timesteps/` |
+| **VLG-CBM sparse layer / NEC (base paper 2)** | `nec_sparse_head.py` | `nec_sparse/` |
 
 ---
 
